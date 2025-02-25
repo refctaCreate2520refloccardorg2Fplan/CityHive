@@ -1,0 +1,32 @@
+<!-- src/app/events/events-list/events-list.component.html -->
+<div class="events-list-container">
+  <h2>Upcoming Events</h2>
+
+  <div class="events-actions">
+    <input type="text"
+           placeholder="Search events..."
+           [(ngModel)]="searchQuery"
+           (ngModelChange)="filterEvents()" />
+    <button (click)="goToCreateEvent()">Add Event</button>
+  </div>
+
+  <ul class="events-grid">
+    <li *ngFor="let event of filteredEvents"
+        class="event-card"
+        (click)="goToEventDetail(event.id || '')">
+      <img *ngIf="event.photoURL"
+           [src]="event.photoURL"
+           alt="{{ event.title }}"
+           class="event-photo" />
+      <div class="event-details">
+        <h3>{{ event.title }}</h3>
+        <p>{{ event.startDateTime | date:'short' }} - {{ event.endDateTime | date:'shortTime' }}</p>
+        <p>{{ event.description }}</p>
+      </div>
+    </li>
+
+    <li *ngIf="filteredEvents.length === 0">
+      <p>No events found.</p>
+    </li>
+  </ul>
+</div>

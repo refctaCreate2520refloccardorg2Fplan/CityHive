@@ -1,0 +1,13 @@
+<h2>Login</h2>
+<form (ngSubmit)="onLogin()">
+  <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required />
+  <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required />
+  <button type="submit">Login</button>
+</form>
+<button (click)="onGoogleLogin()">Login with Google</button>
+<p>
+  <a routerLink="/forgot-password">Forgot Password?</a>
+</p>
+<p>
+  <a routerLink="/register">Don't have an account? Register here</a>
+</p>

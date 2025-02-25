@@ -1,0 +1,8 @@
+<h2>Register</h2>
+<form (ngSubmit)="onRegister()">
+  <input [(ngModel)]="email" name="email" placeholder="Email" required />
+  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
+  <input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" required />
+  <button type="submit">Register</button>
+</form>
+<p>Already have an account? <a routerLink="/login">Login here</a>.</p>

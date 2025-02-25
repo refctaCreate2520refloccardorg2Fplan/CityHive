@@ -1,0 +1,22 @@
+/* src/app/events/event-create/event-create.component.css */
+.event-create-container {
+  max-width: 600px;
+  margin: 1rem auto;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.photo-preview {
+  max-width: 100%;
+  margin-top: 0.5rem;
+}
+
+.cancel-button {
+  background-color: #ccc;
+  margin-left: 1rem;
+}

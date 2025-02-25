@@ -1,0 +1,51 @@
+<!-- src/app/calendar/calendar.component.html -->
+<div class="calendar-container">
+
+  <!-- Add Event Form -->
+  <div class="add-event-form-container-overall">
+    <h3>Add New Event</h3>
+    <input type="text" placeholder="Event Title" [(ngModel)]="newEventTitle">
+    <div class="time-inputs">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" [(ngModel)]="newEventStartDate">
+      <label for="startTime">Start Time:</label>
+      <input type="time" id="startTime" [(ngModel)]="newEventStartTime">
+    </div>
+    <div class="time-inputs">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" [(ngModel)]="newEventEndDate">
+      <label for="endTime">End Time:</label>
+      <input type="time" id="endTime" [(ngModel)]="newEventEndTime">
+    </div>
+    <button (click)="addEvent()">Add Event</button>
+  </div>
+
+  <!-- Calendar Display -->
+  <div class="header">
+    <h2>{{ currentDate | date:'MMMM yyyy' }}</h2>
+  </div>
+  <div class="days">
+    <div *ngFor="let day of daysInMonth"
+         class="day"
+         [ngClass]="{
+           'today': day.isToday,
+           'weekend': day.isWeekend && day.isCurrentMonth
+         }"
+         (click)="selectDay(day)">
+      <div class="date">
+        {{ day.date | date:'d' }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected Day Events -->
+  <div class="selected-day-events" *ngIf="selectedDay">
+    <h3>Events for {{ selectedDay.date | date:'EEEE, MMMM d' }}</h3>
+    <ul>
+      <li *ngFor="let event of selectedDayEvents">
+        {{ event.title }}
+      </li>
+    </ul>
+  </div>
+
+</div>
