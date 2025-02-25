@@ -27,6 +27,11 @@ import { EventsListComponent } from '../events/events-list/events-list.component
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { PublicCalendarComponent } from '../public-calendar/public-calendar.component';
+import { OrganizerCalendarComponent } from '../organizer-calendar/organizer-calendar.component';
+import { OrganizerGuard } from '../shared/guards/organizer.guard';
+import { AdminComponent } from '../admin/admin.component';
+import { AdminGuard } from '../shared/guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -42,6 +47,9 @@ import { CommonModule } from '@angular/common';
     EventDetailComponent,
     EventCreateComponent,
     EventsListComponent,
+    OrganizerCalendarComponent,
+    PublicCalendarComponent,
+    AdminComponent,
 
     // Declare additional components here
   ],
@@ -88,6 +96,9 @@ import { CommonModule } from '@angular/common';
       {
         path: 'events/:id', component: EventDetailComponent
       },
+      { path: 'public-calendar', component: PublicCalendarComponent },
+      { path: 'organizer-calendar', component: OrganizerCalendarComponent },
+      { path: 'admin', component: AdminComponent },
 
     ]),
   ],

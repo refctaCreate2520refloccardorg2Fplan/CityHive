@@ -1,3 +1,4 @@
+// src/app/shared/services/auth.service.ts
 import { Injectable, NgZone, Injector, runInInjectionContext } from '@angular/core';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -5,10 +6,10 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { Router } from '@angular/router';
 import { Observable, from, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 
 export enum UserRole {
   User = 'user',
+  Organizer = 'organizer',
   Admin = 'admin'
 }
 
@@ -17,13 +18,10 @@ export interface User {
   email: string;
   displayName: string;
   photoURL: string;
-  emailVerified?: boolean;
-  role: UserRole; // Use the UserRole enum here
+  role: UserRole;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   userData: any;
 
@@ -32,19 +30,18 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private router: Router,
     private ngZone: NgZone,
-    private http: HttpClient,
-    private injector: Injector // Make sure Injector is injected
+    private injector: Injector
   ) {
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
-        runInInjectionContext(this.injector, () => { // Keep runInInjectionContext here as well
+        runInInjectionContext(this.injector, () => {
           this.updateRoleInLocalStorage(user.uid);
         });
       } else {
         localStorage.setItem('user', 'null');
-        localStorage.removeItem('role'); // Clear role from local storage on logout
+        localStorage.removeItem('role');
       }
     });
   }
@@ -57,17 +54,39 @@ export class AuthService {
         if (userData && userData.role) {
           localStorage.setItem('role', userData.role);
         } else {
-          localStorage.removeItem('role'); // Remove role if not found in Firestore
+          localStorage.removeItem('role');
         }
       } else {
-        localStorage.removeItem('role'); // Remove role if user doc not found
+        localStorage.removeItem('role');
       }
     } catch (error) {
       console.error('Error fetching user role from Firestore:', error);
-      localStorage.removeItem('role'); // Remove role on error
+      localStorage.removeItem('role');
     }
   }
 
+  // Pridanie/zmena roly
+  public async assignRoleToUser(uid: string, newRole: UserRole): Promise<void> {
+    return runInInjectionContext(this.injector, async () => {
+      try {
+        const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${uid}`);
+        const docSnapshot = await userRef.get().toPromise();
+        if (docSnapshot?.exists) {
+          await userRef.update({ role: newRole });
+          console.log(`Role ${newRole} assigned to user with UID: ${uid}`);
+          // Ak je to aktuálny user, zmeníme aj localStorage
+          const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+          if (currentUser && currentUser.uid === uid) {
+            localStorage.setItem('role', newRole);
+          }
+        } else {
+          console.error('Cannot assign role: user does not exist in Firestore');
+        }
+      } catch (error) {
+        console.error('Error assigning role:', error);
+      }
+    });
+  }
 
   async getCurrentUser(): Promise<any> {
     return await this.afAuth.currentUser;
@@ -78,23 +97,13 @@ export class AuthService {
     return user ? user.uid : null;
   }
 
-  async getCurrentUserDisplayName(): Promise<string | null> {
-    const user = await this.afAuth.currentUser;
-    return user ? user.displayName : null;
-  }
-
-  async getCurrentUserPhotoUrl(): Promise<string | null> {
-    const user = await this.afAuth.currentUser;
-    return user ? user.photoURL : null;
-  }
-
   getCurrentUserRole(): Observable<UserRole | null> {
     return from(this.afAuth.currentUser).pipe(
       map((user) => (user ? user.uid : null)),
       switchMap((uid) => {
         if (uid) {
-          return runInInjectionContext(this.injector, () => { // Wrap Firestore call in isAdmin()
-            return this.afs.doc(`users/${uid}`).get().pipe( // Modified to .get() and map
+          return runInInjectionContext(this.injector, () => {
+            return this.afs.doc(`users/${uid}`).get().pipe(
               map((doc) => (doc.exists ? doc.data() : null))
             );
           });
@@ -110,30 +119,23 @@ export class AuthService {
     return this.afAuth.authState.pipe(
       switchMap((user) => {
         if (user) {
-          console.log('Fetching user role for UID:', user.uid);
-          return runInInjectionContext(this.injector, () => { // Wrap Firestore call in isAdmin()
-            return this.afs.doc(`users/${user.uid}`).valueChanges(); // Line 114 - Now wrapped
+          return runInInjectionContext(this.injector, () => {
+            return this.afs.doc(`users/${user.uid}`).valueChanges();
           });
         } else {
-          console.log('No user logged in');
           return of(null);
         }
       }),
       map((userData: any) => {
-        const isAdmin = !!userData && userData.role === 'admin';
-        console.log('Is Admin from Firestore:', isAdmin);
-        return isAdmin;
+        return !!userData && userData.role === UserRole.Admin;
       })
     );
   }
 
   isAdminFromLocalStorage(): boolean {
     const role = localStorage.getItem('role');
-    const isAdmin = role === 'admin';
-    console.log('Is Admin from Local Storage:', isAdmin);
-    return isAdmin;
+    return role === UserRole.Admin;
   }
-
 
   login(email: string, password: string): Promise<any> {
     return this.afAuth.signInWithEmailAndPassword(email, password)
@@ -167,7 +169,7 @@ export class AuthService {
   forgotPassword(passwordResetEmail: string): Promise<void> {
     return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
       .then(() => {
-        window.alert('Password reset email sent, check your inbox.');
+        window.alert('Password reset email sent.');
       })
       .catch((error: any) => {
         window.alert(error);
@@ -200,37 +202,31 @@ export class AuthService {
     return runInInjectionContext(this.injector, async () => {
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
 
-      // Attempt to read existing user data
       const docSnapshot = await userRef.get().toPromise();
       const existingData = docSnapshot && docSnapshot.exists ? docSnapshot.data() : null;
-      // Preserve role if it exists and is set to 'admin'
-      const role: UserRole = existingData && existingData.role === 'admin' ? UserRole.Admin : UserRole.User; // Use UserRole enum
+
+      // Default rola je 'user', ak user nemal v DB Admin / Organizer
+      let role = (existingData && existingData.role) ? existingData.role : UserRole.User;
 
       const userData: User = {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
-        role: role
+        role
       };
 
-      return userRef
-        .set(userData, { merge: true })
-        .then(() => {
-          console.log('User document updated successfully!');
-          localStorage.setItem('role', role); // Store role in local storage here after successful Firestore update
-        })
-        .catch((error: any) => {
-          console.error('Error writing user document: ', error);
-        });
+      return userRef.set(userData, { merge: true }).then(() => {
+        console.log('User document updated!');
+        localStorage.setItem('role', role);
+      });
     });
   }
-
 
   signOut(): Promise<void> {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      localStorage.removeItem('role'); // Clear role on sign out
+      localStorage.removeItem('role');
       this.router.navigate(['']);
     });
   }
@@ -248,5 +244,4 @@ export class AuthService {
       console.error('No user logged in.');
     }
   }
-
 }

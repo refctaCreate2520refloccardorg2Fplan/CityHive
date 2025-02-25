@@ -1,0 +1,46 @@
+<div class="organizer-calendar-container">
+  <h2>Kalendár Organizátora (jednojazyčný)</h2>
+
+  <div>
+    <h3>Moje Eventy</h3>
+    <ul>
+      <li *ngFor="let e of allEvents">
+        <div *ngIf="canEdit(e)">
+          <strong>Môj:</strong> {{ e.title }} ({{ e.isApproved ? 'schválené' : 'čaká' }})
+          <button (click)="editEvent(e)">Upraviť</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <div>
+    <h3>Všetky Eventy (Read-Only okrem vlastných)</h3>
+    <ul>
+      <li *ngFor="let e of allEvents">
+        <strong *ngIf="canEdit(e)">Môj: </strong>{{ e.title }} ({{ e.startDateTime }} - {{ e.endDateTime }})
+        ({{ e.isApproved ? 'OK' : 'WAIT' }})
+      </li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3>Vytvoriť nový event</h3>
+  <form (ngSubmit)="createEvent()">
+    <div>
+      <label>Title:</label>
+      <input [(ngModel)]="newEvent.title" name="title">
+    </div>
+    <div>
+      <label>Start:</label>
+      <input type="datetime-local" [(ngModel)]="newEvent.startDateTime" name="startDt">
+    </div>
+    <div>
+      <label>End:</label>
+      <input type="datetime-local" [(ngModel)]="newEvent.endDateTime" name="endDt">
+    </div>
+    <button type="submit">Vytvoriť</button>
+  </form>
+</div>

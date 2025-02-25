@@ -1,0 +1,151 @@
+<div class="admin-container">
+  <h2>Admin Dashboard (jednojazyčný)</h2>
+
+  <!-- Organizer Requests -->
+  <section>
+    <h3>Organizer Requests</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>UserId</th>
+          <th>Group Name</th>
+          <th>Members</th>
+          <th>Contact</th>
+          <th>Approve</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of organizerRequests">
+          <td>{{ req.userId }}</td>
+          <td>{{ req.groupName }}</td>
+          <td>{{ req.members }}</td>
+          <td>{{ req.contact }}</td>
+          <td><button (click)="approveOrganizerRequest(req)">Schváliť</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Users Management -->
+  <section>
+    <h3>Users Management</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>UID</th>
+          <th>Email</th>
+          <th>DisplayName</th>
+          <th>Role</th>
+          <th colspan="3">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.uid }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.displayName }}</td>
+          <td>{{ user.role }}</td>
+          <td><button (click)="setRole(user, userRole.Admin)">Set Admin</button></td>
+          <td><button (click)="setRole(user, userRole.User)">Set User</button></td>
+          <td><button (click)="setRole(user, userRole.Organizer)">Set Organizer</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Events Management -->
+  <section>
+    <h3>Events List</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Approved</th>
+          <th>Archived</th>
+          <th>Toggle Approve</th>
+          <th>Toggle Archive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of events">
+          <td>{{ e.id }}</td>
+          <td>{{ e.title }}</td>
+          <td>{{ e.startDateTime }}</td>
+          <td>{{ e.endDateTime }}</td>
+          <td>{{ e.isApproved }}</td>
+          <td>{{ e.archived }}</td>
+          <td>
+            <button (click)="toggleApproval(e)">
+              {{ e.isApproved ? 'Unapprove' : 'Approve' }}
+            </button>
+          </td>
+          <td>
+            <button (click)="toggleArchive(e)">
+              {{ e.archived ? 'Unarchive' : 'Archive' }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Create New Event -->
+  <section>
+    <h3>Create New Event</h3>
+    <form (ngSubmit)="createEvent()">
+      <div>
+        <label>Title:</label>
+        <input [(ngModel)]="newEvent.title" name="title">
+      </div>
+      <div>
+        <label>Description:</label>
+        <textarea [(ngModel)]="newEvent.description" name="desc"></textarea>
+      </div>
+      <div>
+        <label>Start:</label>
+        <input type="datetime-local" [(ngModel)]="newEvent.startDateTime" name="startDt">
+      </div>
+      <div>
+        <label>End:</label>
+        <input type="datetime-local" [(ngModel)]="newEvent.endDateTime" name="endDt">
+      </div>
+      <div>
+        <label>Price:</label>
+        <input type="number" [(ngModel)]="newEvent.price" name="price">
+      </div>
+      <button type="submit">Create</button>
+    </form>
+  </section>
+
+  <!-- Admin Calendar -->
+  <section class="admin-calendar">
+    <h3>Admin Calendar</h3>
+    <div class="calendar-header">
+      <button (click)="prevMonth()">&lt;</button>
+      <span>{{ currentDate | date:'MMMM yyyy' }}</span>
+      <button (click)="nextMonth()">&gt;</button>
+    </div>
+    <div class="calendar-grid">
+      <div class="week-header">Po</div>
+      <div class="week-header">Ut</div>
+      <div class="week-header">St</div>
+      <div class="week-header">Št</div>
+      <div class="week-header">Pi</div>
+      <div class="week-header">So</div>
+      <div class="week-header">Ne</div>
+
+      <div *ngFor="let day of daysInCalendar"
+           class="calendar-day"
+           [class.today]="day.isToday"
+           [class.other-month]="!day.isCurrentMonth">
+        <div class="date-label">{{ day.date | date:'d' }}</div>
+        <div *ngFor="let evt of day.events" class="day-event" [class.not-approved]="!evt.isApproved">
+          {{ evt.title }}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

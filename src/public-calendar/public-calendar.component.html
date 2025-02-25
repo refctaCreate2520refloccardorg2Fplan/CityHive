@@ -1,0 +1,13 @@
+<!-- src/app/public-calendar/public-calendar.component.html -->
+<div class="public-calendar">
+  <h2>Verejný Kalendár (jednojazyčný)</h2>
+  <ul>
+    <li *ngFor="let e of events">
+      <h3>{{ e.title }}</h3>
+      <p>Od: {{ e.startDateTime }} - Do: {{ e.endDateTime }}</p>
+      <p *ngIf="e.price && e.price > 0">Vstupné: {{ e.price }}€</p>
+      <p *ngIf="(!e.price || e.price === 0)">Vstup zdarma</p>
+      <p *ngIf="e.description">{{ e.description }}</p>
+    </li>
+  </ul>
+</div>

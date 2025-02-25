@@ -1,8 +1,6 @@
 // src/app/events/events-list/events-list.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { EventDTO, EventService } from '../../shared/services/event.service';
-import { AuthService } from '../../shared/services/auth.service';
+import { EventService, EventDTO } from '../../shared/services/event.service';
 
 @Component({
   selector: 'app-events-list',
@@ -12,16 +10,12 @@ import { AuthService } from '../../shared/services/auth.service';
 export class EventsListComponent implements OnInit {
   events: EventDTO[] = [];
   filteredEvents: EventDTO[] = [];
-  searchQuery: string = '';
+  searchQuery = '';
 
-  constructor(
-    private eventService: EventService,
-    private router: Router,
-    public authService: AuthService
-  ) { }
+  constructor(private eventService: EventService) { }
 
   ngOnInit(): void {
-    this.eventService.getEvents().subscribe((data) => {
+    this.eventService.getAllEvents().subscribe(data => {
       this.events = data;
       this.filterEvents();
     });
@@ -32,20 +26,11 @@ export class EventsListComponent implements OnInit {
       this.filteredEvents = [...this.events];
     } else {
       const query = this.searchQuery.toLowerCase();
-      this.filteredEvents = this.events.filter((evt) => {
-        return (
-          evt.title.toLowerCase().includes(query) ||
-          evt.description.toLowerCase().includes(query)
-        );
+      this.filteredEvents = this.events.filter(evt => {
+        const titleLower = evt.title.toLowerCase();
+        const descLower = evt.description ? evt.description.toLowerCase() : '';
+        return titleLower.includes(query) || descLower.includes(query);
       });
     }
-  }
-
-  goToCreateEvent(): void {
-    this.router.navigate(['/create-event']);
-  }
-
-  goToEventDetail(eventId: string): void {
-    alert(`Go to event detail with ID: ${eventId}`);
   }
 }

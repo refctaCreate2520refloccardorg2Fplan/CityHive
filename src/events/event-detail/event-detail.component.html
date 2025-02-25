@@ -1,19 +1,7 @@
-<ng-container *ngIf="event$ | async as event; else loading">
-  <div class="event-detail">
-    <h1>{{ event?.title }}</h1>
-    <p>{{ event?.description }}</p>
-    <p>Start Time: {{ event?.startDateTime }}</p>
-    <p>End Time: {{ event?.endDateTime }}</p>
-    <p *ngIf="event?.price">Price: ${{ event?.price }}</p>
-    <div *ngIf="event?.photos?.length">
-      <h3>Photos</h3>
-      <div *ngFor="let photoUrl of event.photos">
-        <img [src]="photoUrl" alt="Event Photo" style="max-width: 200px; max-height: 200px;">
-      </div>
-    </div>
-  </div>
-</ng-container>
-
-<ng-template #loading>
-  <p>Loading event details...</p>
-</ng-template>
+<div class="event-detail" *ngIf="event">
+  <h2>{{ event.title }}</h2>
+  <p>Od: {{ event.startDateTime }} - Do: {{ event.endDateTime }}</p>
+  <p *ngIf="event.price && event.price > 0">Vstup: {{ event.price }} €</p>
+  <p *ngIf="(!event.price || event.price === 0)">Vstup zdarma</p>
+  <p *ngIf="event.description">{{ event.description }}</p>
+</div>

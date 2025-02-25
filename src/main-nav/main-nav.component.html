@@ -6,7 +6,8 @@
   <a href="#">Button 1</a>
   <a href="#">Button 2</a>
   <a href="#">Button 3</a>
-  <a class="loginbutton" href="#">Log in</a>
+  <a class="loginbutton" *ngIf="!isLoggedIn" href="/login">Log in</a>
+  <a class="loginbutton" *ngIf="isLoggedIn" href="/dashboard">Dashboard</a>
 
 </div>
 

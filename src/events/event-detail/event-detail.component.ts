@@ -1,14 +1,9 @@
+// src/app/events/event-detail/event-detail.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { EventService, EventDTO } from '../../shared/services/event.service';
 import { switchMap } from 'rxjs/operators';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { EventDTO } from '../../shared/services/event.service';
-
-// Define an interface for event data
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-event-detail',
@@ -16,18 +11,22 @@ import { EventDTO } from '../../shared/services/event.service';
   styleUrls: ['./event-detail.component.css']
 })
 export class EventDetailComponent implements OnInit {
-  event$!: Observable<EventDTO | undefined>;
+  event?: EventDTO;
 
-  constructor(public route: ActivatedRoute, public afs: AngularFirestore) { }
+  constructor(
+    private route: ActivatedRoute,
+    private eventService: EventService
+  ) { }
 
   ngOnInit(): void {
-    this.event$ = this.route.paramMap.pipe(
+    this.route.paramMap.pipe(
       switchMap(params => {
         const eventId = params.get('id');
-        return eventId
-          ? this.afs.doc<EventDTO>(`events/${eventId}`).valueChanges()
-          : of(undefined);
+        return this.eventService.getAllEvents();
       })
-    );
+    ).subscribe(all => {
+      const eventId = this.route.snapshot.paramMap.get('id');
+      this.event = all.find(e => e.id === eventId);
+    });
   }
 }

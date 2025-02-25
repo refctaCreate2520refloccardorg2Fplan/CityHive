@@ -1,4 +1,23 @@
-<h2>Dashboard</h2>
-<p>Welcome, {{ userName }}!</p>
-<p>Email: {{ userEmail }}</p>
-<button (click)="onLogout()">Logout</button>
+<div class="dashboard-container">
+  <h2>Dashboard</h2>
+  <p>Tu môže bežný používateľ vidieť info o svojom účte a požiadať o rolu organizátora.</p>
+
+  <button (click)="openRequestModal()">Požiadať o rolu organizátora</button>
+
+  <div class="modal-backdrop" *ngIf="isRequestModalOpen">
+    <div class="modal">
+      <h3>Žiadosť o rolu organizátora</h3>
+      <label>Názov skupiny:</label>
+      <input [(ngModel)]="organizerRequestData.groupName">
+      <label>Členovia:</label>
+      <input [(ngModel)]="organizerRequestData.members">
+      <label>Kontakt:</label>
+      <input [(ngModel)]="organizerRequestData.contact">
+
+      <div class="modal-actions">
+        <button (click)="submitOrganizerRequest()">Odoslať</button>
+        <button (click)="closeRequestModal()">Zavrieť</button>
+      </div>
+    </div>
+  </div>
+</div>
