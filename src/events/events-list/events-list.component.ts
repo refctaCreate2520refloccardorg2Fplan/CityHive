@@ -5,7 +5,7 @@ import { EventService, EventDTO } from '../../shared/services/event.service';
 @Component({
   selector: 'app-events-list',
   templateUrl: './events-list.component.html',
-  styleUrls: ['./events-list.component.css']
+  styleUrls: ['./events-list.component.scss']
 })
 export class EventsListComponent implements OnInit {
   events: EventDTO[] = [];

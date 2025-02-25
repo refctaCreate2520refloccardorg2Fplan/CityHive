@@ -5,7 +5,7 @@ import { EventService, EventDTO } from '../../shared/services/event.service';
 @Component({
   selector: 'app-event-create',
   templateUrl: './event-create.component.html',
-  styleUrls: ['./event-create.component.css']
+  styleUrls: ['./event-create.component.scss']
 })
 export class EventCreateComponent {
   // Jednojazyčný event
