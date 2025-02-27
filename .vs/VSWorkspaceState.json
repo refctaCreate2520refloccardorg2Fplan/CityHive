@@ -1,7 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\dashboard",
+    "\\src\\dashboard\\register",
+    "\\src\\events",
+    "\\src\\events\\events-list"
   ],
-  "SelectedNode": "\\C:\\Users\\jantu\\Source\\Repos\\hackaton",
+  "SelectedNode": "\\src\\events\\events-list\\events-list.component.ts",
   "PreviewInSolutionExplorer": false
 }

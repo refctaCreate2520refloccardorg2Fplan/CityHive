@@ -1,58 +1,183 @@
 @font-face {
-  font-family: Poppins;
-  src: url('/home/user/hackaton/src/fonts/Poppins-Regular.ttf');
+  font-family: Poppins-Regular;
+  src: url('../assets/Poppins-Regular.ttf');
 }
 
-:root {
+* {
   --cardinalred: #C42847;
-  --rustyred: #DE3C4B;
-  --snow: #FBF5F3;
+  --rustyred: #ca2736;
+  --snow: #ececec;
   --darknav: #222222;
   --darkbody: #181818;
 }
 
 body {
   margin: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--darkbody);
-  color: #C42847;
-  font-family: Poppins;
+  padding: 0;
 }
 
-.mainnav {
+.navbar {
+  font-family: Poppins-Regular;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2vw;
+  background-color: var(--snow);
+  color: var(--rustyred);
+  height: 5vw;
+  box-shadow: 0 0.08vw 0.1vw rgb(0, 0, 0, 0.25);
+}
+
+.navbar-logo {
   display: flex;
   align-items: center;
-  background-color: var(--darknav);
-  padding: 0 2vw;
-  height: 60px;
+  margin-left: 2vw;
 }
 
-.mainnav a {
+.navbar-logo svg {
+  height: 4.6vw;
+  width: auto;
+}
+
+.logo-text {
+  display: flex;
   text-decoration: none;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 1.5vw;
+  line-height: 1;
+}
+
+.logo-text .Galantaa {
+  color: #a8a8a8;
+  font-size: 1.5vw;
+}
+
+.logo-text .Eventss {
   color: var(--cardinalred);
+  font-size: 2.5vw;
+}
+
+.navbar-links {
+  display: flex;
+  height: 100%;
+  font-size: 1.2vw;
+  align-items: center;
+}
+
+.nav-link {
+  color: white;
+  background-color: var(--rustyred);
+  text-decoration: none;
   padding: 0 1.5vw;
-  line-height: 60px;
-  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2vw;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.mainnav a:hover {
-  background-color: var(--cardinalred);
-  color: #222222;
-}
-
-.mainnav .loginbutton {
-  margin-left: auto;
+.nav-link:hover {
+  background-color: white;
   color: var(--rustyred);
 }
 
-.mainnav .logo {
+.nav-link:active {
+  background-color: white;
+  color: var(--rustyred);
+}
+
+.navbar-auth {
   display: flex;
   align-items: center;
+  height: 100%;
+  margin-right: 2vw;
+}
+
+.navbar-auth .nav-link {
   padding: 0 1.5vw;
 }
 
-.mainnav .logo img {
-  height: 40px;
-  width: auto;
+
+
+/*  New Burger Menu Styles  */
+.burger-menu {
+  width: 25px; /* Adjusted size for better fit */
+  height: 20px;
+  position: relative;
+  cursor: pointer;
+  display: none; /* Hidden by default, shown in media query */
+  margin-right: 2vw;
+  z-index: 1000; /* Ensure it's above everything */
+}
+
+.line {
+  width: 100%;
+  height: 3px; /* Adjusted height */
+  background-color: var(--darknav); /* Or any color you prefer */
+  position: absolute;
+  transition: all 0.3s ease; /* Important for animation */
+}
+
+.line1 {
+  top: 0;
+}
+
+.line2 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.line3 {
+  bottom: 0;
+}
+
+/* Active State (when menu is open) */
+.burger-menu.active .line1 {
+  transform: translateY(8px) rotate(45deg); /* Adjusted translateY */
+}
+
+.burger-menu.active .line2 {
+  opacity: 0; /* Hide the middle line */
+}
+
+.burger-menu.active .line3 {
+  transform: translateY(-8px) rotate(-45deg); /* Adjusted translateY */
+}
+
+/* Media Query for Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 5vw; /* Changed to vw for consistency */
+    left: 0;
+    background-color: var(--snow);
+    z-index: 999; /* Place it below the burger menu */
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .navbar-auth {
+    display: none;
+  }
+
+  /* Show burger menu */
+  .burger-menu {
+    display: flex;
+    align-items: center; /* Center the lines vertically */
+  }
+
+  .nav-link {
+    width: 100%; /* Expand links to full width */
+    text-align: center; /* Center text within the link */
+    padding: 1vw 0; /* Adjust padding for better spacing */
+  }
 }
