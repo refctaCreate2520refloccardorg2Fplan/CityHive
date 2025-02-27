@@ -4,8 +4,24 @@
   margin: 1rem auto;
 }
 
+
+.events-list-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.events-list-main h2 {
+  margin-bottom: 10px; /* Optional: Adds spacing between h2 and input */
+}
+
 .event-card {
-  border: 1px solid #ccc;
+  border: 2px solid #cecece;
   margin-bottom: 0.5rem;
   padding: 0.5rem;
+  border-radius: 15px;
+}
+
+.event-unordered-list {
+    list-style: none;
 }

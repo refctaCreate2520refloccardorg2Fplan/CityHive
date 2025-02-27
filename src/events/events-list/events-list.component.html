@@ -1,13 +1,17 @@
 <!-- src/app/events/events-list/events-list.component.html -->
 <div class="events-list-container">
-  <h2>Prehľad Eventov (jednojazyčný)</h2>
-  <input type="text" placeholder="Hľadaj..." [(ngModel)]="searchQuery" (ngModelChange)="filterEvents()">
-  <ul>
-    <li *ngFor="let e of filteredEvents" class="event-card">
-      <strong>{{ e.title }}</strong>
-      <span>({{ e.startDateTime }} - {{ e.endDateTime }})</span>
-      <p *ngIf="e.description">{{ e.description }}</p>
-      <p *ngIf="e.price && e.price > 0">Cena: {{ e.price }} €</p>
-    </li>
-  </ul>
+  <div class="events-list-main">
+    <h2>Prehľad Eventov (jednojazyčný)</h2>
+    <input type="text" placeholder="Hľadaj..." [(ngModel)]="searchQuery" (ngModelChange)="filterEvents()">
+  </div>
+  <div class="events-list-list">
+    <ul class="event-unordered-list">
+      <li *ngFor="let e of filteredEvents" class="event-card">
+        <strong>{{ e.title }}</strong> <br />
+        <span>({{ e.startDateTime | date: 'dd/MM/yyyy hh:mm'}} - {{ e.endDateTime | date: 'dd/MM/yyyy hh:mm'}})</span>
+        <p *ngIf="e.description">{{ e.description }}</p>
+        <p *ngIf="e.price && e.price > 0">Cena: {{ e.price }} €</p>
+      </li>
+    </ul>
+  </div>
 </div>
