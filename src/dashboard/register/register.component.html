@@ -1,5 +1,6 @@
 <h2>Register</h2>
 <form (ngSubmit)="onRegister()">
+  <input [(ngModel)]="name" name="name" placeholder="Name" required />
   <input [(ngModel)]="email" name="email" placeholder="Email" required />
   <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
   <input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" required />

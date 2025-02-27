@@ -1,22 +1,125 @@
-<div class="dashboard-container">
-  <h2>Dashboard</h2>
-  <p>Tu môže bežný používateľ vidieť info o svojom účte a požiadať o rolu organizátora.</p>
+<div class="main-container">
+  <!-- Profilová sekcia -->
+  <div class="profile-container">
+    <div class="profileback">
+      <div class="buttonsprofile">
+        <!-- Link pre admina -->
+        <a *ngIf="(userRole$ | async) === 'admin'" routerLink="/admin">
+          <img src="https://firebasestorage.googleapis.com/v0/b/linkandplay-450f6.appspot.com/o/icons8-keys-64.png?alt=media&token=0b426759-fbe1-412e-b644-f0f21f1da7cc" width="30" height="30">
+        </a>
+        <!-- Tlačidlo pre nastavenia -->
+        <div class="settingbutton" (click)="toggleSettings()">
+          <a>
+            <p>Nastavenia</p>
+          </a>
+        </div>
+      </div>
 
-  <button (click)="openRequestModal()">Požiadať o rolu organizátora</button>
+      <!-- Zobrazenie informácií o používateľovi -->
+      <div class="row" *ngIf="authService.userData as user">
+        <div class="col-md-12">
+          <div class="media">
+            <div class="pfpbox">
+              <img class="pfp"
+                   [src]="user.photoURL ? user.photoURL : 'photoURL'"
+                   [alt]="user.displayName ? user.displayName : 'User'">
+            </div>
+            <div class="name">
+              <h1><strong>{{ user.displayName ? user.displayName : 'User' }}</strong></h1>
+            </div>
+            <div class="rolebox">
+              <div *ngIf="userRole$ | async as userRole" class="role">
+                <div class="roleborder">
+                  <p class="
+                    {{ userRole === 'admin' ? 'user-role-blue' : '' }}
+                    {{ userRole === 'user' ? 'user-role-red' : '' }}
+                    default-background
+                  ">
+                    {{ userRole }}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p>Email: <strong>{{ user.email }}</strong></p>
+        <p>User ID: <strong>{{ user.uid }}</strong></p>
+        <p>Email Verified: <strong>{{ user.emailVerified }}</strong></p>
+      </div>
+    </div>
+  </div>
 
-  <div class="modal-backdrop" *ngIf="isRequestModalOpen">
-    <div class="modal">
-      <h3>Žiadosť o rolu organizátora</h3>
-      <label>Názov skupiny:</label>
-      <input [(ngModel)]="organizerRequestData.groupName">
-      <label>Členovia:</label>
-      <input [(ngModel)]="organizerRequestData.members">
-      <label>Kontakt:</label>
-      <input [(ngModel)]="organizerRequestData.contact">
+  <!-- Nastavenia profilu -->
+  <div *ngIf="showSettings" class="settings-container">
+    <div class="settings-content">
+      <form [formGroup]="profileForm">
+        <div class="form-group">
+          <label for="displayName">Display Name:</label>
+        </div>
+        <input type="text" class="form-control" id="displayName" formControlName="displayName" style="color: black;">
+      </form>
 
-      <div class="modal-actions">
-        <button (click)="submitOrganizerRequest()">Odoslať</button>
-        <button (click)="closeRequestModal()">Zavrieť</button>
+      <div *ngIf="authService.userData as user" class="pfpboxx"
+           (drop)="onFileDropped($event)"
+           (dragover)="preventDefault($event)"
+           (dragleave)="preventDefault($event)">
+        <img class="pfpxx"
+             [src]="user.photoURL ? user.photoURL : 'photoURL'"
+             [alt]="user.displayName ? user.displayName : 'User'">
+      </div>
+      <button type="button" class="btn btn-primary" (click)="editProfile()">Save Changes</button>
+      <input type="file" (change)="onFileSelected($event)">
+    </div>
+  </div>
+
+  <!-- Tlačidlo pre organizátorskú žiadosť -->
+  <div class="organizer-request-button">
+    <button (click)="openOrganizerRequestModal()">Staj sa organizatorom</button>
+  </div>
+  <!-- Modal pre organizátorskú žiadosť -->
+  <div *ngIf="isOrganizerRequestModalOpen" class="modal">
+    <div class="modal-content">
+      <h3>Staj sa organizatorom</h3>
+      <form (ngSubmit)="submitOrganizerRequest()">
+        <label>
+          Názov skupiny:
+          <input type="text" [(ngModel)]="organizerRequestData.groupName" name="groupName" required>
+        </label>
+        <br>
+        <label>
+          Členovia:
+          <input type="text" [(ngModel)]="organizerRequestData.members" name="members" required>
+        </label>
+        <br>
+        <label>
+          Kontakt:
+          <input type="text" [(ngModel)]="organizerRequestData.contact" name="contact" required>
+        </label>
+        <br>
+        <button type="submit">Odoslať žiadosť</button>
+        <button type="button" (click)="closeOrganizerRequestModal()">Zatvoriť</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sekcia s todo listom -->
+  <div class="kontajner">
+    <div class="todo">
+      <!-- Pridanie novej todo položky -->
+      <div class="add-todo">
+        <input style="color:black;" type="text" [(ngModel)]="newTodoTitle" placeholder="Add new todo">
+        <button style="margin-left:10px; margin-bottom:10px;" (click)="addTodo()">Add</button>
+      </div>
+
+      <!-- Zobrazenie todo položiek -->
+      <div *ngIf="todos && todos.length > 0">
+        <div style="margin-top:5px;" *ngFor="let todo of todos" class="todo-item">
+          <div class="break">
+            {{ todo.title }}
+          </div>
+          <input type="checkbox" [(ngModel)]="todo.completed" (change)="updateTodo(todo)">
+          <button style="margin-left:5px;" (click)="deleteTodo(todo)">Delete</button>
+        </div>
       </div>
     </div>
   </div>

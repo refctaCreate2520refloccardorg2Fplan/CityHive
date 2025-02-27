@@ -24,7 +24,7 @@ import { RegisterComponent } from '../dashboard/register/register.component';
 import { EventCreateComponent } from '../events/event-create/event-create.component';
 import { EventDetailComponent } from '../events/event-detail/event-detail.component';
 import { EventsListComponent } from '../events/events-list/events-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule, DatePipe } from '@angular/common';
 import { PublicCalendarComponent } from '../public-calendar/public-calendar.component';
@@ -32,6 +32,7 @@ import { OrganizerCalendarComponent } from '../organizer-calendar/organizer-cale
 import { OrganizerGuard } from '../shared/guards/organizer.guard';
 import { AdminComponent } from '../admin/admin.component';
 import { AdminGuard } from '../shared/guards/admin.guard';
+import { AuthGuard } from '../shared/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,8 @@ import { AdminGuard } from '../shared/guards/admin.guard';
     PublicCalendarComponent,
     AdminComponent,
 
+
+
     // Declare additional components here
   ],
   imports: [
@@ -60,6 +63,7 @@ import { AdminGuard } from '../shared/guards/admin.guard';
     HttpClientModule,
     CommonModule,
     DatePipe,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
@@ -99,7 +103,7 @@ import { AdminGuard } from '../shared/guards/admin.guard';
       },
       { path: 'public-calendar', component: PublicCalendarComponent },
       { path: 'organizer-calendar', component: OrganizerCalendarComponent },
-      { path: 'admin', component: AdminComponent },
+      { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
 
     ]),
   ],

@@ -1,10 +1,9 @@
-// src/app/shared/services/auth.service.ts
 import { Injectable, NgZone, Injector, runInInjectionContext } from '@angular/core';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { Observable, from, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 export enum UserRole {
@@ -65,7 +64,6 @@ export class AuthService {
     }
   }
 
-  // Pridanie/zmena roly
   public async assignRoleToUser(uid: string, newRole: UserRole): Promise<void> {
     return runInInjectionContext(this.injector, async () => {
       try {
@@ -74,7 +72,6 @@ export class AuthService {
         if (docSnapshot?.exists) {
           await userRef.update({ role: newRole });
           console.log(`Role ${newRole} assigned to user with UID: ${uid}`);
-          // Ak je to aktuálny user, zmeníme aj localStorage
           const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
           if (currentUser && currentUser.uid === uid) {
             localStorage.setItem('role', newRole);
@@ -97,31 +94,32 @@ export class AuthService {
     return user ? user.uid : null;
   }
 
+  // New observable-based login check
+  isLoggedIn$(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      map(user => !!user)
+    );
+  }
+
+  // Updated to use authState and valueChanges() for reactive role checking
   getCurrentUserRole(): Observable<UserRole | null> {
-    return from(this.afAuth.currentUser).pipe(
-      map((user) => (user ? user.uid : null)),
-      switchMap((uid) => {
-        if (uid) {
-          return runInInjectionContext(this.injector, () => {
-            return this.afs.doc(`users/${uid}`).get().pipe(
-              map((doc) => (doc.exists ? doc.data() : null))
-            );
-          });
+    return this.afAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
       }),
-      map((userData: any) => (userData ? userData.role : null))
+      map(userData => (userData ? userData.role : null))
     );
   }
 
   isAdmin(): Observable<boolean> {
     return this.afAuth.authState.pipe(
-      switchMap((user) => {
+      switchMap(user => {
         if (user) {
-          return runInInjectionContext(this.injector, () => {
-            return this.afs.doc(`users/${user.uid}`).valueChanges();
-          });
+          return this.afs.doc(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
         }
@@ -147,11 +145,18 @@ export class AuthService {
       });
   }
 
-  register(email: string, password: string): Promise<any> {
+  // Updated register to accept displayName
+  register(email: string, password: string, displayName: string): Promise<any> {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        this.sendVerificationMail();
-        this.setUserData(result.user);
+      .then(async (result) => {
+        if (result.user) {
+          await result.user.updateProfile({
+            displayName: displayName,
+            photoURL: result.user.photoURL || ''
+          });
+          this.sendVerificationMail();
+          this.setUserData(result.user);
+        }
       })
       .catch((error: any) => {
         window.alert(error.message);
@@ -176,6 +181,7 @@ export class AuthService {
       });
   }
 
+  // Synchronous getter for legacy usage (not used by guards in this solution)
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || 'null');
     return user !== null;
@@ -201,13 +207,10 @@ export class AuthService {
   async setUserData(user: any): Promise<void> {
     return runInInjectionContext(this.injector, async () => {
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
-
       const docSnapshot = await userRef.get().toPromise();
       const existingData = docSnapshot && docSnapshot.exists ? docSnapshot.data() : null;
-
-      // Default rola je 'user', ak user nemal v DB Admin / Organizer
+      // Default role is 'user' if none exists
       let role = (existingData && existingData.role) ? existingData.role : UserRole.User;
-
       const userData: User = {
         uid: user.uid,
         email: user.email,
@@ -215,7 +218,6 @@ export class AuthService {
         photoURL: user.photoURL,
         role
       };
-
       return userRef.set(userData, { merge: true }).then(() => {
         console.log('User document updated!');
         localStorage.setItem('role', role);
