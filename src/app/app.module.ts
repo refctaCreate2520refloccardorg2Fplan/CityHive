@@ -26,7 +26,7 @@ import { EventDetailComponent } from '../events/event-detail/event-detail.compon
 import { EventsListComponent } from '../events/events-list/events-list.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { PublicCalendarComponent } from '../public-calendar/public-calendar.component';
 import { OrganizerCalendarComponent } from '../organizer-calendar/organizer-calendar.component';
 import { OrganizerGuard } from '../shared/guards/organizer.guard';
@@ -59,6 +59,7 @@ import { AdminGuard } from '../shared/guards/admin.guard';
     FormsModule,
     HttpClientModule,
     CommonModule,
+    DatePipe,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,

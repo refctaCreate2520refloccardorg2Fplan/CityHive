@@ -1,51 +1,70 @@
-<!-- src/app/calendar/calendar.component.html -->
 <div class="calendar-container">
 
-  <!-- Add Event Form -->
-  <div class="add-event-form-container-overall">
-    <h3>Add New Event</h3>
-    <input type="text" placeholder="Event Title" [(ngModel)]="newEventTitle">
-    <div class="time-inputs">
-      <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" [(ngModel)]="newEventStartDate">
-      <label for="startTime">Start Time:</label>
-      <input type="time" id="startTime" [(ngModel)]="newEventStartTime">
-    </div>
-    <div class="time-inputs">
-      <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" [(ngModel)]="newEventEndDate">
-      <label for="endTime">End Time:</label>
-      <input type="time" id="endTime" [(ngModel)]="newEventEndTime">
-    </div>
-    <button (click)="addEvent()">Add Event</button>
-  </div>
 
-  <!-- Calendar Display -->
-  <div class="header">
-    <h2>{{ currentDate | date:'MMMM yyyy' }}</h2>
-  </div>
-  <div class="days">
-    <div *ngFor="let day of daysInMonth"
-         class="day"
-         [ngClass]="{
-           'today': day.isToday,
-           'weekend': day.isWeekend && day.isCurrentMonth
-         }"
-         (click)="selectDay(day)">
-      <div class="date">
-        {{ day.date | date:'d' }}
+
+  <div class="calendar" *ngIf="!isHourViewActive">
+    <div class="header">
+      <button (click)="previousMonth()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"><path d="M0 0h24v24H0z" fill="none" /><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
+      </button>
+      <h2>{{ currentDate | date:'MMMM yyyy' }}</h2>
+      <button (click)="nextMonth()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"><path d="M0 0h24v24H0z" fill="none" /><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" /></svg>
+      </button>
+    </div>
+    <div class="weekdays">
+      <div>PO</div>
+      <div>UT</div>
+      <div>ST</div>
+      <div>ŠT</div>
+      <div>PI</div>
+      <div>SO</div>
+      <div>NE</div>
+    </div>
+    <div class="days">
+      <div *ngFor="let day of daysInMonth" class="day" (click)="selectDay(day)"
+           [class.today]="day.isToday"
+           [class.selected]="selectedDay === day"
+           [class.has-events]="day.hasEvents"
+           [class.current-month]="day.isCurrentMonth"
+           [ngClass]="{'weekend': day.isWeekend && day.isCurrentMonth}">
+        <div class="date">{{ day.date | date:'d' }}</div>
+        <div class="event-indicator" *ngIf="day.hasEvents"></div>
       </div>
     </div>
   </div>
 
-  <!-- Selected Day Events -->
-  <div class="selected-day-events" *ngIf="selectedDay">
-    <h3>Events for {{ selectedDay.date | date:'EEEE, MMMM d' }}</h3>
+  <div class="day-view" *ngIf="isHourViewActive && selectedDay">
+    <div class="header day-view-header">
+      <button (click)="backToCalendarView()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 24 24" width="18"><path d="M0 0h24v24H0z" fill="none" /><path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
+      </button>
+      <h2>{{ selectedDay.date | date:'EEEE, MMMM d' }}</h2>
+      <div></div>
+    </div>
+
+    <div class="hour-slots">
+      <div *ngFor="let hour of hourSlots" class="hour-slot">
+        <div class="hour-label">{{ hour }}</div>
+        <div class="hour-events">
+          <div *ngFor="let event of selectedDayEvents" class="event">
+            <ng-container *ngIf="getHourFromDateTime(event.startDateTime) === hour.substring(0, 2)">
+              {{ event.title }} ({{ event.startDateTime | date:'shortTime' }} - {{ event.endDateTime | date:'shortTime' }})
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="selected-day-events" *ngIf="selectedDayEvents.length > 0 && !isHourViewActive">
+    <h3>Events for {{ selectedDay?.date | date:'EEEE, MMMM d' }}</h3>
     <ul>
-      <li *ngFor="let event of selectedDayEvents">
-        {{ event.title }}
-      </li>
+      <li *ngFor="let event of selectedDayEvents">{{ event.title }} ({{ event.startDateTime | date:'shortTime' }} - {{ event.endDateTime | date:'shortTime' }})</li>
     </ul>
+  </div>
+  <div class="selected-day-events" *ngIf="selectedDayEvents.length === 0 && selectedDay && !isHourViewActive">
+    <h3>No Events for {{ selectedDay.date | date:'EEEE, MMMM d' }}</h3>
   </div>
 
 </div>
