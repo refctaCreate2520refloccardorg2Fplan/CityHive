@@ -105,8 +105,8 @@ body {
 
 /*  New Burger Menu Styles  */
 .burger-menu {
-  width: 25px; /* Adjusted size for better fit */
-  height: 20px;
+  width: 3vw; /* Adjusted size for better fit */
+  height: 2vw;
   position: relative;
   cursor: pointer;
   display: none; /* Hidden by default, shown in media query */
@@ -116,7 +116,7 @@ body {
 
 .line {
   width: 100%;
-  height: 3px; /* Adjusted height */
+  height: 0.3vw; /* Adjusted height */
   background-color: var(--darknav); /* Or any color you prefer */
   position: absolute;
   transition: all 0.3s ease; /* Important for animation */
