@@ -1,4 +1,3 @@
-// src/app/shared/guards/organizer.guard.ts
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService, UserRole } from '../services/auth.service';
@@ -12,7 +11,7 @@ export class OrganizerGuard implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.authService.getCurrentUserRole().pipe(
       map(role => {
-        // Organizer aj Admin môžu
+        // Both Organizer and Admin are allowed
         if (role === UserRole.Organizer || role === UserRole.Admin) {
           return true;
         } else {

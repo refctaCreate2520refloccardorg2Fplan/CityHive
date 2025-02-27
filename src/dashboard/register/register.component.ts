@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.service';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,6 +7,7 @@ import { RouterModule } from '@angular/router';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
+  name: string = '';       // New field for the user's name (displayName)
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
@@ -20,6 +19,7 @@ export class RegisterComponent {
       window.alert('Passwords do not match.');
       return;
     }
-    this.authService.register(this.email, this.password);
+    // Pass the user's name along with email and password to the AuthService
+    this.authService.register(this.email, this.password, this.name);
   }
 }
