@@ -10,8 +10,26 @@
       <input type="password" id="password" [(ngModel)]="password" name="password" required />
     </div>
     <button type="submit">Login</button>
+
+    <!-- Forgot Password Link -->
+    <div class="auth-links">
+      <a routerLink="/forgot-password" class="auth-link">Forgot Password?</a>
+    </div>
   </form>
-  <div>
-    <button>Login with Google</button>
+
+  <div class="social-login">
+    <button class="google-btn">
+      <span class="google-icon"></span>
+      Login with Google
+    </button>
   </div>
+
+  <!-- Register Link -->
+  <div class="register-prompt">
+    Don't have an account?
+    <a routerLink="/register" class="auth-link">Register here</a>
+  </div>
+
+  <!-- Error Message -->
+  <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
 </div>

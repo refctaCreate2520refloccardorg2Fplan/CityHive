@@ -38,7 +38,8 @@ export class EventsListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe(data => {
-      this.events = data;
+      // Filtrovanie iba schválených udalostí
+      this.events = data.filter(e => e.isApproved);
       this.events.forEach(e => {
         if (e.id) {
           this.interestRatings[e.id] = e.interestRating !== undefined ? e.interestRating : 50;

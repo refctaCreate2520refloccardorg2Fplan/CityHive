@@ -1,88 +1,40 @@
 .event-create-container {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: white;
+  padding: 20px;
+  background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  max-width: 600px;
+  margin: auto;
+}
 
-  h2 {
-    margin-top: 0;
-    color: #2c3e50;
-  }
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  form {
-    display: grid;
-    gap: 1.5rem;
-  }
+.close-button {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
 
-  .form-group {
-    display: grid;
-    gap: 0.5rem;
+.form-group {
+  margin-bottom: 15px;
+}
 
-    label {
-      font-weight: 500;
-      color: #495057;
-    }
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
 
-    input, textarea, select {
-      padding: 0.5rem;
-      border: 1px solid #ced4da;
-      border-radius: 4px;
-      font-size: 1rem;
+.number-with-checkbox {
+  display: flex;
+  align-items: center;
+}
 
-      &:focus {
-        outline: none;
-        border-color: #80bdff;
-        box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
-      }
-    }
-
-    select {
-      background: white;
-    }
-  }
-
-  .number-with-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-
-    input[type="number"] {
-      width: 120px;
-      padding-right: 0.5rem;
-    }
-
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-
-      input[type="checkbox"] {
-        margin: 0;
-        width: 1.2rem;
-        height: 1.2rem;
-      }
-
-      span {
-        white-space: nowrap;
-        font-size: 0.9rem;
-      }
-    }
-  }
-
-  .submit-button {
-    background: #007bff;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background 0.2s ease;
-
-    &:hover {
-      background: #0056b3;
-    }
-  }
+.checkbox-group {
+  margin-left: 10px;
 }

@@ -1,0 +1,80 @@
+<div class="event-edit-container">
+  <div class="header">
+    <h2>Upraviť Udalosť</h2>
+    <button class="close-button" (click)="closeDialog()">X</button>
+  </div>
+  <form (ngSubmit)="updateEvent()">
+    <div class="form-group">
+      <label>Názov:</label>
+      <input [(ngModel)]="event.title" name="title" required>
+    </div>
+
+    <div class="form-group">
+      <label>Popis:</label>
+      <textarea [(ngModel)]="event.description" name="desc"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Začiatok:</label>
+      <input type="datetime-local" [(ngModel)]="event.startDateTime" name="startDt" required>
+    </div>
+
+    <div class="form-group">
+      <label>Koniec:</label>
+      <input type="datetime-local" [(ngModel)]="event.endDateTime" name="endDt" required>
+    </div>
+
+    <div class="form-group">
+      <label>Cena:</label>
+      <input type="number" [(ngModel)]="event.price" name="price" min="0" step="0.01" (keydown)="preventNegative($event)">
+    </div>
+
+    <div class="form-group">
+      <label>Kategória:</label>
+      <select [(ngModel)]="event.category" name="category" required>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Miesto:</label>
+      <select [(ngModel)]="event.place" name="place" required>
+        <option *ngFor="let place of places" [value]="place">{{ place }}</option>
+      </select>
+    </div>
+
+    <!-- Zobrazenie aktuálneho hlavného obrázka s možnosťou odstránenia -->
+    <div class="form-group" *ngIf="event.photoURL">
+      <label>Aktuálny hlavný obrázok:</label>
+      <div class="image-preview">
+        <img [src]="event.photoURL" alt="Hlavný obrázok">
+        <button type="button" (click)="removeMainImage()">Odstrániť</button>
+      </div>
+    </div>
+
+    <!-- Nový hlavný obrázok -->
+    <div class="form-group">
+      <label>Nový hlavný obrázok:</label>
+      <input type="file" (change)="onNewMainImageSelected($event)" accept="image/*">
+    </div>
+
+    <!-- Zobrazenie aktuálnych dodatočných obrázkov s možnosťou odstránenia -->
+    <div class="form-group" *ngIf="event.photos && event.photos.length">
+      <label>Aktuálne ďalšie obrázky:</label>
+      <div class="additional-images">
+        <div class="image-preview" *ngFor="let img of event.photos; let i = index">
+          <img [src]="img" alt="Ďalší obrázok">
+          <button type="button" (click)="removeAdditionalImage(i)">Odstrániť</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nahrať nové dodatočné obrázky -->
+    <div class="form-group">
+      <label>Pridať nové ďalšie obrázky:</label>
+      <input type="file" multiple (change)="onNewAdditionalImagesSelected($event)" accept="image/*">
+    </div>
+
+    <button type="submit" class="submit-button">Upraviť</button>
+  </form>
+</div>

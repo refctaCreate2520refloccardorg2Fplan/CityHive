@@ -1,0 +1,152 @@
+.login-container {
+  margin: 2vw auto;
+  max-width: 30vw;
+  padding: 2vw;
+  background-color: #fff;
+  border-radius: 0.5vw;
+  box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
+  border: 0.1vw solid #2e2e2e;
+
+  h2 {
+    font-size: 2vw;
+    color: var(--carbon);
+    text-align: center;
+    margin-bottom: 1.5vw;
+    text-decoration: underline;
+    text-decoration-color: var(--rustyred);
+    text-decoration-thickness: 0.2vw;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5vw;
+
+      label {
+        font-size: 1vw;
+        color: var(--carbon);
+        font-weight: bold;
+      }
+
+      input {
+        padding: 0.8vw;
+        border: 0.1vw solid #2e2e2e;
+        border-radius: 0.3vw;
+        font-size: 1vw;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          outline: none;
+          border-color: var(--rustyred);
+        }
+      }
+    }
+
+    button[type="submit"] {
+      background-color: var(--rustyred);
+      color: white;
+      padding: 0.8vw 1.5vw;
+      border: none;
+      border-radius: 0.3vw;
+      font-size: 1vw;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 1vw;
+
+      &:hover {
+        background-color: #8A1015;
+      }
+    }
+
+    .auth-links {
+      text-align: right;
+      margin-top: 1vw;
+
+      .auth-link {
+        color: var(--rustyred);
+        font-size: 0.9vw;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #8A1015;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  .social-login {
+    margin: 2vw 0;
+    border-top: 0.1vw solid #ececec;
+    padding-top: 2vw;
+
+    .google-btn {
+      width: 100%;
+      background-color: white;
+      color: var(--carbon);
+      border: 0.1vw solid #2e2e2e;
+      padding: 0.8vw 1.5vw;
+      border-radius: 0.3vw;
+      font-size: 1vw;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5vw;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: var(--rustyred);
+        color: var(--rustyred);
+
+        .google-icon {
+          background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/><path fill="none" d="M2 2h44v44H2z"/></svg>');
+        }
+      }
+
+      .google-icon {
+        width: 1.2vw;
+        height: 1.2vw;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="%232e2e2e" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="%232e2e2e" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="%232e2e2e" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="%232e2e2e" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/><path fill="none" d="M2 2h44v44H2z"/></svg>');
+        background-size: contain;
+        transition: background-image 0.3s ease;
+      }
+    }
+  }
+
+  .register-prompt {
+    text-align: center;
+    font-size: 0.9vw;
+    color: var(--carbon);
+    margin-top: 1.5vw;
+
+    .auth-link {
+      color: var(--rustyred);
+      margin-left: 0.5vw;
+      font-weight: bold;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #8A1015;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .error-message {
+    color: var(--rustyred);
+    font-size: 0.9vw;
+    margin-top: 1vw;
+    text-align: center;
+    padding: 0.5vw;
+    border: 0.1vw solid var(--rustyred);
+    border-radius: 0.3vw;
+    background-color: #ffe6e8;
+  }
+}

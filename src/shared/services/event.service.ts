@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { Observable } from 'rxjs';
+import { map, finalize } from 'rxjs/operators';
+import firebase from 'firebase/compat/app';
 
 export interface EventDTO {
   id?: string;
@@ -9,13 +11,13 @@ export interface EventDTO {
   description?: string;
   startDateTime: string;
   endDateTime: string;
-  price?: number;  // Allow null for optional price
+  price?: number;  // Ak nie je zadaná, môžeme použiť null
   isApproved?: boolean;
   archived?: boolean;
   createdAt?: string;
   organizerId?: string;
-  photoURL?: string;
-  photos?: string[];
+  photoURL?: string;  // Hlavný obrázok
+  photos?: string[];  // Dodatočné obrázky
   interestRating?: number;
   category: string;
   place: string;
@@ -23,17 +25,20 @@ export interface EventDTO {
 
 @Injectable({ providedIn: 'root' })
 export class EventService {
-  constructor(private afs: AngularFirestore) { }
+  constructor(
+    private afs: AngularFirestore,
+    private storage: AngularFireStorage
+  ) { }
 
+  // Vytvorí objekt bez undefined hodnôt
   private sanitizeEventData(data: EventDTO): any {
-    return {
+    const merged = {
       ...data,
       price: data.price !== null && data.price !== undefined ? Number(data.price) : null,
-      // Remove undefined values
-      ...Object.fromEntries(
-        Object.entries(data).filter(([_, v]) => v !== undefined)
-      )
     };
+    return Object.fromEntries(
+      Object.entries(merged).filter(([_, v]) => v !== undefined)
+    );
   }
 
   getAllEvents(): Observable<EventDTO[]> {
@@ -44,13 +49,14 @@ export class EventService {
         return {
           ...data,
           id,
-          price: data.price !== null ? data.price : undefined  // Convert null back to undefined
+          price: data.price !== null ? data.price : undefined
         };
       }))
     );
   }
 
-  createEvent(eventData: EventDTO): Promise<void> {
+  // Vytvorenie udalosti – vráti vygenerované ID udalosti
+  createEvent(eventData: EventDTO): Promise<string> {
     const newId = this.afs.createId();
     const sanitizedData = this.sanitizeEventData({
       ...eventData,
@@ -59,17 +65,47 @@ export class EventService {
       isApproved: eventData.isApproved ?? false,
       createdAt: new Date().toISOString(),
     });
-
-    // Firebase-friendly data with null instead of undefined
-    const firebaseData = {
-      ...sanitizedData,
-      price: sanitizedData.price ?? null  // Store null in Firebase for "no price"
-    };
-
-    return this.afs.collection('events').doc(newId).set(firebaseData);
+    return this.afs.collection('events').doc(newId).set(sanitizedData).then(() => newId);
   }
 
-  // Keep other methods the same
+  updateEvent(eventData: EventDTO): Promise<void> {
+    if (!eventData.id) {
+      return Promise.reject(new Error("Event ID is required for updating."));
+    }
+    const sanitizedData = this.sanitizeEventData(eventData);
+    return this.afs.collection('events').doc(eventData.id).update(sanitizedData);
+  }
+
+  // Nahrávanie jedného obrázka a vrátenie jeho URL
+  uploadEventImage(file: File, eventId: string): Promise<string> {
+    const filePath = `events/${eventId}/${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    return new Promise<string>((resolve, reject) => {
+      task.snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(url => {
+            resolve(url);
+          }, err => reject(err));
+        })
+      ).subscribe();
+    });
+  }
+
+  // Odstránenie konkrétneho poľa (napr. photoURL) z dokumentu
+  deleteField(eventId: string, field: string): Promise<void> {
+    return this.afs.collection('events').doc(eventId).update({
+      [field]: firebase.firestore.FieldValue.delete()
+    });
+  }
+
+  // Odstránenie obrázka z poľa photos pomocou arrayRemove
+  deleteAdditionalImage(eventId: string, imageUrl: string): Promise<void> {
+    return this.afs.collection('events').doc(eventId).update({
+      photos: firebase.firestore.FieldValue.arrayRemove(imageUrl)
+    });
+  }
+
   getApprovedEvents(): Observable<EventDTO[]> {
     return this.afs.collection<EventDTO>('events', ref =>
       ref.where('isApproved', '==', true).where('archived', '==', false)

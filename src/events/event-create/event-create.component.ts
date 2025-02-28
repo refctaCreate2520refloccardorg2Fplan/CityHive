@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { EventService, EventDTO } from '../../shared/services/event.service';
 
 @Component({
@@ -18,17 +19,22 @@ export class EventCreateComponent {
     archived: false,
     createdAt: '',
     organizerId: '',
-    category: 'Výstava',
-    place: 'Bambuľkovo'
+    category: '',
+    place: ''
   };
 
   participantLimit: number | undefined;
   isPriceVoluntary = false;
+  selectedMainImage: File | null = null; // Hlavný obrázok
+  selectedAdditionalImages: File[] = [];  // Dodatočné obrázky
 
   categories = ['Výstava', 'Koncerty', 'Festivaly', 'Kino', 'Besedy a prednášky', 'Mestské slávnosti', 'Tematické festivaly'];
   places = ['Bambuľkovo', 'Kino'];
 
-  constructor(private eventService: EventService) { }
+  constructor(
+    private eventService: EventService,
+    private dialogRef: MatDialogRef<EventCreateComponent>
+  ) { }
 
   preventNegative(event: KeyboardEvent) {
     const forbiddenKeys = ['-', '+', 'e', 'E'];
@@ -37,8 +43,19 @@ export class EventCreateComponent {
     }
   }
 
-  createEvent() {
-    // Validate price
+  onMainImageSelected(event: any) {
+    if (event.target.files && event.target.files.length) {
+      this.selectedMainImage = event.target.files[0];
+    }
+  }
+
+  onAdditionalImagesSelected(event: any) {
+    if (event.target.files && event.target.files.length) {
+      this.selectedAdditionalImages = Array.from(event.target.files);
+    }
+  }
+
+  async createEvent() {
     if (!this.isPriceVoluntary) {
       if (typeof this.newEvent.price === 'undefined' || this.newEvent.price < 0) {
         alert('Prosím zadajte platnú cenu alebo označte ako dobrovoľné');
@@ -46,27 +63,44 @@ export class EventCreateComponent {
       }
     }
 
-    const eventData: EventDTO = {
-      ...this.newEvent,
-      price: this.isPriceVoluntary ? undefined : this.newEvent.price,
-    
-    };
+    try {
+      // Vytvorenie udalosti a získanie ID udalosti
+      const eventId = await this.eventService.createEvent(this.newEvent);
 
-    // Existing validations
-    if (!eventData.title) {
-      alert('Názov je povinný');
-      return;
-    }
+      // Nahrávanie hlavného obrázka (ak bol vybraný)
+      let mainImageUrl = '';
+      if (this.selectedMainImage && eventId) {
+        mainImageUrl = await this.eventService.uploadEventImage(this.selectedMainImage, eventId);
+      }
 
-    if (!eventData.startDateTime || !eventData.endDateTime) {
-      alert('Počiatočný a konečný dátum sú povinné');
-      return;
-    }
+      // Nahrávanie dodatočných obrázkov
+      const additionalImages: string[] = [];
+      if (this.selectedAdditionalImages.length > 0 && eventId) {
+        for (let file of this.selectedAdditionalImages) {
+          const url = await this.eventService.uploadEventImage(file, eventId);
+          additionalImages.push(url);
+        }
+      }
 
-    this.eventService.createEvent(eventData).then(() => {
+      // Aktualizácia udalosti s URL obrázkov
+      await this.eventService.updateEvent({
+        ...this.newEvent,
+        id: eventId,
+        photoURL: mainImageUrl || undefined,
+        photos: additionalImages.length ? additionalImages : undefined
+      });
+
       alert('Udalosť vytvorená (čaká na schválenie adminom)');
       this.resetForm();
-    });
+      this.dialogRef.close(true);
+    } catch (error: any) {
+      console.error('Chyba pri vytváraní udalosti:', error);
+      alert('Chyba pri vytváraní udalosti: ' + error.message);
+    }
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 
   private resetForm() {
@@ -86,5 +120,7 @@ export class EventCreateComponent {
     };
     this.participantLimit = undefined;
     this.isPriceVoluntary = false;
+    this.selectedMainImage = null;
+    this.selectedAdditionalImages = [];
   }
 }
