@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   profileForm: FormGroup;
   selectedFile: File | null = null;
 
-  // Pre organizer request (tlačidlo "Staj sa organizatorom")
+  // Pre organizer request (tlačidlo "Staň sa organizatorom")
   isOrganizerRequestModalOpen: boolean = false;
   organizerRequestData = {
     groupName: '',
