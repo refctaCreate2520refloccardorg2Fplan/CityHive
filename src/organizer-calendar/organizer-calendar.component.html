@@ -1,7 +1,10 @@
 <div class="organizer-calendar-container">
   <h2>Kalendár Organizátora (jednojazyčný)</h2>
 
-  <div>
+  <!-- Tlačidlo na otvorenie dialógu pre vytvorenie udalosti -->
+  <button class="create-event-button" (click)="openCreateEventDialog()">Vytvoriť udalosť</button>
+
+  <div class="my-events">
     <h3>Moje Eventy</h3>
     <ul>
       <li *ngFor="let e of allEvents">
@@ -15,7 +18,7 @@
 
   <hr>
 
-  <div>
+  <div class="all-events">
     <h3>Všetky Eventy (Read-Only okrem vlastných)</h3>
     <ul>
       <li *ngFor="let e of allEvents">
@@ -24,23 +27,4 @@
       </li>
     </ul>
   </div>
-
-  <hr>
-
-  <h3>Vytvoriť nový event</h3>
-  <form (ngSubmit)="createEvent()">
-    <div>
-      <label>Title:</label>
-      <input [(ngModel)]="newEvent.title" name="title">
-    </div>
-    <div>
-      <label>Start:</label>
-      <input type="datetime-local" [(ngModel)]="newEvent.startDateTime" name="startDt">
-    </div>
-    <div>
-      <label>End:</label>
-      <input type="datetime-local" [(ngModel)]="newEvent.endDateTime" name="endDt">
-    </div>
-    <button type="submit">Vytvoriť</button>
-  </form>
 </div>

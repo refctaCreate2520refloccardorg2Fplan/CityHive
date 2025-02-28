@@ -34,6 +34,8 @@ import { AdminComponent } from '../admin/admin.component';
 import { AdminGuard } from '../shared/guards/admin.guard';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { StanSaOrganizatoromComponent } from '../organizator/stan-sa-organizatorom/stan-sa-organizatorom.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EventEditComponent } from '../events/event-edit/event-edit.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { StanSaOrganizatoromComponent } from '../organizator/stan-sa-organizator
     PublicCalendarComponent,
     AdminComponent,
     StanSaOrganizatoromComponent,
+    EventEditComponent
 
 
 
@@ -61,6 +64,7 @@ import { StanSaOrganizatoromComponent } from '../organizator/stan-sa-organizator
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatDialogModule,
     FormsModule,
     HttpClientModule,
     CommonModule,
