@@ -54,3 +54,4 @@ Thumbs.db
 /.vs/hackaton3/config
 /src/enviroment
 /.firebase
+*.ts
