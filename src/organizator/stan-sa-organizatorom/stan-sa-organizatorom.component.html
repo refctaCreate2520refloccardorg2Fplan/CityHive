@@ -1,22 +1,26 @@
+<div class="events-container">
+  <div class="container-name">Staň sa organizátorom</div>
+</div>
+
 <div class="stan-sa-organizatorom-container">
-  <h2>Staň sa organizátorom</h2>
+
   <form [formGroup]="organizerForm" (ngSubmit)="submitRequest()">
     <div class="form-group">
-      <label for="groupName">Názov skupiny:</label>
+      <label class="form-label" for="groupName">Názov skupiny:</label>
       <input id="groupName" formControlName="groupName" type="text" placeholder="Zadajte názov skupiny">
       <div *ngIf="organizerForm.get('groupName')?.invalid && organizerForm.get('groupName')?.touched" class="error">
         Pole je povinné.
       </div>
     </div>
     <div class="form-group">
-      <label for="members">Členovia:</label>
-      <input id="members" formControlName="members" type="text" placeholder="Zadajte členov">
+      <label class="form-label" for="members">Členovia:</label>
+      <input id="members" formControlName="members" type="text" placeholder="Zadajte meno a priezvisko členov (pr. Jožko Mrkvička, Tomáš Uhorka, ..)">
       <div *ngIf="organizerForm.get('members')?.invalid && organizerForm.get('members')?.touched" class="error">
         Pole je povinné.
       </div>
     </div>
     <div class="form-group">
-      <label for="contact">Kontakt:</label>
+      <label class="form-label" for="contact">Kontakt:</label>
       <input id="contact" formControlName="contact" type="text" placeholder="Zadajte kontakt">
       <div *ngIf="organizerForm.get('contact')?.invalid && organizerForm.get('contact')?.touched" class="error">
         Pole je povinné.

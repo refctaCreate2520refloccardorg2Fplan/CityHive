@@ -63,7 +63,7 @@
       margin: 0;
 
       li.event-card {
-        background: #dfdfdf;
+        background: #ebebeb;
         margin-bottom: 1vw;
         padding: 1vw;
         border-radius: 1vw;
@@ -75,7 +75,7 @@
         border-bottom: 0.2vw solid var(--carbon);
 
         &:hover {
-          background: #d5d5d5;
+          background: #f4f4f4;
           transform: translateY(-2px);
           transition: border-left 0.2s ease, border-right 0.2s ease, border-top 0.2s ease, border-bottom 0.2s ease;
           border-bottom: 0.2vw solid var(--rustyred);

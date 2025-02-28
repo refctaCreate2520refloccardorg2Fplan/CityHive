@@ -1,51 +1,76 @@
-.stan-sa-organizatorom-container {
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+* {
+  font-family: Poppins-Regular;
+}
 
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-  }
+.events-container {
+  margin-top: 2vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container-name {
+  font-size: 2.2vw;
+  color: var(--carbon);
+  margin-bottom: 0.8vw;
+  text-decoration: underline;
+  text-decoration-color: var(--rustyred);
+  text-decoration-thickness: 0.2vw;
+}
+
+.container-name:hover {
+  color: var(--rustyred);
+  text-decoration-color: var(--carbon);
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.stan-sa-organizatorom-container {
+  max-width: 33vw;
+  margin: 2vw auto;
+  padding: 2vw;
+  background-color: #f9f9f9;
+  border-radius: 1vw;
+  box-shadow: 0 0 0.8vw #3331;
 
   .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 1vw;
 
     label {
+        font-size: 1vw;
       display: block;
       font-weight: bold;
-      margin-bottom: 5px;
+      margin-bottom: 0.5vw;
       color: #555;
     }
 
     input {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 14px;
+      outline: none;
+      width: 31.6vw;
+      padding: 0.7vw;
+      border: 0.1vw solid #ccc;
+      border-radius: 0.6vw;
+      font-size: 0.89vw;
+    }
+
+    input:focus {
+      border: 0.2vw solid #ccc;
     }
 
     .error {
       color: #d9534f;
-      font-size: 12px;
-      margin-top: 5px;
+      font-size: 1vw;
+      margin-top: 0.4vw;
     }
   }
 
   button {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 1vw;
+    background-color: var(--rustyred);
     color: #fff;
     border: none;
-    border-radius: 4px;
-    font-size: 16px;
+    border-radius: 0.6vw;
+    font-size: 1vw;
     cursor: pointer;
     transition: background-color 0.3s ease;
 
@@ -55,7 +80,7 @@
     }
 
     &:hover:not(:disabled) {
-      background-color: #0056b3;
+      background-color: var(--darkrustyred);
     }
   }
 }
