@@ -1,28 +1,26 @@
 <div class="event-detail" *ngIf="event">
   <h2>{{ event.title }}</h2>
-  <p>Od: {{ event.startDateTime | date:'medium' }} - Do: {{ event.endDateTime | date:'medium' }}</p>
-  <p *ngIf="event.price && event.price > 0">Vstup: {{ event.price }} €</p>
-  <p *ngIf="(!event.price || event.price === 0)">Vstup zdarma</p>
-  <p *ngIf="event.description">{{ event.description }}</p>
+  <div class="event-meta">
+    <p>Od: {{ event.startDateTime | date:'d.M.yyyy HH:mm' }}</p>
+    <p>Do: {{ event.endDateTime | date:'d.M.yyyy HH:mm' }}</p>
+    <p *ngIf="event.price && event.price > 0">Vstup: {{ event.price }} €</p>
+    <p *ngIf="!event.price || event.price === 0">Vstup zdarma</p>
+  </div>
+  <p class="event-description" *ngIf="event.description">{{ event.description }}</p>
 </div>
 
-<!-- Reviews Section -->
 <div class="reviews-section">
-  <h2>Recenzie a hodnotenia</h2>
+  <h2>Recenzie</h2>
 
   <!-- Add Review Form -->
-  <div class="add-review">
-    <div class="user-info" *ngIf="userId">
-      <img [src]="userPhotoURL || 'assets/default-avatar.png'" alt="Profilová fotka" class="user-avatar">
-      <div class="user-meta">
-        <h4>{{ userName }}</h4>
-      </div>
+  <div class="add-review" *ngIf="userId">
+    <div class="user-info">
+      <img [src]="userPhotoURL || 'assets/default-avatar.png'" alt="Profil" class="user-avatar">
+      <span class="user-name">{{ userName }}</span>
     </div>
-
     <textarea [formControl]="newCommentText"
               placeholder="Napíšte svoju recenziu..."
-              rows="4"></textarea>
-
+              rows="3"></textarea>
     <button (click)="addComment()"
             [disabled]="!newCommentText.value?.trim()"
             class="submit-button">
@@ -32,9 +30,13 @@
 
   <!-- Reviews List -->
   <div class="reviews-list">
+    <div *ngIf="comments.length === 0" class="no-reviews">
+      Žiadne recenzie. Buďte prvý!
+    </div>
+
     <div class="review" *ngFor="let comment of comments">
       <div class="review-header">
-        <img [src]="comment.userPhotoUrl || 'assets/default-avatar.png'" alt="Profilová fotka" class="user-avatar">
+        <img [src]="comment.userPhotoUrl || 'assets/default-avatar.png'" alt="Profil" class="user-avatar">
         <div class="review-meta">
           <h4>{{ comment.userName }}</h4>
           <small>{{ comment.timestamp | date:'d.M.yyyy HH:mm' }}</small>
@@ -42,23 +44,31 @@
       </div>
       <p class="review-text">{{ comment.text }}</p>
 
-      <!-- Replies -->
+      <!-- Reply Form -->
+      <div class="reply-form" *ngIf="userId">
+        <textarea [formControl]="replyText"
+                  placeholder="Napíšte odpoveď..."
+                  rows="2"></textarea>
+        <button (click)="addReply(comment.id)"
+                [disabled]="!replyText.value?.trim()"
+                class="reply-button">
+          Odoslať odpoveď
+        </button>
+      </div>
+
+      <!-- Replies List -->
       <div class="replies" *ngIf="comment.replies?.length">
         <div class="reply" *ngFor="let reply of comment.replies">
           <div class="reply-header">
-         <!--   <img [src]="reply.userPhotoUrl || 'assets/default-avatar.png'" alt="Profilová fotka" class="user-avatar small"> -->
+            <img [src]="reply.userPhotoUrl || 'assets/default-avatar.png'" alt="Profil" class="user-avatar small">
             <div class="reply-meta">
-           <!--   <h5>{{ reply.userName }}</h5> -->
+              <h5>{{ reply.userName }}</h5>
               <small>{{ reply.timestamp | date:'d.M.yyyy HH:mm' }}</small>
             </div>
           </div>
           <p class="reply-text">{{ reply.text }}</p>
         </div>
       </div>
-    </div>
-
-    <div *ngIf="comments.length === 0" class="no-reviews">
-      Žiadne recenzie. Buďte prvý, kto napíše hodnotenie!
     </div>
   </div>
 </div>
