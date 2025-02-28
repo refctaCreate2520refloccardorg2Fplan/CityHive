@@ -1,4 +1,3 @@
-// src/app/shared/services/event.service.ts
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
@@ -15,9 +14,9 @@ export interface EventDTO {
   archived?: boolean;
   createdAt?: string;
   organizerId?: string;
-
   photoURL?: string;
   photos?: string[];
+  interestRating?: number;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -65,7 +64,12 @@ export class EventService {
     return this.afs.collection('events').doc(eventId).update({ archived });
   }
 
-  // Príklad - ak potrebujete získať userov
+  // Aktualizácia hodnoty záujmu pre konkrétnu udalosť
+  updateInterest(eventId: string, interestRating: number): Promise<void> {
+    return this.afs.collection('events').doc(eventId).update({ interestRating });
+  }
+
+  // Príklad – ak potrebujete získať userov
   getAllUsers(): Observable<any[]> {
     return this.afs.collection('users').snapshotChanges().pipe(
       map(actions => actions.map(a => {
