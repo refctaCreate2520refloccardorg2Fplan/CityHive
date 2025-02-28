@@ -55,4 +55,5 @@ Thumbs.db
 /src/enviroment
 /.firebase
 *.ts
-/src/app/app.module.ts
+/src/enviroments/enviroment.ts
+/src/enviroments/enviroment.ts
