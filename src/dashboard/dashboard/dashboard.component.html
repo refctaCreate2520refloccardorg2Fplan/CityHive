@@ -2,16 +2,10 @@
   <!-- Profilová sekcia -->
   <div class="profile-container">
     <div class="profileback">
-      <div class="buttonsprofile">
-        <!-- Link pre admina -->
-        <a *ngIf="(userRole$ | async) === 'admin'" routerLink="/admin">
-          <img src="https://firebasestorage.googleapis.com/v0/b/linkandplay-450f6.appspot.com/o/icons8-keys-64.png?alt=media&token=0b426759-fbe1-412e-b644-f0f21f1da7cc" width="30" height="30">
-        </a>
-      </div>
+
 
       <!-- Zobrazenie informácií o používateľovi -->
       <div class="row" *ngIf="authService.userData as user">
-        <div class="col-md-12">
           <div class="media">
             <div class="pfpbox">
               <!--                   [src]="user.photoURL ? user.photoURL : 'photoURL'"-->
@@ -37,13 +31,18 @@
                   </p>
                 </div>
               </div>
+              <div class="buttonsprofile">
+                <!-- Link pre admina -->
+                <a class="idbutton" *ngIf="(userRole$ | async) === 'admin'" routerLink="/admin">
+                  <span>Správa podujatí</span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
         <div class="profileinfo">
           <p>Email: <strong>{{ user.email }}</strong></p>
           <p>
-            Overený Email
+            Overený Email:
             @if (user.emailVerified) {
             <strong class="email+">ÁNO</strong>
             }

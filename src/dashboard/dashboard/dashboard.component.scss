@@ -11,8 +11,7 @@
 }
 
 .buttonsprofile {
-    margin-left: auto;
-    justify-content: flex-end;
+    margin-top: 2vw;
 }
 
 .settingsbutton {
@@ -22,7 +21,7 @@
 
 .name {
   width: auto;
-  height: auto;
+  height: 2vw;
   display: inline-flex;
   font-size: 2vw;
   align-items: center;
@@ -34,13 +33,29 @@
     border-radius: 100%
 }
 
+.rolebox {
+    margin: 0;
+    font-size: 1vw;
+    color: #808080;
+}
+
+.user-role-red {
+    margin: 0;
+}
 
 
 .idbutton {
+    text-decoration:none;
+    color: var(--rustyred);
     padding: 0.5vw 1vw 0.5vw 1vw;
     border-color: var(--rustyred);
     border-style: solid;
     border-width: 0.2vw;
     border-radius: 15vw;
     cursor: pointer;
+}
+
+.idbutton:hover {
+  background-color: var(--rustyred);
+  color: white;
 }
