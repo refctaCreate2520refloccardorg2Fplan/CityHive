@@ -11,6 +11,18 @@
         <span>{{ e.startDateTime | date: 'dd/MM/yyyy hh:mm'}} - {{ e.endDateTime | date: 'dd/MM/yyyy hh:mm'}}</span>
         <p class="description-bar" *ngIf="e.description">{{ e.description }}</p>
         <p class="price-bar" *ngIf="e.price && e.price > 0">Cena: {{ e.price }} €</p>
+        <!-- Slider na vyjadrenie záujmu -->
+        <div class="interest-section" (click)="$event.stopPropagation()">
+          <label for="interest-{{e.id}}">Záujem: {{ interestRatings[e.id!] }}%</label>
+          <input id="interest-{{e.id}}" type="range" min="0" max="100"
+                 [value]="interestRatings[e.id!]"
+                 (input)="onInterestChange($event, e.id!)">
+        </div>
+
+        <!-- Tlačidlo pre Google Calendar integráciu -->
+        <div class="calendar-button" (click)="$event.stopPropagation()">
+          <a [href]="getGoogleCalendarUrl(e)" target="_blank">Pridať do Google Kalendára</a>
+        </div>
       </li>
     </ul>
   </div>
