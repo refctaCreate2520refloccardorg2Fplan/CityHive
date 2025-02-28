@@ -23,6 +23,8 @@
     "@angular/router": "^17.2.0",
     "@google-cloud/vertexai": "^1.9.0",
     "@google/generative-ai": "^0.21.0",
+    "@ngx-translate/core": "^16.0.4",
+    "@ngx-translate/http-loader": "^16.0.1",
     "axios": "^1.7.7",
     "cors": "^2.8.5",
     "css.gg": "^2.1.1",
