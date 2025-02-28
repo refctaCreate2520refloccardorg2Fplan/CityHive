@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { switchMap, map, catchError } from 'rxjs/operators';
 import { combineLatest, Observable, of } from 'rxjs';
 import { EventService, EventDTO } from '../../shared/services/event.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 interface Comment {
   id: string;
@@ -35,18 +36,31 @@ export class EventDetailComponent implements OnInit {
   newCommentText = new FormControl('');
   replyText = new FormControl('');
 
-  // Authentication properties - connect these to your auth service
-  userId: string | null = 'user123'; // Replace with actual auth
-  userName: string | null = 'John Doe';
+  // Authentication properties: will be updated from AuthService's auth state
+  userId: string | null = null;
+  userName: string | null = null;
   userPhotoURL: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    // Subscribe to authentication state so that the latest user info is used.
+    this.authService.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.userId = user.uid;
+        this.userName = user.displayName;
+        this.userPhotoURL = user.photoURL;
+      } else {
+        this.userId = null;
+        this.userName = null;
+        this.userPhotoURL = null;
+      }
+    });
     this.loadEventAndComments();
   }
 

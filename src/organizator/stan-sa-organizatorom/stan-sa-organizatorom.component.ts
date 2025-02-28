@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrganizerRequestService, OrganizerRequest } from '../../shared/services/organizer-request.service';
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService, UserRole } from '../../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stan-sa-organizatorom',
@@ -15,7 +16,8 @@ export class StanSaOrganizatoromComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private organizerRequestService: OrganizerRequestService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.organizerForm = this.fb.group({
       groupName: ['', Validators.required],
@@ -25,7 +27,12 @@ export class StanSaOrganizatoromComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Voliteľné: Ak chcete predvyplniť údaje alebo spraviť iné inicializačné operácie
+    // Redirect if the user is already an organizer or an admin.
+    this.authService.getCurrentUserRole().subscribe(role => {
+      if (role === UserRole.Organizer || role === UserRole.Admin) {
+        this.router.navigate(['/organizer-calendar']);
+      }
+    });
   }
 
   submitRequest(): void {

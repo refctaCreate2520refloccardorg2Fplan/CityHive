@@ -79,35 +79,7 @@
     </div>
   </div>
 
-  <!-- Tlačidlo pre organizátorskú žiadosť -->
-  <div class="organizer-request-button">
-    <button (click)="openOrganizerRequestModal()">Staň sa organizatorom</button>
-  </div>
-  <!-- Modal pre organizátorskú žiadosť -->
-  <div *ngIf="isOrganizerRequestModalOpen" class="modal">
-    <div class="modal-content">
-      <h3>Staň sa organizatorom</h3>
-      <form (ngSubmit)="submitOrganizerRequest()">
-        <label>
-          Názov skupiny:
-          <input type="text" [(ngModel)]="organizerRequestData.groupName" name="groupName" required>
-        </label>
-        <br>
-        <label>
-          Členovia:
-          <input type="text" [(ngModel)]="organizerRequestData.members" name="members" required>
-        </label>
-        <br>
-        <label>
-          Kontakt:
-          <input type="text" [(ngModel)]="organizerRequestData.contact" name="contact" required>
-        </label>
-        <br>
-        <button type="submit">Odoslať žiadosť</button>
-        <button type="button" (click)="closeOrganizerRequestModal()">Zatvoriť</button>
-      </form>
-    </div>
-  </div>
+  
 
 
 </div>
