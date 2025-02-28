@@ -28,7 +28,7 @@
   max-width: 33vw;
   margin: 2vw auto;
   padding: 2vw;
-  background-color: #f9f9f9;
+  background-color: var(--snow);
   border-radius: 1vw;
   box-shadow: 0 0 0.8vw #3331;
 
@@ -36,7 +36,7 @@
     margin-bottom: 1vw;
 
     label {
-        font-size: 1vw;
+      font-size: 1vw;
       display: block;
       font-weight: bold;
       margin-bottom: 0.5vw;

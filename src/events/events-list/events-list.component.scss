@@ -40,56 +40,133 @@
   transition: border-color 0.2s ease
 }
 
-.title-bar {
-    font-size: 1.7vw;
+.event-card {
+  background-color: #ececec;
+  border-radius: 0.5vw;
+  margin-bottom: 1.5vw;
+  padding: 1.5vw;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 0.1vw solid #2e2e2e;
+  box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
 }
 
-.description-bar {
+.event-card:hover {
+  transform: translateY(-0.2vw);
+  box-shadow: 0 0.4vw 0.7vw rgba(0, 0, 0, 0.15);
+  border-color: #ca2736;
+}
+
+.event-card-header {
+  margin-bottom: 1vw;
+}
+
+.event-title {
+  font-size: 1.3vw;
+  font-weight: bold;
+  color: #2e2e2e;
+  margin-bottom: 0.5vw;
+}
+
+.event-date {
+  font-size: 0.85vw;
+  color: #666;
+}
+
+.event-description {
+  font-size: 0.95vw;
+  color: #333;
+  margin-bottom: 1vw;
+}
+
+.event-details {
+  margin-bottom: 1vw;
+}
+
+.event-price {
   font-size: 1vw;
-  margin: 0;
+  color: #ca2736;
+  font-weight: 500;
+}
+
+.event-actions {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  font-size: 0.9vw;
+}
+
+.calendar-button,
+.like-button {
+  background-color: transparent;
+  color: #ca2736;
+  border: 0.1vw solid #ca2736;
+  padding: 0.5vw 1vw;
+  border-radius: 0.3vw;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3vw;
+  font-size: 0.9vw;
+}
+
+.calendar-button {
+  background-color: #fff;
+  color: #2e2e2e;
+  border: 0.1vw solid #2e2e2e;
+}
+
+.calendar-button:hover {
+  background-color: #ececec;
+  color: #2e2e2e;
+  border-color: #2e2e2e; 
+}
+
+.calendar-icon {
+  width: 1.5vw;
+  height: 1.5vw;
+}
+
+.heart-icon {
+  width: 1.2vw;
+  height: 1.2vw;
+  fill: #ccc;
+  transition: fill 0.3s ease;
+}
+
+.like-button.liked .heart-icon {
+  fill: #8A1015;
+}
+
+.like-button:hover {
+  background-color: #ca2736;
+  color: #ececec;
+}
+
+.like-button .fa-heart {
+  color: #ccc;
+  transition: color 0.3s ease;
+}
+
+.like-button .fa-heart.liked {
+  color: #8A1015;
+}
+
+.like-count {
+  color: #666;
 }
 
 .events-list-container {
-  flex-direction: column;
   padding-left: 15vw;
   padding-right: 15vw;
   padding-top: 2vw;
+}
 
-
-  .events-list-list {
-    ul.event-unordered-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      li.event-card {
-        background: #ebebeb;
-        margin-bottom: 1vw;
-        padding: 1vw;
-        border-radius: 1vw;
-        cursor: pointer;
-        transition: background 0.3s ease, transform 0.2s ease;
-        border-left: 0.2vw solid var(--carbon);
-        border-top: 0.2vw solid var(--carbon);
-        border-right: 0.2vw solid var(--carbon);
-        border-bottom: 0.2vw solid var(--carbon);
-
-        &:hover {
-          background: #f4f4f4;
-          transform: translateY(-2px);
-          transition: border-left 0.2s ease, border-right 0.2s ease, border-top 0.2s ease, border-bottom 0.2s ease;
-          border-bottom: 0.2vw solid var(--rustyred);
-          border-right: 0.2vw solid var(--rustyred);
-          border-top: 0.2vw solid var(--rustyred);
-          border-left: 0.2vw solid var(--rustyred);
-        }
-
-
-        span {
-          font-size: 0.9rem;
-          color: #666;
-        }
-      }
-    }
-  }
+.events-list-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
