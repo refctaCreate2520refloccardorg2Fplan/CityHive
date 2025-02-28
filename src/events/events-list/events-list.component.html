@@ -1,16 +1,16 @@
-<div class="events-container">
-    <div class="container-name">Prehľad podujatí</div>
-    <input class="search" type="text" placeholder="Nájsť podujatie.." [(ngModel)]="searchQuery" (ngModelChange)="filterEvents()">
-</div>
-
 <div class="events-list-container">
+  <div class="events-list-main">
+    <h2>Prehľad Eventov (jednojazyčný)</h2>
+    <input type="text" placeholder="Hľadaj..." [(ngModel)]="searchQuery" (ngModelChange)="filterEvents()">
+  </div>
   <div class="events-list-list">
     <ul class="event-unordered-list">
       <li *ngFor="let e of filteredEvents" class="event-card" (click)="goToEvent(e.id!)">
-        <strong class="title-bar">{{ e.title }}</strong> <br />
-        <span>{{ e.startDateTime | date: 'dd/MM/yyyy hh:mm'}} - {{ e.endDateTime | date: 'dd/MM/yyyy hh:mm'}}</span>
-        <p class="description-bar" *ngIf="e.description">{{ e.description }}</p>
-        <p class="price-bar" *ngIf="e.price && e.price > 0">Cena: {{ e.price }} €</p>
+        <strong>{{ e.title }}</strong> <br />
+        <span>({{ e.startDateTime | date: 'dd/MM/yyyy hh:mm'}} - {{ e.endDateTime | date: 'dd/MM/yyyy hh:mm'}})</span>
+        <p *ngIf="e.description">{{ e.description }}</p>
+        <p *ngIf="e.price && e.price > 0">Cena: {{ e.price }} €</p>
+
         <!-- Slider na vyjadrenie záujmu -->
         <div class="interest-section" (click)="$event.stopPropagation()">
           <label for="interest-{{e.id}}">Záujem: {{ interestRatings[e.id!] }}%</label>
@@ -23,6 +23,16 @@
         <div class="calendar-button" (click)="$event.stopPropagation()">
           <a [href]="getGoogleCalendarUrl(e)" target="_blank">Pridať do Google Kalendára</a>
         </div>
+
+        <!-- Sekcia pre lajky -->
+        <div class="likes-section" (click)="$event.stopPropagation()">
+          <button (click)="likeEvent(e.id!)">
+            <i class="fa fa-heart" [class.liked]="userLikes[e.id!]"></i> <!-- FontAwesome ikona srdiečka -->
+            {{ userLikes[e.id!] ? 'Zrušiť lajk' : 'Lajk' }}
+          </button>
+          <span>{{ getLikesCount(e.id!) }} Likes</span> <!-- Zobrazenie počtu lajkov -->
+        </div>
+
       </li>
     </ul>
   </div>
