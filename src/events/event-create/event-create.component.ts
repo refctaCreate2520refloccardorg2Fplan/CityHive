@@ -19,8 +19,8 @@ export class EventCreateComponent {
     archived: false,
     createdAt: '',
     organizerId: '',
-    category: 'Výstava',
-    place: 'Bambuľkovo'
+    category: '',
+    place: ''
   };
 
   participantLimit: number | undefined;
