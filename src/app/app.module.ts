@@ -11,7 +11,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 // Import Firebase environment configuration
-import { environment } from '../environment/environment';
+import { environment } from '../enviroment/enviroment';
 import { RouterModule } from '@angular/router';
 import { MainPageComponent } from '../main-page/main-page.component';
 import { MainNavComponent } from '../main-nav/main-nav.component';
@@ -34,6 +34,7 @@ import { AdminComponent } from '../admin/admin.component';
 import { AdminGuard } from '../shared/guards/admin.guard';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { StanSaOrganizatoromComponent } from '../organizator/stan-sa-organizatorom/stan-sa-organizatorom.component';
+import { GoogleAuthService } from '../shared/services/google-auth.service';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,7 @@ import { StanSaOrganizatoromComponent } from '../organizator/stan-sa-organizator
 
     ]),
   ],
-  providers: [],
+  providers: [GoogleAuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
