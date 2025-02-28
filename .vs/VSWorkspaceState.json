@@ -2,11 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\dashboard",
     "\\src\\dashboard\\register",
-    "\\src\\events",
     "\\src\\events\\events-list"
   ],
-  "SelectedNode": "\\src\\events\\events-list\\events-list.component.ts",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }

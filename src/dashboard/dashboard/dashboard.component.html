@@ -7,12 +7,6 @@
         <a *ngIf="(userRole$ | async) === 'admin'" routerLink="/admin">
           <img src="https://firebasestorage.googleapis.com/v0/b/linkandplay-450f6.appspot.com/o/icons8-keys-64.png?alt=media&token=0b426759-fbe1-412e-b644-f0f21f1da7cc" width="30" height="30">
         </a>
-        <!-- Tlačidlo pre nastavenia -->
-        <div class="settingbutton" (click)="toggleSettings()">
-          <a>
-            <p>Nastavenia</p>
-          </a>
-        </div>
       </div>
 
       <!-- Zobrazenie informácií o používateľovi -->
@@ -20,21 +14,25 @@
         <div class="col-md-12">
           <div class="media">
             <div class="pfpbox">
+              <!--                   [src]="user.photoURL ? user.photoURL : 'photoURL'"-->
               <img class="pfp"
-                   [src]="user.photoURL ? user.photoURL : 'photoURL'"
-                   [alt]="user.displayName ? user.displayName : 'User'">
+                   [alt]="user.displayName ? user.displayName : 'User'"
+                   src='../assets/testimg.jpg'>
             </div>
             <div class="name">
-              <h1><strong>{{ user.displayName ? user.displayName : 'User' }}</strong></h1>
+              <p class="username">{{ user.displayName ? user.displayName : 'User' }}</p>
+              <div (click)="toggleSettings()" style="cursor:pointer;">
+                <svg fill="black" width="1vw" height="1vw" viewBox="0 0 16 16" id="edit-2-16px" xmlns="http://www.w3.org/2000/svg">
+                  <path id="Path_120" data-name="Path 120" d="M-10.5,16h-11A2.5,2.5,0,0,1-24,13.5V2.5A2.5,2.5,0,0,1-21.5,0h4a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4A1.5,1.5,0,0,0-23,2.5v11A1.5,1.5,0,0,0-21.5,15h11A1.5,1.5,0,0,0-9,13.5v-4A.5.5,0,0,1-8.5,9a.5.5,0,0,1,.5.5v4A2.5,2.5,0,0,1-10.5,16Zm-5.646-4.146,8-8a.5.5,0,0,0,0-.708l-3-3a.5.5,0,0,0-.708,0l-8,8A.5.5,0,0,0-20,8.5v3a.5.5,0,0,0,.5.5h3A.5.5,0,0,0-16.146,11.854ZM-19,8.707l7.5-7.5L-9.207,3.5l-7.5,7.5H-19Z" transform="translate(24 0)" />
+                </svg>
+              </div>
             </div>
             <div class="rolebox">
               <div *ngIf="userRole$ | async as userRole" class="role">
                 <div class="roleborder">
                   <p class="
                     {{ userRole === 'admin' ? 'user-role-blue' : '' }}
-                    {{ userRole === 'user' ? 'user-role-red' : '' }}
-                    default-background
-                  ">
+                    {{ userRole === 'user' ? 'user-role-red' : '' }}">
                     {{ userRole }}
                   </p>
                 </div>
@@ -42,9 +40,19 @@
             </div>
           </div>
         </div>
-        <p>Email: <strong>{{ user.email }}</strong></p>
-        <p>User ID: <strong>{{ user.uid }}</strong></p>
-        <p>Email Verified: <strong>{{ user.emailVerified }}</strong></p>
+        <div class="profileinfo">
+          <p>Email: <strong>{{ user.email }}</strong></p>
+          <span class="idbutton" id="{{ user.uid }}">Kopírovať ID užívateľa</span>
+          <p>
+            Overený Email
+            @if (user.emailVerified) {
+            <strong class="email+">ÁNO</strong>
+            }
+
+            @else {
+            <strong class="email-">NIE</strong>
+            }
+</div>
       </div>
     </div>
   </div>
@@ -63,6 +71,7 @@
            (drop)="onFileDropped($event)"
            (dragover)="preventDefault($event)"
            (dragleave)="preventDefault($event)">
+
         <img class="pfpxx"
              [src]="user.photoURL ? user.photoURL : 'photoURL'"
              [alt]="user.displayName ? user.displayName : 'User'">
@@ -102,25 +111,5 @@
     </div>
   </div>
 
-  <!-- Sekcia s todo listom -->
-  <div class="kontajner">
-    <div class="todo">
-      <!-- Pridanie novej todo položky -->
-      <div class="add-todo">
-        <input style="color:black;" type="text" [(ngModel)]="newTodoTitle" placeholder="Add new todo">
-        <button style="margin-left:10px; margin-bottom:10px;" (click)="addTodo()">Add</button>
-      </div>
 
-      <!-- Zobrazenie todo položiek -->
-      <div *ngIf="todos && todos.length > 0">
-        <div style="margin-top:5px;" *ngFor="let todo of todos" class="todo-item">
-          <div class="break">
-            {{ todo.title }}
-          </div>
-          <input type="checkbox" [(ngModel)]="todo.completed" (change)="updateTodo(todo)">
-          <button style="margin-left:5px;" (click)="deleteTodo(todo)">Delete</button>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
