@@ -1,5 +1,5 @@
-// src/app/events/events-list/events-list.component.ts
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { EventService, EventDTO } from '../../shared/services/event.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class EventsListComponent implements OnInit {
   filteredEvents: EventDTO[] = [];
   searchQuery = '';
 
-  constructor(private eventService: EventService) { }
+  constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit(): void {
     this.eventService.getAllEvents().subscribe(data => {
@@ -32,5 +32,9 @@ export class EventsListComponent implements OnInit {
         return titleLower.includes(query) || descLower.includes(query);
       });
     }
+  }
+
+  goToEvent(eventId: string): void {
+    this.router.navigate(['/events', eventId]);
   }
 }
