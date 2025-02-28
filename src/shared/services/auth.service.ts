@@ -18,6 +18,7 @@ export interface User {
   displayName: string;
   photoURL: string;
   role: UserRole;
+  emailVerified?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
