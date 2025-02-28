@@ -1,195 +1,198 @@
+// events-list.component.scss
 * {
-    font-family: Poppins-Regular;
+  font-family: Poppins-Regular;
 }
 
-.events-container {
-  margin-top: 2vw;
-  display: flex;
-  align-items: center;
+.events-list-container {
   flex-direction: column;
-}
+  padding-left: 15vw;
+  padding-right: 15vw;
+  padding-top: 2vw;
 
-.container-name {
-    font-size: 2.2vw;
-    margin-bottom: 0.8vw;
-    text-decoration: underline;
-    text-decoration-color: var(--rustyred);
-    text-decoration-thickness: 0.2vw;
-}
+  .events-list-main {
+    .filter-section {
+      margin: 2vw 0;
+      padding: 2vw;
+      background: #f8f9fa;
+      border-radius: 1vw;
+      box-shadow: 0 0.2vw 0.4vw rgba(0,0,0,0.1);
 
-.container-name:hover {
-  color: var(--rustyred);
-  text-decoration-color: var(--carbon);
-  transition: color 0.3s ease-in-out, text-decoration-color 0.3s ease-in-out;
-}
+      .filter-group {
+        margin-bottom: 2vw;
 
-.search {
-  font-size: 1vw;
-  border-radius: 8vw;
-  border-width: 0.2vw;
-  border-color: var(--carbon);
-  height: 2.8vw;
-  width: 20vw;
-  border-style: solid;
-  padding: 0vw 1vw 0vw 1vw;
-}
+        h3 {
+          font-size: 1.5vw;
+          margin-bottom: 1vw;
+          color: var(--carbon);
+          text-decoration: underline;
+          text-decoration-color: var(--rustyred);
+          text-decoration-thickness: 0.2vw;
+        }
 
-.search:focus {
-  outline: none;
-  border-color: var(--rustyred);
-  transition: border-color 0.2s ease
-}
+        .filter-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.8vw;
 
-.event-card {
-  background-color: #ececec;
-  border-radius: 0.5vw;
-  list-style:none;
-  margin-bottom: 1.5vw;
-  padding: 1.5vw;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 0.1vw solid #2e2e2e;
-  box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
-}
+          button {
+            padding: 0.6vw 1.8vw;
+            border: 0.2vw solid var(--carbon);
+            border-radius: 2vw;
+            background: white;
+            color: var(--carbon);
+            font-size: 1.1vw;
+            cursor: pointer;
+            transition: all 0.2s ease;
 
-.event-card:hover {
-  transform: translateY(-0.2vw);
-  box-shadow: 0 0.4vw 0.7vw rgba(0, 0, 0, 0.15);
-  border-color: #ca2736;
-}
+            &.active {
+              background: var(--rustyred);
+              color: white;
+              border-color: var(--rustyred);
+            }
 
-.event-card-header {
-  margin-bottom: 1vw;
-}
+            &:hover {
+              border-color: var(--rustyred);
+              color: var(--rustyred);
+            }
+          }
+        }
+      }
+    }
 
-.event-title {
-  font-size: 1.3vw;
-  font-weight: bold;
-  color: #2e2e2e;
-  margin-bottom: 0.5vw;
-}
+    input.search {
+      width: 100%;
+      margin-bottom: 2vw;
+      padding: 1vw 2vw;
+      font-size: 1.2vw;
+      border-radius: 2vw;
+      border: 0.2vw solid var(--carbon);
+      transition: border-color 0.3s ease;
 
-.event-date {
-  font-size: 0.85vw;
-  color: #666;
-}
+      &:focus {
+        outline: none;
+        border-color: var(--rustyred);
+      }
+    }
+  }
 
-.event-description {
-  font-size: 0.95vw;
-  color: #333;
-  margin-bottom: 1vw;
-}
+  .events-list-list {
+    ul.event-unordered-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
 
-.event-details {
-  margin-bottom: 1vw;
-}
+      li.event-card {
+        background: #ebebeb;
+        margin-bottom: 1.5vw;
+        padding: 2vw;
+        border-radius: 1vw;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 0.2vw solid var(--carbon);
+        position: relative;
 
-.event-price {
-  font-size: 1vw;
-  color: var(--carbon);
-  font-weight: 500;
-}
+        &:hover {
+          background: #f4f4f4;
+          transform: translateY(-0.5vw);
+          box-shadow: 0 0.5vw 1vw rgba(0,0,0,0.1);
+          border-color: var(--rustyred);
+        }
 
-.event-actions {
-  display: flex;
-  align-items: center;
-  gap: 1vw;
-  font-size: 0.9vw;
-}
+        strong {
+          font-size: 1.8vw;
+          display: block;
+          margin-bottom: 0.5vw;
+        }
 
-.calendar-button,
-.like-button {
-  background-color: transparent;
-  color: #ca2736;
-  border: 0.1vw solid #ca2736;
-  padding: 0.5vw 1vw;
-  border-radius: 0.3vw;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  justify-content: center;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3vw;
-  font-size: 0.9vw;
-}
+        span {
+          font-size: 1.2vw;
+          color: #666;
+        }
 
-.calendar-button {
-  background-color: #fff;
-  color: #2e2e2e;
-  border: 0.1vw solid #2e2e2e;
-}
+        p {
+          font-size: 1.2vw;
+          margin: 1vw 0;
+        }
 
-.calendar-button:hover {
-  background-color: #ececec;
-  color: #2e2e2e;
-  border-color: #2e2e2e; 
-}
+        .event-tags {
+          margin: 1vw 0;
+          display: flex;
+          gap: 1vw;
 
-.calendar-icon {
-  width: 1.5vw;
-  height: 1.5vw;
-}
+          span {
+            padding: 0.5vw 1.5vw;
+            border-radius: 2vw;
+            font-size: 1vw;
+            font-weight: 500;
 
-.heart-icon {
-  width: 1.2vw;
-  height: 1.2vw;
-  fill: #ccc;
-  transition: fill 0.3s ease;
-}
+            &.category-tag {
+              background: rgba(25, 118, 210, 0.1);
+              color: #1976d2;
+              border: 0.15vw solid #1976d2;
+            }
 
-.like-button.liked .heart-icon {
-  fill: #8A1015;
-}
+            &.place-tag {
+              background: rgba(239, 108, 0, 0.1);
+              color: #ef6c00;
+              border: 0.15vw solid #ef6c00;
+            }
+          }
+        }
 
-.like-button:hover {
-  background-color: #ca2736;
-  color: #ececec;
-}
+        .interest-section,
+        .calendar-button,
+        .likes-section {
+          margin-top: 1.5vw;
+          padding-top: 1.5vw;
+          border-top: 0.15vw solid #ddd;
 
-.like-button .fa-heart {
-  color: #ccc;
-  transition: color 0.3s ease;
-}
+          label {
+            font-size: 1.2vw;
+          }
 
-.like-button .fa-heart.liked {
-  color: #8A1015;
-}
+          input[type="range"] {
+            width: 100%;
+            margin-top: 0.5vw;
+          }
 
-.like-count {
-  color: #666;
-}
+          a {
+            color: var(--rustyred);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.2vw;
 
-.buy-button {
-  background-color: #F5BF00;
-  border: none;
-  padding: 0.3vw 0.5vw;
-  border-radius: 0.3vw;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 0.5vw;
-  vertical-align: middle;
-  color: black;
-  font-size: 0.9vw;
-}
+            &:hover {
+              text-decoration: underline;
+            }
+          }
 
-.buy-button:hover {
-  background-color: #e0ad00;
-}
+          button {
+            background: none;
+            border: none;
+            color: var(--carbon);
+            font-size: 1.2vw;
+            cursor: pointer;
 
-.buy-icon {
-  width: 1.2vw;
-  height: 1.2vw;
-  fill: var(--carbon);
-  pointer-events: none;
-  margin-right: 0.3vw;
-}
+            i.fa-heart {
+              color: var(--carbon);
+              transition: color 0.2s ease;
 
-.event-price {
-  display: flex;
-  align-items: center;
-  gap: 0.5vw;
+              &.liked {
+                color: var(--rustyred);
+              }
+            }
+
+            &:hover i.fa-heart {
+              color: var(--rustyred);
+            }
+          }
+
+          span {
+            margin-left: 1vw;
+            font-size: 1.2vw;
+          }
+        }
+      }
+    }
+  }
 }
