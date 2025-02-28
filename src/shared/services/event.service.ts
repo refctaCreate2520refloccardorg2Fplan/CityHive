@@ -3,7 +3,6 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
-import firebase from 'firebase/compat/app';
 
 export interface EventDTO {
   id?: string;
@@ -30,7 +29,7 @@ export class EventService {
     private storage: AngularFireStorage
   ) { }
 
-  // Vytvorí objekt bez undefined hodnôt
+  // Upravená funkcia sanitizeEventData – vráti objekt bez undefined hodnôt.
   private sanitizeEventData(data: EventDTO): any {
     const merged = {
       ...data,
@@ -55,7 +54,7 @@ export class EventService {
     );
   }
 
-  // Vytvorenie udalosti – vráti vygenerované ID udalosti
+  // Vytvorenie udalosti, vráti vygenerované ID udalosti
   createEvent(eventData: EventDTO): Promise<string> {
     const newId = this.afs.createId();
     const sanitizedData = this.sanitizeEventData({
@@ -65,6 +64,7 @@ export class EventService {
       isApproved: eventData.isApproved ?? false,
       createdAt: new Date().toISOString(),
     });
+
     return this.afs.collection('events').doc(newId).set(sanitizedData).then(() => newId);
   }
 
@@ -76,7 +76,7 @@ export class EventService {
     return this.afs.collection('events').doc(eventData.id).update(sanitizedData);
   }
 
-  // Nahrávanie jedného obrázka a vrátenie jeho URL
+  // Nahrávanie jedného obrázka do Firebase Storage a vrátenie URL
   uploadEventImage(file: File, eventId: string): Promise<string> {
     const filePath = `events/${eventId}/${file.name}`;
     const fileRef = this.storage.ref(filePath);
@@ -89,20 +89,6 @@ export class EventService {
           }, err => reject(err));
         })
       ).subscribe();
-    });
-  }
-
-  // Odstránenie konkrétneho poľa (napr. photoURL) z dokumentu
-  deleteField(eventId: string, field: string): Promise<void> {
-    return this.afs.collection('events').doc(eventId).update({
-      [field]: firebase.firestore.FieldValue.delete()
-    });
-  }
-
-  // Odstránenie obrázka z poľa photos pomocou arrayRemove
-  deleteAdditionalImage(eventId: string, imageUrl: string): Promise<void> {
-    return this.afs.collection('events').doc(eventId).update({
-      photos: firebase.firestore.FieldValue.arrayRemove(imageUrl)
     });
   }
 

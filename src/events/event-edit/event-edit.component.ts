@@ -94,5 +94,4 @@ export class EventEditComponent {
   closeDialog() {
     this.dialogRef.close();
   }
-  //hhmm
 }

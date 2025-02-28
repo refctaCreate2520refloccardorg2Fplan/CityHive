@@ -12,12 +12,13 @@ import { Router } from '@angular/router';
 export class StanSaOrganizatoromComponent implements OnInit {
   organizerForm: FormGroup;
   isSubmitting: boolean = false;
+  loggedIn: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private organizerRequestService: OrganizerRequestService,
     private authService: AuthService,
-    private router: Router
+    public router: Router // made public to be used in the template button click
   ) {
     this.organizerForm = this.fb.group({
       groupName: ['', Validators.required],
@@ -27,6 +28,13 @@ export class StanSaOrganizatoromComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Subscribe to check if a user is logged in
+    this.authService.isLoggedIn$().subscribe(isLoggedIn => {
+      this.loggedIn = isLoggedIn;
+      // Uncomment the next line if you wish to automatically redirect to login when not authenticated:
+      // if (!isLoggedIn) { this.router.navigate(['/login']); }
+    });
+
     // Redirect if the user is already an organizer or an admin.
     this.authService.getCurrentUserRole().subscribe(role => {
       if (role === UserRole.Organizer || role === UserRole.Admin) {

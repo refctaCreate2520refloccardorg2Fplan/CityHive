@@ -20,5 +20,4 @@ describe('EventEditComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  //gay
 });

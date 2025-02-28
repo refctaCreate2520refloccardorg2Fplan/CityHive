@@ -2,7 +2,14 @@
   <div class="container-name">Staň sa organizátorom</div>
 </div>
 
-<div class="stan-sa-organizatorom-container">
+<!-- If the user is not logged in, show a login prompt -->
+<div *ngIf="!loggedIn" class="login-message">
+  <p>Pre pokračovanie sa prihláste.</p>
+  <button (click)="router.navigate(['/login'])">Prihlásiť sa</button>
+</div>
+
+<!-- Display the organizer request form only if the user is logged in -->
+<div class="stan-sa-organizatorom-container" *ngIf="loggedIn">
   <form [formGroup]="organizerForm" (ngSubmit)="submitRequest()">
     <div class="form-group">
       <label class="form-label" for="groupName">Názov skupiny:</label>

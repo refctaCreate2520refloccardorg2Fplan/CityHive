@@ -84,3 +84,29 @@
     }
   }
 }
+
+/* Optional styling for the login message */
+.login-message {
+  text-align: center;
+  margin: 2vw auto;
+
+  p {
+    font-size: 1.2vw;
+    margin-bottom: 1vw;
+  }
+
+  button {
+    padding: 0.8vw 1.5vw;
+    font-size: 1vw;
+    background-color: var(--rustyred);
+    border: none;
+    border-radius: 0.5vw;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--darkrustyred);
+    }
+  }
+}
