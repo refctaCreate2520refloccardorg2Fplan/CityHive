@@ -10,8 +10,8 @@
             <div class="pfpbox">
               <!--                   [src]="user.photoURL ? user.photoURL : 'photoURL'"-->
               <img class="pfp"
-                   [alt]="user.displayName ? user.displayName : 'User'"
-                   src='../assets/testimg.jpg'>
+                   [src]="user.photoURL ? user.photoURL : 'photoURL'"
+                   [alt]="user.displayName ? user.displayName : 'User'">
             </div>
             <div class="name">
               <p class="username">{{ user.displayName ? user.displayName : 'User' }}</p>
