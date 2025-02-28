@@ -1,31 +1,60 @@
-.events-list-container {
+* {
+    font-family: Poppins-Regular;
+}
+
+.events-container {
+  margin-top: 2vw;
   display: flex;
+  align-items: center;
   flex-direction: column;
-  padding: 20px;
-  font-family: Arial, sans-serif;
+}
 
-  .events-list-main {
-    margin-bottom: 20px;
+.container-name {
+    font-size: 2.2vw;
+    margin-bottom: 0.8vw;
+    text-decoration: underline;
+    text-decoration-color: var(--rustyred);
+    text-decoration-thickness: 0.2vw;
+}
 
-    h2 {
-      margin-bottom: 10px;
-      color: #333;
-    }
+.container-name:hover {
+  color: var(--rustyred);
+  text-decoration-color: var(--carbon);
+  transition: color 0.3s ease-in-out, text-decoration-color 0.3s ease-in-out;
+}
 
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      transition: border-color 0.3s ease;
+.search {
+  font-size: 1vw;
+  border-radius: 8vw;
+  border-width: 0.2vw;
+  border-color: var(--carbon);
+  height: 2.8vw;
+  width: 20vw;
+  border-style: solid;
+  padding: 0vw 1vw 0vw 1vw;
+}
 
-      &:focus {
-        outline: none;
-        border-color: #007bff;
-      }
-    }
-  }
+.search:focus {
+  outline: none;
+  border-color: var(--rustyred);
+  transition: border-color 0.2s ease
+}
+
+.title-bar {
+    font-size: 1.7vw;
+}
+
+.description-bar {
+  font-size: 1vw;
+  margin: 0;
+}
+
+.events-list-container {
+  flex-direction: column;
+  padding-left: 15vw;
+  padding-right: 15vw;
+  padding-top: 2vw;
+
 
   .events-list-list {
     ul.event-unordered-list {
@@ -34,32 +63,31 @@
       margin: 0;
 
       li.event-card {
-        background: #f9f9f9;
-        margin-bottom: 10px;
-        padding: 15px;
-        border-radius: 4px;
+        background: #dfdfdf;
+        margin-bottom: 1vw;
+        padding: 1vw;
+        border-radius: 1vw;
         cursor: pointer;
         transition: background 0.3s ease, transform 0.2s ease;
-        border: 1px solid #ddd;
+        border-left: 0.2vw solid var(--carbon);
+        border-top: 0.2vw solid var(--carbon);
+        border-right: 0.2vw solid var(--carbon);
+        border-bottom: 0.2vw solid var(--carbon);
 
         &:hover {
-          background: #e0e0e0;
+          background: #d5d5d5;
           transform: translateY(-2px);
+          transition: border-left 0.2s ease, border-right 0.2s ease, border-top 0.2s ease, border-bottom 0.2s ease;
+          border-bottom: 0.2vw solid var(--rustyred);
+          border-right: 0.2vw solid var(--rustyred);
+          border-top: 0.2vw solid var(--rustyred);
+          border-left: 0.2vw solid var(--rustyred);
         }
 
-        strong {
-          font-size: 1.2rem;
-          color: #222;
-        }
 
         span {
           font-size: 0.9rem;
           color: #666;
-        }
-
-        p {
-          margin: 5px 0;
-          color: #444;
         }
       }
     }
