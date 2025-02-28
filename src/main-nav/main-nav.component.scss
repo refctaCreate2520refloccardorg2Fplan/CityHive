@@ -90,6 +90,25 @@ body {
   color: var(--rustyred);
 }
 
+.mesto {
+    color: white;
+    background-color: var(--darkrustyred);
+}
+
+.mesto:hover {
+  background-color: var(--rustyred);
+  color: white;
+}
+
+.galakarta {
+  color: white;
+  background-color: #F5BF00;
+}
+
+.galakarta:hover {
+    background-color: #e0ad00;
+}
+
 .nav-logout {
   margin: 0 1vw 0 1vw;
   padding: 0.5vw 0.5vw 0.3vw 0.3vw;
