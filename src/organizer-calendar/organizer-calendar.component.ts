@@ -1,7 +1,7 @@
-// src/app/organizer-calendar/organizer-calendar.component.ts
 import { Component, OnInit } from '@angular/core';
-import { EventService, EventDTO } from '../shared/services/event.service';
+import { EventService } from '../shared/services/event.service';
 import { AuthService } from '../shared/services/auth.service';
+
 
 @Component({
   selector: 'app-organizer-calendar',
@@ -13,22 +13,29 @@ export class OrganizerCalendarComponent implements OnInit {
   currentUserId: string | null = null;
 
   newEvent: EventDTO = {
-    id: '',
     title: '',
-    description: '',
     startDateTime: '',
     endDateTime: '',
-    price: 0,
+    category: '',
+    place: '',
+    price: undefined, // Initialize as undefined
+    description: '',
     isApproved: false,
     archived: false,
-    createdAt: '',
     organizerId: ''
   };
 
-  constructor(private eventService: EventService, private authService: AuthService) { }
+  constructor(
+    private eventService: EventService,
+    private authService: AuthService
+  ) { }
 
   async ngOnInit() {
     this.currentUserId = await this.authService.getCurrentUserId();
+    this.loadEvents();
+  }
+
+  private loadEvents() {
     this.eventService.getAllEvents().subscribe(evs => {
       this.allEvents = evs;
     });
@@ -38,46 +45,101 @@ export class OrganizerCalendarComponent implements OnInit {
     return evt.organizerId === this.currentUserId;
   }
 
-  createEvent() {
+  async createEvent() {
+    if (!this.validateForm()) return;
+
+    const sanitizedEvent = this.prepareEventData();
+
+    try {
+      await this.eventService.createEvent(sanitizedEvent);
+      this.handleSuccess();
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  private validateForm(): boolean {
     if (!this.currentUserId) {
       alert('Musíte byť prihlásený');
-      return;
+      return false;
     }
     if (!this.newEvent.title) {
-      alert('Title is required');
-      return;
+      alert('Názov je povinný');
+      return false;
     }
     if (!this.newEvent.startDateTime || !this.newEvent.endDateTime) {
-      alert('Start / End is required');
-      return;
+      alert('Dátum začiatku a konca je povinný');
+      return false;
     }
+    return true;
+  }
 
-    this.newEvent.isApproved = false;
-    this.newEvent.organizerId = this.currentUserId;
+  private prepareEventData(): EventDTO {
+    return {
+      ...this.newEvent,
+      organizerId: this.currentUserId!,
+      isApproved: false,
+      price: typeof this.newEvent.price === 'number' ? this.newEvent.price : undefined
+    };
+  }
 
-    this.eventService.createEvent(this.newEvent).then(() => {
-      alert('Event created, awaiting admin approval.');
-      // reset
-      this.newEvent = {
-        id: '',
-        title: '',
-        description: '',
-        startDateTime: '',
-        endDateTime: '',
-        price: 0,
-        isApproved: false,
-        archived: false,
-        createdAt: '',
-        organizerId: this.currentUserId ?? undefined
-      };
-    });
+  private handleSuccess() {
+    alert('Udalosť vytvorená, čaká na schválenie administrátorom.');
+    this.resetForm();
+    this.loadEvents();
+  }
+
+  private handleError(error: any) {
+    console.error('Chyba pri vytváraní udalosti:', error);
+    alert('Chyba pri vytváraní udalosti: ' + error.message);
+  }
+
+  private resetForm() {
+    this.newEvent = {
+      title: '',
+      startDateTime: '',
+      endDateTime: '',
+      category: '',
+      place: '',
+      price: undefined,
+      description: '',
+      isApproved: false,
+      archived: false,
+      organizerId: this.currentUserId || ''
+    };
+  }
+
+  private sanitizeData(data: EventDTO): object {
+    return Object.fromEntries(
+      Object.entries(data)
+        .filter(([_, v]) => v !== undefined && v !== null)
+        .map(([k, v]) => [k, k === 'price' ? Number(v) || undefined : v])
+    );
   }
 
   editEvent(evt: EventDTO) {
     if (!this.canEdit(evt)) {
-      alert('Nemôžete upravovať cudzie eventy');
+      alert('Nemôžete upravovať cudzie udalosti');
       return;
     }
-    alert(`Implement edit logic for event with ID = ${evt.id}`);
+    alert(`Editácia udalosti ID: ${evt.id} bude implementovaná neskôr`);
   }
+}
+
+export interface EventDTO {
+  id?: string;
+  title: string;
+  description?: string;
+  startDateTime: string;
+  endDateTime: string;
+  price?: number; // Remove '| null' here
+  isApproved?: boolean;
+  archived?: boolean;
+  createdAt?: string;
+  organizerId?: string;
+  photoURL?: string;
+  photos?: string[];
+  interestRating?: number;
+  category: string;
+  place: string;
 }

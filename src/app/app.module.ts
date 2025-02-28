@@ -11,7 +11,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 // Import Firebase environment configuration
-import { environment } from '../environment/environment'
+import { environment } from '../enviroment/enviroment'
 import { RouterModule } from '@angular/router';
 import { MainPageComponent } from '../main-page/main-page.component';
 import { MainNavComponent } from '../main-nav/main-nav.component';

@@ -1,7 +1,7 @@
 // src/app/admin/admin.component.ts
 import { Component, OnInit } from '@angular/core';
 import { AuthService, UserRole } from '../shared/services/auth.service';
-import { EventService, EventDTO } from '../shared/services/event.service';
+import { EventService } from '../shared/services/event.service';
 import { OrganizerRequestService, OrganizerRequest } from '../shared/services/organizer-request.service';
 
 interface AdminUser {
@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit {
   organizerRequests: OrganizerRequest[] = [];
 
   // Jednojazyčný event
-  newEvent: EventDTO = {
+   newEvent: EventDTO = {
     id: '',
     title: '',
     description: '',
@@ -41,7 +41,9 @@ export class AdminComponent implements OnInit {
     isApproved: false,
     archived: false,
     createdAt: '',
-    organizerId: ''
+    organizerId: '',
+    category: '',
+    place: '',
   };
 
   currentDate = new Date();
@@ -124,7 +126,9 @@ export class AdminComponent implements OnInit {
         isApproved: false,
         archived: false,
         createdAt: '',
-        organizerId: ''
+        organizerId: '',
+        category: '',
+        place: '',
       };
     });
   }
@@ -185,3 +189,22 @@ export class AdminComponent implements OnInit {
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
   }
 }
+
+export interface EventDTO {
+  id?: string;
+  title: string;
+  description?: string;
+  startDateTime: string;
+  endDateTime: string;
+  price?: number;
+  isApproved?: boolean;
+  archived?: boolean;
+  createdAt?: string;
+  organizerId?: string;
+  photoURL?: string;
+  photos?: string[];
+  interestRating?: number;
+  category: string;
+  place: string;
+}
+

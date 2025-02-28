@@ -26,8 +26,8 @@ export class AuthService {
   userData: any;
 
   constructor(
-    private afs: AngularFirestore,
-    private afAuth: AngularFireAuth,
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
     private router: Router,
     private ngZone: NgZone,
     private injector: Injector

@@ -1,5 +1,5 @@
 * {
-    font-family: Poppins-Regular;
+  font-family: Poppins-Regular;
 }
 
 .events-container {
@@ -10,11 +10,11 @@
 }
 
 .container-name {
-    font-size: 2.2vw;
-    margin-bottom: 0.8vw;
-    text-decoration: underline;
-    text-decoration-color: var(--rustyred);
-    text-decoration-thickness: 0.2vw;
+  font-size: 2.2vw;
+  margin-bottom: 0.8vw;
+  text-decoration: underline;
+  text-decoration-color: var(--rustyred);
+  text-decoration-thickness: 0.2vw;
 }
 
 .container-name:hover {
@@ -31,19 +31,74 @@
   height: 2.8vw;
   width: 20vw;
   border-style: solid;
-  padding: 0vw 1vw 0vw 1vw;
+  padding: 0vw 1vw;
 }
 
 .search:focus {
   outline: none;
   border-color: var(--rustyred);
-  transition: border-color 0.2s ease
+  transition: border-color 0.2s ease;
+}
+
+/* Filtre */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  margin: 1.5vw 0;
+  align-items: flex-start;
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    font-size: 1vw;
+
+    span {
+      font-weight: bold;
+      margin-right: 0.5vw;
+    }
+
+    button {
+      background-color: #fff;
+      color: #2e2e2e;
+      border: 0.1vw solid #2e2e2e;
+      padding: 0.5vw 1vw;
+      border-radius: 0.3vw;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ececec;
+    }
+    /* Aktívny stav */
+    button.active {
+      background-color: #ca2736;
+      color: #fff;
+      border-color: #ca2736;
+    }
+  }
+}
+
+.events-list-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.events-list-list {
+  width: 80%;
+}
+
+.event-unordered-list {
+  list-style: none;
+  padding: 0;
 }
 
 .event-card {
   background-color: #ececec;
   border-radius: 0.5vw;
-  list-style:none;
   margin-bottom: 1.5vw;
   padding: 1.5vw;
   cursor: pointer;
@@ -88,6 +143,9 @@
   font-size: 1vw;
   color: var(--carbon);
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
 }
 
 .event-actions {
@@ -107,7 +165,6 @@
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
-  justify-content: center;
   display: inline-flex;
   align-items: center;
   gap: 0.3vw;
@@ -123,7 +180,7 @@
 .calendar-button:hover {
   background-color: #ececec;
   color: #2e2e2e;
-  border-color: #2e2e2e; 
+  border-color: #2e2e2e;
 }
 
 .calendar-icon {
@@ -145,15 +202,6 @@
 .like-button:hover {
   background-color: #ca2736;
   color: #ececec;
-}
-
-.like-button .fa-heart {
-  color: #ccc;
-  transition: color 0.3s ease;
-}
-
-.like-button .fa-heart.liked {
-  color: #8A1015;
 }
 
 .like-count {
@@ -186,10 +234,4 @@
   fill: var(--carbon);
   pointer-events: none;
   margin-right: 0.3vw;
-}
-
-.event-price {
-  display: flex;
-  align-items: center;
-  gap: 0.5vw;
 }

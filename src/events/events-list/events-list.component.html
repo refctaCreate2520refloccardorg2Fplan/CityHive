@@ -1,14 +1,36 @@
 <div class="events-container">
   <div class="container-name">Prehľad podujatí</div>
+
+  <!-- Vyhľadávanie -->
   <input class="search" type="text" placeholder="Nájsť podujatie.." [(ngModel)]="searchQuery" (ngModelChange)="filterEvents()">
+
+  <!-- Filtre -->
+  <div class="filters">
+    <!-- Filter pre kategórie -->
+    <div class="filter-group">
+      <span>Kategória:</span>
+      <button *ngFor="let cat of categories"
+              (click)="toggleCategoryFilter(cat)"
+              [class.active]="selectedCategory === cat">
+        {{ cat }}
+      </button>
+    </div>
+
+    <!-- Filter pre miesta -->
+    <div class="filter-group">
+      <span>Miesto:</span>
+      <button *ngFor="let place of places"
+              (click)="togglePlaceFilter(place)"
+              [class.active]="selectedPlace === place">
+        {{ place }}
+      </button>
+    </div>
+  </div>
 </div>
 
 <div class="events-list-container">
   <div class="events-list-list">
     <ul class="event-unordered-list">
-
-
-
       <li *ngFor="let e of filteredEvents" class="event-card" (click)="goToEvent(e.id!)">
         <div class="event-card-header">
           <h3 class="event-title">{{ e.title }}</h3>
@@ -22,7 +44,6 @@
         <div class="event-details">
           <p *ngIf="e.price && e.price > 0" class="event-price">
             Cena: {{ e.price }} €
-
             <button class="buy-button">
               <svg class="buy-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0,394c0,23.5,19.1,42.7,42.7,42.7h426.7c23.5,0,42.7-19.1,42.7-42.7v-42.7H0V394z M469.3,95.3H42.7
@@ -30,8 +51,6 @@
               </svg>
               Benefity s Galakartou
             </button>
-
-
           </p>
         </div>
 
