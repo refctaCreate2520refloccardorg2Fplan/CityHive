@@ -43,6 +43,7 @@
 .event-card {
   background-color: #ececec;
   border-radius: 0.5vw;
+  list-style:none;
   margin-bottom: 1.5vw;
   padding: 1.5vw;
   cursor: pointer;
@@ -85,7 +86,7 @@
 
 .event-price {
   font-size: 1vw;
-  color: #ca2736;
+  color: var(--carbon);
   font-weight: 500;
 }
 
@@ -159,14 +160,36 @@
   color: #666;
 }
 
-.events-list-container {
-  padding-left: 15vw;
-  padding-right: 15vw;
-  padding-top: 2vw;
+.buy-button {
+  background-color: #F5BF00;
+  border: none;
+  padding: 0.3vw 0.5vw;
+  border-radius: 0.3vw;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5vw;
+  vertical-align: middle;
+  color: black;
+  font-size: 0.9vw;
 }
 
-.events-list-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.buy-button:hover {
+  background-color: #e0ad00;
+}
+
+.buy-icon {
+  width: 1.2vw;
+  height: 1.2vw;
+  fill: var(--carbon);
+  pointer-events: none;
+  margin-right: 0.3vw;
+}
+
+.event-price {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
 }
