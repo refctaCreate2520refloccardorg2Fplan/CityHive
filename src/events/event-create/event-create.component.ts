@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { EventService, EventDTO } from '../../shared/services/event.service';
 
 @Component({
@@ -7,7 +6,8 @@ import { EventService, EventDTO } from '../../shared/services/event.service';
   templateUrl: './event-create.component.html',
   styleUrls: ['./event-create.component.scss']
 })
-export class EventCreateComponent {
+export class EventCreateComponent implements OnInit {
+  @Output() createFinished = new EventEmitter<boolean>();
   newEvent: EventDTO = {
     id: '',
     title: '',
@@ -22,7 +22,6 @@ export class EventCreateComponent {
     category: '',
     place: ''
   };
-
   participantLimit: number | undefined;
   isPriceVoluntary = false;
   selectedMainImage: File | null = null; // Hlavný obrázok
@@ -33,8 +32,10 @@ export class EventCreateComponent {
 
   constructor(
     private eventService: EventService,
-    private dialogRef: MatDialogRef<EventCreateComponent>
   ) { }
+
+  ngOnInit(): void {
+  }
 
   preventNegative(event: KeyboardEvent) {
     const forbiddenKeys = ['-', '+', 'e', 'E'];
@@ -92,7 +93,7 @@ export class EventCreateComponent {
 
       alert('Udalosť vytvorená (čaká na schválenie adminom)');
       this.resetForm();
-      this.dialogRef.close(true);
+      this.createFinished.emit(true); // Signal that the dialog is finished
     } catch (error: any) {
       console.error('Chyba pri vytváraní udalosti:', error);
       alert('Chyba pri vytváraní udalosti: ' + error.message);
@@ -100,7 +101,7 @@ export class EventCreateComponent {
   }
 
   closeDialog() {
-    this.dialogRef.close();
+    this.createFinished.emit(false);
   }
 
   private resetForm() {

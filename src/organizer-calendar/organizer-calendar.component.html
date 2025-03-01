@@ -1,6 +1,10 @@
+
 <div class="events-container">
   <div class="container-name">Kalendár organizátora</div>
-  <button class="create-event-button" (click)="openCreateEventDialog()">Vytvoriť udalosť</button>
+  <button class="create-event-button" (click)="toggleCreateEvent()">Vytvoriť udalosť</button>
+
+  <!-- Conditionally Render CreateEventComponent -->
+  <app-event-create *ngIf="showCreateEvent"></app-event-create>
 </div>
 
 <div class="organizer-calendar-container">
@@ -38,3 +42,4 @@
     </ul>
   </div>
 </div>
+

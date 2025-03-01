@@ -90,14 +90,9 @@ body {
   color: var(--rustyred);
 }
 
-.mesto {
-    color: white;
-    background-color: var(--darkrustyred);
-}
-
 .mesto:hover {
-  background-color: var(--rustyred);
   color: white;
+  background-color: var(--darkrustyred);
 }
 
 .galakarta {
