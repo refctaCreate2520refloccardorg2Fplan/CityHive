@@ -1,9 +1,7 @@
-
 <div class="events-container">
   <div class="container-name">Kalendár organizátora</div>
   <button class="create-event-button" (click)="toggleCreateEvent()">Vytvoriť udalosť</button>
-
-  <!-- Conditionally Render CreateEventComponent -->
+  <!-- Zobrazenie komponentu pre vytvorenie udalosti, ak je flag nastavený -->
   <app-event-create *ngIf="showCreateEvent"></app-event-create>
 </div>
 
@@ -17,6 +15,7 @@
           <span class="event-status" [ngClass]="{'approved': e.isApproved}">
             {{ e.isApproved ? 'Schválené' : 'Čaká na schválenie' }}
           </span>
+          <!-- Tlačidlo otvára dialóg pre editáciu udalosti -->
           <button (click)="editEvent(e)">Edit</button>
         </div>
       </li>
@@ -36,10 +35,9 @@
           {{ e.startDateTime | date:'d.M.yyyy HH:mm' }} - {{ e.endDateTime | date:'d.M.yyyy HH:mm' }}
         </span>
         <span class="event-status" [ngClass]="{'approved': e.isApproved}">
-          {{ e.isApproved ? 'Schváelné' : 'Čaká na schválenie' }}
+          {{ e.isApproved ? 'Schválené' : 'Čaká na schválenie' }}
         </span>
       </li>
     </ul>
   </div>
 </div>
-

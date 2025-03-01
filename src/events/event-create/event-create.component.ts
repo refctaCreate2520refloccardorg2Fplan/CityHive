@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { EventService, EventDTO } from '../../shared/services/event.service';
+import { AuthService } from '../../shared/services/auth.service'; // Pridaný import AuthService
 
 @Component({
   selector: 'app-event-create',
@@ -32,6 +33,7 @@ export class EventCreateComponent implements OnInit {
 
   constructor(
     private eventService: EventService,
+    private authService: AuthService // Injektujeme AuthService
   ) { }
 
   ngOnInit(): void {
@@ -65,6 +67,10 @@ export class EventCreateComponent implements OnInit {
     }
 
     try {
+      // Priradenie aktuálneho používateľského ID do organizerId
+      const currentUserId = await this.authService.getCurrentUserId();
+      this.newEvent.organizerId = currentUserId || '';
+
       // Vytvorenie udalosti a získanie ID udalosti
       const eventId = await this.eventService.createEvent(this.newEvent);
 
@@ -93,7 +99,7 @@ export class EventCreateComponent implements OnInit {
 
       alert('Udalosť vytvorená (čaká na schválenie adminom)');
       this.resetForm();
-      this.createFinished.emit(true); // Signal that the dialog is finished
+      this.createFinished.emit(true); // Signalizácia ukončenia dialógu
     } catch (error: any) {
       console.error('Chyba pri vytváraní udalosti:', error);
       alert('Chyba pri vytváraní udalosti: ' + error.message);
