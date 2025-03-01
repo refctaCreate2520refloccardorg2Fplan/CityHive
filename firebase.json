@@ -1,6 +1,7 @@
 {
   "hosting": {
     "source": ".",
+    "target": "prod",
     "ignore": [
       "firebase.json",
       "**/.*",
