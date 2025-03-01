@@ -35,7 +35,8 @@ import { AdminGuard } from '../shared/guards/admin.guard';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { StanSaOrganizatoromComponent } from '../organizator/stan-sa-organizatorom/stan-sa-organizatorom.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { EventEditComponent } from '../events/event-edit/event-edit.component';
+//import { EventEditComponent } from '../events/event-edit/event-edit.component';
+import { EventEditComponent } from  '../events/event-edit/event-edit.component'
 
 @NgModule({
   declarations: [
