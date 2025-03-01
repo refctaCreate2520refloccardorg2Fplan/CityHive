@@ -56,6 +56,8 @@
     </div>
   </div>
 
+
+
   <!-- Map Container (Initially Empty) -->
   <div class="right-map-container">
     <google-map *ngIf="selectedEvent && selectedEvent.lat && selectedEvent.lng" [height]="'400px'" [width]="'600px'" [zoom]="15" [center]="{ lat: selectedEvent.lat, lng: selectedEvent.lng }">

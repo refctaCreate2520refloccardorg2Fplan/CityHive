@@ -70,6 +70,8 @@ export class EventsListComponent implements OnInit, OnDestroy {
   // Sledovanie, ktorá udalosť je hovernutá (pre zobrazenie mapy)
   hoveredEventId: string | null = null;
 
+
+
   constructor(
     private eventService: EventService,
     private router: Router,
