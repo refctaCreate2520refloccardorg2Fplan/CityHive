@@ -148,4 +148,49 @@
       </div>
     </div>
   </section>
+
+  <!-- Admin Chats Section (list of chats) -->
+  <section>
+    <h3>Admin Chats</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Chat ID</th>
+          <th>Konverzačné meno</th>
+          <th>Last Message</th>
+          <th>Updated</th>
+          <th>Open Chat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let chat of chats">
+          <td>{{ chat.id }}</td>
+          <td>{{ chat.conversationName }}</td>
+          <td>{{ chat.lastMessage }}</td>
+          <td>{{ chat.updatedAt | date:'short' }}</td>
+          <td>
+            <button (click)="openChat(chat)">Open Chat</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Chat Window: detail chatu zobrazený v admin paneli -->
+  <section *ngIf="selectedChat" class="chat-window">
+    <h3>Chat with {{ selectedChat.conversationName }}</h3>
+    <div class="chat-container">
+      <div class="messages">
+        <div *ngFor="let msg of chatMessages" class="message" [class.own]="msg.senderId === authService.userData?.uid">
+          <strong>{{ msg.senderName }}:</strong> {{ msg.message }}
+          <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+        </div>
+      </div>
+      <div class="new-message">
+        <input type="text" [(ngModel)]="newAdminMessage" placeholder="Napíšte správu..." (keyup.enter)="sendAdminMessage()">
+        <button (click)="sendAdminMessage()">Odoslať</button>
+      </div>
+    </div>
+    <button (click)="closeChat()">Close Chat</button>
+  </section>
 </div>

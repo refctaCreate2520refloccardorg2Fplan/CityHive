@@ -37,6 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 //import { EventEditComponent } from '../events/event-edit/event-edit.component';
 import { EventEditComponent } from '../events/event-edit/event-edit.component'
 import { GoogleMapsModule } from '@angular/google-maps';
+import { AdminOrganizerChatComponent } from '../admin-organizer-chat/admin-organizer-chat.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     PublicCalendarComponent,
     AdminComponent,
     StanSaOrganizatoromComponent,
-    EventEditComponent
+    EventEditComponent,
+    AdminOrganizerChatComponent
 
 
 
@@ -113,6 +115,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
       { path: 'organizer-calendar', component: OrganizerCalendarComponent, canActivate: [OrganizerGuard] },
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
       { path: 'Stan-Sa-Organizatorom', component: StanSaOrganizatoromComponent },
+      { path: 'AdminOrganizerChat', component: AdminOrganizerChatComponent, canActivate: [OrganizerGuard] },
 
     ]),
   ],

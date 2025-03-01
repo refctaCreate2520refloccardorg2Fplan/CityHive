@@ -37,7 +37,7 @@ export class EventCreateComponent implements OnInit {
   selectedMainImage: File | null = null;
   selectedAdditionalImages: File[] = [];
 
-  categories = ['Výstava', 'Koncerty', 'Festivaly', 'Kino', 'Besedy a prednášky', 'Mestské slávnosti', 'Tematické festivaly'];
+  categories = ['Výstava', 'Koncerty', 'Festivaly', 'Kino', 'Besedy a prednášky', 'Mestské slávnosti', 'Tematické festivaly', 'Sport'];
 
   // Definícia preddefinovaných miest s adresou a súradnicami
   venues: Venue[] = [
@@ -49,7 +49,8 @@ export class EventCreateComponent implements OnInit {
     { name: 'MsKS', address: 'Mierové námestie 942/3, Galanta', lat: 48.2035, lng: 17.6590 },
     { name: 'galantsky neogoticky kastiel', address: 'Parková 760, 924 01 Galanta', lat: 48.2040, lng: 17.6585 },
     { name: 'galantska kniznica', address: 'Mierové námestie 4, Galanta', lat: 48.2048, lng: 17.6598 },
-    { name: 'kino', address: 'Mierové námestie 942/3, Galanta', lat: 48.2037, lng: 17.6587 }
+    { name: 'kino', address: 'Mierové námestie 942/3, Galanta', lat: 48.2037, lng: 17.6587 },
+    { name: 'Vlastne', address: '..', lat: 48.2037, lng: 17.6587 }
   ];
 
   // Ak chcete, môžete vytvoriť getter pre zoznam názvov miest
