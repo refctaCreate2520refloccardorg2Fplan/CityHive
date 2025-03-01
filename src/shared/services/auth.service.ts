@@ -95,14 +95,14 @@ export class AuthService {
     return user ? user.uid : null;
   }
 
-  // New observable-based login check
+  // Observable pre zistenie, či je používateľ prihlásený
   isLoggedIn$(): Observable<boolean> {
     return this.afAuth.authState.pipe(
       map(user => !!user)
     );
   }
 
-  // Updated to use authState and valueChanges() for reactive role checking
+  // Reactive získavanie role aktuálneho používateľa
   getCurrentUserRole(): Observable<UserRole | null> {
     return this.afAuth.authState.pipe(
       switchMap(user => {
@@ -146,7 +146,7 @@ export class AuthService {
       });
   }
 
-  // Updated register to accept displayName
+  // Registrácia s prihliadnutím na displayName
   register(email: string, password: string, displayName: string): Promise<any> {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then(async (result) => {
@@ -182,7 +182,7 @@ export class AuthService {
       });
   }
 
-  // Synchronous getter for legacy usage (not used by guards in this solution)
+  // Synchronous getter pre legacy usage
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || 'null');
     return user !== null;
@@ -210,7 +210,7 @@ export class AuthService {
       const userRef: AngularFirestoreDocument<User> = this.afs.doc(`users/${user.uid}`);
       const docSnapshot = await userRef.get().toPromise();
       const existingData = docSnapshot && docSnapshot.exists ? docSnapshot.data() : null;
-      // Default role is 'user' if none exists
+      // Defaultná rola je 'user', ak nie je nastavená
       let role = (existingData && existingData.role) ? existingData.role : UserRole.User;
       const userData: User = {
         uid: user.uid,
