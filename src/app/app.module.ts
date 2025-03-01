@@ -108,7 +108,7 @@ import { EventEditComponent } from  '../events/event-edit/event-edit.component'
         path: 'events/:id', component: EventDetailComponent
       },
       { path: 'public-calendar', component: PublicCalendarComponent },
-      { path: 'organizer-calendar', component: OrganizerCalendarComponent },
+      { path: 'organizer-calendar', component: OrganizerCalendarComponent, canActivate: [OrganizerGuard] },
       { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
       { path: 'Stan-Sa-Organizatorom', component: StanSaOrganizatoromComponent },
 
