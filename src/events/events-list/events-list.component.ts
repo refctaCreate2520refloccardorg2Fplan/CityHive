@@ -33,6 +33,7 @@ export interface EventDTO {
   styleUrls: ["./events-list.component.scss"]
 })
 export class EventsListComponent implements OnInit, OnDestroy {
+  selectedEvent: any = null;
   events: EventDTO[] = [];
   filteredEvents: EventDTO[] = [];
   searchQuery = "";
@@ -126,7 +127,13 @@ export class EventsListComponent implements OnInit, OnDestroy {
   }
 
   goToEvent(eventId: string): void {
-    this.router.navigate(["/events", eventId]);
+    // Find the event in your data
+    const event = this.filteredEvents.find(e => e.id === eventId);
+    if (event) {
+      this.selectedEvent = event;
+      // Optional:  Navigate to a different route/page for the event details
+      // this.router.navigate(['/event', eventId]);
+    }
   }
 
   getGoogleCalendarUrl(e: EventDTO): string {

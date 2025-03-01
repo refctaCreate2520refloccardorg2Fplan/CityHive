@@ -235,3 +235,42 @@
   pointer-events: none;
   margin-right: 0.3vw;
 }
+
+
+.map-container {
+    margin-top: 2vw;
+    transition: opacity 0.2s ease-in
+}
+
+
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 20px; /* Adjust the gap as needed */
+  width: 115%; /* Take up the full width */
+  padding: 20px;
+}
+
+.events-list-container {
+  /* Styles for the left column (event list) */
+}
+
+.right-map-container {
+  /* Styles for the right column (map) */
+  /* You might want to add some padding or margin here */
+  margin-top: 1vw;
+  height: 600px; /* Match the google-map height */
+  width: 800px; /* Match the google-map width */
+}
+
+.events-list-list {
+  width: 100%; /* Ensure list takes full width */
+}
+
+.event-card {
+  /* Existing styles for event-card */
+}
+
+.map-container {
+  display: none; /* Hides the map-container inside the event card*/
+}
