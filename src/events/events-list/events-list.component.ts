@@ -6,6 +6,7 @@ import { AuthService } from "../../shared/services/auth.service";
 import { Subscription } from "rxjs";
 import { InterestEmailService, EventData } from "../../shared/services/interest-email.service";
 
+// Rozšírený model udalosti s voliteľnými súradnicami
 export interface EventDTO {
   id?: string;
   title: string;
@@ -22,6 +23,8 @@ export interface EventDTO {
   interestRating?: number;
   category: string;
   place: string;
+  lat?: number;
+  lng?: number;
 }
 
 @Component({
@@ -35,13 +38,11 @@ export class EventsListComponent implements OnInit, OnDestroy {
   searchQuery = "";
   interestRatings: { [id: string]: number } = {};
 
-  // Likes functionality
   eventsWithLikes: { id: string; totalLikes: number }[] = [];
   likesSubscriptions: { [eventId: string]: Subscription } = {};
   userLikes: { [eventId: string]: boolean } = {};
   userLikesSubscriptions: Subscription[] = [];
 
-  // Filtering properties
   categories = [
     "Výstava",
     "Koncerty",
@@ -51,27 +52,38 @@ export class EventsListComponent implements OnInit, OnDestroy {
     "Mestské slávnosti",
     "Tematické festivaly"
   ];
-  places = ["Bambuľkovo", "Kino"];
+  places = [
+    'Csemadok',
+    'Matica',
+    'vlastivedne muzeum',
+    'galantske osvietene stredisko',
+    'renesancny kastiel',
+    'MsKS',
+    'galantsky neogoticky kastiel',
+    'galantska kniznica',
+    'kino'
+  ];
   selectedCategory: string | null = null;
   selectedPlace: string | null = null;
+
+  // Sledovanie, ktorá udalosť je hovernutá (pre zobrazenie mapy)
+  hoveredEventId: string | null = null;
 
   constructor(
     private eventService: EventService,
     private router: Router,
     private firestore: AngularFirestore,
     public authService: AuthService,
-    private interestEmailService: InterestEmailService // Injektujeme službu
+    private interestEmailService: InterestEmailService
   ) { }
 
   ngOnInit(): void {
-    // Načítame všetky eventy
     this.eventService.getAllEvents().subscribe(data => {
-      // Filtrovanie iba schválených udalostí
+      // Filtrácia iba schválených udalostí
       this.events = data.filter(e => e.isApproved);
       this.events.forEach(e => {
         if (e.id) {
-          this.interestRatings[e.id] =
-            e.interestRating !== undefined ? e.interestRating : 50;
+          this.interestRatings[e.id] = e.interestRating !== undefined ? e.interestRating : 50;
         }
       });
       this.filterEvents();
@@ -81,7 +93,6 @@ export class EventsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Odoberieme všetky subscription
     Object.values(this.likesSubscriptions).forEach(sub => sub.unsubscribe());
     this.userLikesSubscriptions.forEach(sub => sub.unsubscribe());
   }
@@ -119,59 +130,40 @@ export class EventsListComponent implements OnInit, OnDestroy {
   }
 
   getGoogleCalendarUrl(e: EventDTO): string {
-    // Pomocná funkcia na formátovanie dátumu pre Google Calendar
     const formatDate = (date: Date): string => {
       return date.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
     };
 
-    // Vytvoríme Date objekty zo stringov
     const start = new Date(e.startDateTime);
     const end = new Date(e.endDateTime);
-
     const startStr = formatDate(start);
     const endStr = formatDate(end);
-
-    // Zakódujeme ďalšie údaje
     const details = encodeURIComponent(e.description || "");
     const location = encodeURIComponent(e.place || "");
     const text = encodeURIComponent(e.title);
-
-    // Zostavíme URL pre Google Calendar
     return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${startStr}/${endStr}&details=${details}&location=${location}`;
   }
-
 
   onInterestChange(event: Event, eventId: string): void {
     const input = event.target as HTMLInputElement;
     const value = +input.value;
     this.interestRatings[eventId] = value;
-    this.eventService
-      .updateInterest(eventId, value)
+    this.eventService.updateInterest(eventId, value)
       .then(() => console.log("Hodnota záujmu bola úspešne uložená"))
-      .catch(error =>
-        console.error("Chyba pri ukladaní hodnoty záujmu:", error)
-      );
+      .catch(error => console.error("Chyba pri ukladaní hodnoty záujmu:", error));
   }
 
-  // Likes functionality
   setupLikesSubscriptions() {
-    this.firestore
-      .collection<EventDTO>("events")
-      .snapshotChanges()
-      .subscribe(actions => {
+    this.firestore.collection<EventDTO>("events")
+      .snapshotChanges().subscribe(actions => {
         actions.forEach(eventAction => {
           const eventId = eventAction.payload.doc.id;
           if (!this.likesSubscriptions[eventId]) {
-            this.likesSubscriptions[eventId] = this.firestore
-              .collection("events")
-              .doc(eventId)
-              .collection("likes")
-              .snapshotChanges()
-              .subscribe(likeActions => {
+            this.likesSubscriptions[eventId] = this.firestore.collection("events")
+              .doc(eventId).collection("likes")
+              .snapshotChanges().subscribe(likeActions => {
                 const count = likeActions.length;
-                const index = this.eventsWithLikes.findIndex(
-                  item => item.id === eventId
-                );
+                const index = this.eventsWithLikes.findIndex(item => item.id === eventId);
                 if (index > -1) {
                   this.eventsWithLikes[index].totalLikes = count;
                 } else {
@@ -184,21 +176,16 @@ export class EventsListComponent implements OnInit, OnDestroy {
   }
 
   trackUserLikes() {
-    const sub = this.firestore
-      .collection<EventDTO>("events")
-      .snapshotChanges()
-      .subscribe(actions => {
+    const sub = this.firestore.collection<EventDTO>("events")
+      .snapshotChanges().subscribe(actions => {
         actions.forEach(eventAction => {
           const eventId = eventAction.payload.doc.id;
           const currentUid = this.authService.userData?.uid;
           if (currentUid) {
-            const userLikeSub = this.firestore
-              .collection("events")
-              .doc(eventId)
-              .collection("likes")
+            const userLikeSub = this.firestore.collection("events")
+              .doc(eventId).collection("likes")
               .doc(currentUid)
-              .snapshotChanges()
-              .subscribe(likeSnapshot => {
+              .snapshotChanges().subscribe(likeSnapshot => {
                 this.userLikes[eventId] = likeSnapshot.payload.exists;
               });
             this.userLikesSubscriptions.push(userLikeSub);
@@ -208,38 +195,25 @@ export class EventsListComponent implements OnInit, OnDestroy {
     this.userLikesSubscriptions.push(sub);
   }
 
-  /**
-   * Metóda na "lajknutie" eventu, po úspešnom zapísaní "like" do Firestore
-   * odošle email pomocou služby `InterestEmailService`.
-   */
   async likeEvent(eventId: string) {
     if (!this.authService.isLoggedIn) {
       console.error("User is not logged in.");
       return;
     }
-
     try {
       const uid = await this.authService.getCurrentUserId();
-      const email = this.authService.userData?.email; // email používateľa
+      const email = this.authService.userData?.email;
       if (uid && email) {
-        const likeRef = this.firestore
-          .collection("events")
-          .doc(eventId)
-          .collection("likes")
+        const likeRef = this.firestore.collection("events")
+          .doc(eventId).collection("likes")
           .doc(uid);
-
-        // Skontrolujeme, či už "like" existuje
         const likeDoc = await likeRef.get().toPromise();
         if (likeDoc && likeDoc.exists) {
-          // Ak existuje, zrušíme ho (odlajknutie)
           await likeRef.delete();
           console.log("Like removed successfully!");
         } else {
-          // Ak neexistuje, vytvoríme ho (like)
           await likeRef.set({ eventId, uid, email, timestamp: new Date() });
           console.log("Like recorded successfully!");
-
-          // Nájdeme event z this.events
           const eventData: EventData = {
             title: this.events.find(e => e.id === eventId)?.title || "",
             description: this.events.find(e => e.id === eventId)?.description,
@@ -247,15 +221,9 @@ export class EventsListComponent implements OnInit, OnDestroy {
             endDateTime: this.events.find(e => e.id === eventId)?.endDateTime || "",
             location: this.events.find(e => e.id === eventId)?.place || ""
           };
-
-          // Zavoláme službu, ktorá odošle email (EmailJS)
           this.interestEmailService.sendInterestEmail(email, eventData)
-            .then(response => {
-              console.log("Email odoslaný úspešne", response);
-            })
-            .catch(error => {
-              console.error("Chyba pri odosielaní emailu:", error);
-            });
+            .then(response => console.log("Email odoslaný úspešne", response))
+            .catch(error => console.error("Chyba pri odosielaní emailu:", error));
         }
       } else {
         console.error("User UID alebo email nie sú k dispozícii.");
@@ -268,5 +236,14 @@ export class EventsListComponent implements OnInit, OnDestroy {
   getLikesCount(eventId: string): number {
     const eventLikes = this.eventsWithLikes.find(item => item.id === eventId);
     return eventLikes ? eventLikes.totalLikes : 0;
+  }
+
+  // Metódy na zobrazenie mapy pri hoverovaní
+  onMouseEnter(event: EventDTO) {
+    this.hoveredEventId = event.id || null;
+  }
+
+  onMouseLeave() {
+    this.hoveredEventId = null;
   }
 }

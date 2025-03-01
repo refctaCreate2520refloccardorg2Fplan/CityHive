@@ -42,13 +42,13 @@
       </div>
     </div>
 
-    <!-- Vstup pre hlavný obrázok -->
+    <!-- Hlavný obrázok -->
     <div class="form-group">
       <label>Hlavný obrázok:</label>
       <input type="file" (change)="onMainImageSelected($event)" accept="image/*">
     </div>
 
-    <!-- Vstup pre dodatočné obrázky -->
+    <!-- Dodatočné obrázky -->
     <div class="form-group">
       <label>Ďalšie obrázky:</label>
       <input type="file" multiple (change)="onAdditionalImagesSelected($event)" accept="image/*">
@@ -70,10 +70,13 @@
       </select>
     </div>
 
+    <!-- Výber miesta s automatickým priradením adresy a súradníc -->
     <div class="form-group">
       <label>Miesto:</label>
-      <select [(ngModel)]="newEvent.place" name="place" required>
-        <option *ngFor="let place of places" [value]="place">{{ place }}</option>
+      <select [(ngModel)]="newEvent.place" name="place" required (change)="onVenueChange($event)">
+        <option *ngFor="let venue of venues" [value]="venue.name">
+          {{ venue.name }} - {{ venue.address }}
+        </option>
       </select>
     </div>
 
