@@ -8,10 +8,10 @@ import { EventService, EventDTO } from '../../shared/services/event.service';
   styleUrls: ['./event-edit.component.scss']
 })
 export class EventEditComponent {
-  // Lokálna kópia udalosti na úpravu
+  // Vytvoríme lokálnu kópiu udalosti, aby sa pôvodné dáta v dialógu nemenili pred potvrdením
   event: EventDTO = { ...this.data.event };
 
-  // Nové obrázky, ktoré sa majú nahrať
+  // Premenné pre nové obrázky, ktoré sa majú nahrať
   newMainImage: File | null = null;
   newAdditionalImages: File[] = [];
 
@@ -56,7 +56,7 @@ export class EventEditComponent {
   }
 
   async updateEvent() {
-    // Základná validácia
+    // Základná validácia vstupov
     if (!this.event.title) {
       alert('Názov je povinný');
       return;
@@ -67,12 +67,12 @@ export class EventEditComponent {
     }
 
     try {
-      // Ak bol vybraný nový hlavný obrázok, nahrajeme ho a aktualizujeme
+      // Ak bol vybraný nový hlavný obrázok, nahrajeme ho a získame URL
       if (this.newMainImage && this.event.id) {
         const mainUrl = await this.eventService.uploadEventImage(this.newMainImage, this.event.id);
         this.event.photoURL = mainUrl;
       }
-      // Ak boli vybraté nové dodatočné obrázky, nahrajeme ich a pripojíme k existujúcim
+      // Ak boli vybraté nové dodatočné obrázky, nahrajeme ich a pripojíme k už existujúcim (ak sú)
       if (this.newAdditionalImages.length > 0 && this.event.id) {
         const additionalUrls: string[] = this.event.photos ? [...this.event.photos] : [];
         for (const file of this.newAdditionalImages) {
