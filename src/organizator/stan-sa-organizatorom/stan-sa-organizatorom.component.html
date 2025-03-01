@@ -35,3 +35,80 @@
     <button type="submit" [disabled]="isSubmitting || organizerForm.invalid">Odoslať žiadosť</button>
   </form>
 </div>
+
+<div class="events-container">
+  <div class="container-name">Požiadať Podujatie</div>
+</div>
+
+<!-- Zobrazenie formulára pre všetkých -->
+<div class="stan-sa-organizatorom-container">
+  <form [formGroup]="organizerForm" (ngSubmit)="submitRequest()">
+    <div class="form-group">
+      <label for="ico">IČO:</label>
+      <input id="ico" formControlName="ico" type="text" placeholder="Zadajte IČO" (change)="fetchCompanyData()">
+    </div>
+    <div class="form-group">
+      <label for="companyName">Názov firmy:</label>
+      <input id="companyName" formControlName="companyName" type="text" placeholder="Automaticky vyplnené">
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" placeholder="Zadajte email">
+    </div>
+    <div class="form-group">
+      <label for="phone">Telefón:</label>
+      <input id="phone" formControlName="phone" type="text" placeholder="Zadajte telefón">
+      <button type="button" (click)="sendSmsCode()">Overiť telefón</button>
+    </div>
+    <div class="form-group" *ngIf="smsCodeSent && !phoneVerified">
+      <label for="smsCode">Zadajte SMS kód:</label>
+      <input id="smsCode" type="text" #smsCode placeholder="SMS kód">
+      <button type="button" (click)="verifySmsCode(smsCode.value)">Overiť kód</button>
+    </div>
+    <div class="verification-message">{{ verificationMessage }}</div>
+    <div class="form-group">
+      <label for="parkingSpaces">Počet parkovacích miest:</label>
+      <input id="parkingSpaces" formControlName="parkingSpaces" type="number" placeholder="Zadajte počet" min="0">
+    </div>
+    <div class="form-group">
+      <label for="groupName">Názov skupiny:</label>
+      <input id="groupName" formControlName="groupName" type="text" placeholder="Zadajte názov skupiny">
+      <div *ngIf="organizerForm.get('groupName')?.invalid && organizerForm.get('groupName')?.touched" class="error">
+        Pole je povinné.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="members">Členovia:</label>
+      <input id="members" formControlName="members" type="text" placeholder="Zadajte členov">
+      <div *ngIf="organizerForm.get('members')?.invalid && organizerForm.get('members')?.touched" class="error">
+        Pole je povinné.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="contact">Kontakt:</label>
+      <input id="contact" formControlName="contact" type="text" placeholder="Zadajte kontakt">
+      <div *ngIf="organizerForm.get('contact')?.invalid && organizerForm.get('contact')?.touched" class="error">
+        Pole je povinné.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="customLinks">Vlastné linky:</label>
+      <input id="customLinks" formControlName="customLinks" type="text" placeholder="Zadajte vlastné linky">
+    </div>
+    <div class="form-group">
+      <label for="attachments">Priložiť PDF/Fotky:</label>
+      <input id="attachments" formControlName="attachments" type="file" multiple>
+    </div>
+    <div class="form-group">
+      <label for="customTags">Vlastné tagy:</label>
+      <input id="customTags" formControlName="customTags" type="text" placeholder="Zadajte tagy oddelené čiarkou">
+    </div>
+    <div class="form-group">
+      <label for="customLocation">Vlastné miesto (Google Mapy):</label>
+      <input id="customLocation" formControlName="customLocation" type="text" placeholder="Vyhľadajte miesto">
+    </div>
+    <button type="submit" [disabled]="isSubmitting || organizerForm.invalid">Odoslať žiadosť</button>
+  </form>
+</div>
+
+
