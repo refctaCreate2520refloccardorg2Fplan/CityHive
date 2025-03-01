@@ -1,30 +1,48 @@
-<div class="organizer-calendar-container">
-  <h2>Kalendár Organizátora (jednojazyčný)</h2>
+<div class="events-container">
 
-  <!-- Tlačidlo na otvorenie dialógu pre vytvorenie udalosti -->
+  <div class="container-name">Kalendár organizátora</div>
   <button class="create-event-button" (click)="openCreateEventDialog()">Vytvoriť udalosť</button>
+</div>
 
+
+
+
+
+
+<div class="organizer-calendar-container">
   <div class="my-events">
-    <h3>Moje Eventy</h3>
+    <h3>Vaše podujatia</h3>
     <ul>
       <li *ngFor="let e of allEvents">
-        <div *ngIf="canEdit(e)">
-          <strong>Môj:</strong> {{ e.title }} ({{ e.isApproved ? 'schválené' : 'čaká' }})
-          <button (click)="editEvent(e)">Upraviť</button>
+        <div *ngIf="canEdit(e)" class="event-item">
+          <span class="event-title"><strong>My:</strong> {{ e.title }}</span>
+          <span class="event-status" [ngClass]="{'approved': e.isApproved}">
+            {{ e.isApproved ? 'Schválené' : 'Čaká na schválenie' }}
+          </span>
+          <button (click)="editEvent(e)">Edit</button>
         </div>
       </li>
     </ul>
   </div>
 
-  <hr>
+  <hr class="event-separator">
 
   <div class="all-events">
-    <h3>Všetky Eventy (Read-Only okrem vlastných)</h3>
+    <h3>Všetky podujatia</h3>
     <ul>
-      <li *ngFor="let e of allEvents">
-        <strong *ngIf="canEdit(e)">Môj: </strong>{{ e.title }} ({{ e.startDateTime }} - {{ e.endDateTime }})
-        ({{ e.isApproved ? 'OK' : 'WAIT' }})
+      <li *ngFor="let e of allEvents" class="event-item">
+        <span class="event-title">
+          <strong *ngIf="canEdit(e)">My: </strong>{{ e.title }}
+        </span>
+        <span class="event-datetime">
+          {{ e.startDateTime | date:'d.M.yyyy HH:mm' }} - {{ e.endDateTime | date:'d.M.yyyy HH:mm' }}
+        </span>
+        <span class="event-status" [ngClass]="{'approved': e.isApproved}">
+          {{ e.isApproved ? 'Schváelné' : 'Čaká na schválenie' }}
+        </span>
       </li>
     </ul>
   </div>
 </div>
+
+

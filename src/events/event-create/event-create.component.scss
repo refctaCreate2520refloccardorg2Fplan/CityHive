@@ -1,40 +1,140 @@
+* {
+    font-family: Poppins-Regular;
+}
+
 .event-create-container {
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
+  padding: 2vw;
+  background-color: #fff;
+  border-radius: 0.8vw;
   position: relative;
-  max-width: 600px;
-  margin: auto;
+  max-width: 60vw;
+  margin: auto; /* Center the dialog */
+  box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 1vw;
+}
+
+.header h2 {
+  font-size: 1.8vw;
+  color: #2e2e2e;
 }
 
 .close-button {
-  background: transparent;
+  background: none;
   border: none;
-  font-size: 20px;
+  font-size: 2vw;
   cursor: pointer;
+  color: #ca2736;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: #8A1015;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 1.5vw;
 }
 
-input, textarea, select {
+.form-group label {
+  display: block;
+  font-size: 1.1vw;
+  margin-bottom: 0.3vw;
+  color: #2e2e2e;
+}
+
+input,
+textarea,
+select {
   width: 100%;
-  padding: 8px;
+  padding: 0.8vw;
   box-sizing: border-box;
+  border: 0.1vw solid #ccc;
+  border-radius: 0.4vw;
+  font-size: 1vw;
+  outline:none;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--rustyred);
+  transition: border-color 0.2s ease;
+}
+
+textarea {
+  resize: vertical; /* Allow vertical resizing */
+  min-height: 8vw;
 }
 
 .number-with-checkbox {
   display: flex;
   align-items: center;
+  gap: 1vw;
 }
 
 .checkbox-group {
-  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 1vw;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.3vw;
+}
+
+.submit-button {
+  background-color: var(--rustyred);
+  color: #fff;
+  border: none;
+  border-radius: 0.4vw;
+  padding: 1vw 2vw;
+  font-size: 1.2vw;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: var(--darkrustyred);
+}
+
+/*  Responsive adjustments for the dialog */
+@media (max-width: 768px) {
+  .event-create-container {
+    max-width: 90vw;
+    padding: 4vw;
+  }
+
+  .header h2 {
+    font-size: 4vw;
+  }
+
+  .close-button {
+    font-size: 5vw;
+  }
+
+  .form-group label {
+    font-size: 2.5vw;
+  }
+
+  input,
+  textarea,
+  select {
+    padding: 2vw;
+    font-size: 2vw;
+  }
+
+  .checkbox-group {
+    font-size: 2vw;
+  }
+
+  .submit-button {
+    font-size: 3vw;
+    padding: 2vw 4vw;
+  }
 }

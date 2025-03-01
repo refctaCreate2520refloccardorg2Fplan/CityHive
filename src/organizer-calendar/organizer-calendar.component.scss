@@ -1,53 +1,125 @@
-.organizer-calendar-container {
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 8px;
-  max-width: 800px;
-  margin: 20px auto;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+* {
+    font-family: Poppins-Regular;
 }
+
+.events-container {
+  margin-top: 2vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container-name {
+  font-size: 2.2vw;
+  margin-bottom: 0.8vw;
+  text-decoration: underline;
+  text-decoration-color: var(--rustyred);
+  text-decoration-thickness: 0.2vw;
+}
+
+.container-name:hover {
+  color: var(--rustyred);
+  text-decoration-color: var(--carbon);
+  transition: color 0.3s ease-in-out, text-decoration-color 0.3s ease-in-out;
+}
+
 
 .create-event-button {
-  background-color: #1976d2;
+    margin-top: 2vw;
+  width: 30vw;
+  padding: 1vw;
+  background-color: var(--rustyred);
   color: #fff;
   border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
+  border-radius: 0.6vw;
+  font-size: 1vw;
   cursor: pointer;
-  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--darkrustyred);
+  }
 }
 
-.create-event-button:hover {
-  background-color: #1565c0;
+
+.organizer-calendar-container {
+  padding: 2vw;
+  background-color: #ececec;
+  border-radius: 0.8vw;
+  max-width: 80vw;
+  margin: 2vw auto;
+  box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.1);
+  color: #2e2e2e;
 }
 
-.my-events, .all-events {
-  margin-bottom: 20px;
+h3 {
+  font-size: 1.8vw;
+  margin-bottom: 1vw;
+  color: #2e2e2e;
 }
 
-.my-events ul, .all-events ul {
+hr.event-separator {
+  border: none;
+  height: 0.1vw;
+  background-color: #2e2e2e;
+  margin: 2vw 0;
+}
+
+.my-events,
+.all-events {
+  margin-bottom: 2vw;
+}
+
+.my-events ul,
+.all-events ul {
   list-style: none;
   padding: 0;
 }
 
-.my-events li, .all-events li {
-  background: #fff;
-  padding: 10px;
-  border: 1px solid #ddd;
-  margin-bottom: 10px;
-  border-radius: 4px;
+.event-item {
+  background-color: white;
+  padding: 1vw;
+  border: 0.1vw solid #2e2e2e;
+  margin-bottom: 1vw;
+  border-radius: 0.4vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.event-item:hover {
+    transform:translateY(1.5px);
+    transition: transform 0.1s ease;
+}
+
+.event-title {
+  flex-grow: 1;
+}
+
+.event-status {
+  font-size: 0.9vw;
+  margin-left: 1vw;
+  padding: 0.3vw 0.6vw;
+  border-radius: 0.3vw;
+  color: white;
+  background-color: #F5BF00;
+}
+
+.event-status.approved {
+  background-color: green;
 }
 
 .my-events button {
-  margin-left: 10px;
-  padding: 5px 10px;
+  padding: 0.5vw 1vw;
   border: none;
-  background: #ff9800;
-  color: #fff;
-  border-radius: 4px;
+  background-color: #ca2736;
+  color: #ececec;
+  border-radius: 0.4vw;
   cursor: pointer;
+  font-size: 1vw;
+  transition: background-color 0.2s ease;
 }
 
 .my-events button:hover {
-  background: #fb8c00;
+  background-color: #8A1015;
 }
