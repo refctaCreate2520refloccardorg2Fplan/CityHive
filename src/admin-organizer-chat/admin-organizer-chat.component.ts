@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from '../shared/services/auth.service';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ interface ChatMessage {
   senderName: string;
   message: string;
   timestamp: any;
+  isOwn?: boolean; // Add isOwn property
 }
 
 @Component({
@@ -36,6 +37,19 @@ export class AdminOrganizerChatComponent implements OnInit {
     this.loadChatMessages();
   }
 
+  @ViewChild('chatMessagesContainer')
+  chatMessagesContainer!: ElementRef;
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
+
   loadChatMessages() {
     this.afs.collection<ChatMessage>(`chats/${this.chatRoomId}/messages`, ref => ref.orderBy('timestamp'))
       .snapshotChanges()
@@ -43,7 +57,9 @@ export class AdminOrganizerChatComponent implements OnInit {
         map(actions => actions.map(a => {
           const data = a.payload.doc.data() as ChatMessage;
           const id = a.payload.doc.id;
-          return { id, ...data };
+          const isOwn = data.senderId === this.currentUserId; // Determine if message is own
+          return { id, ...data, isOwn };
+
         }))
       )
       .subscribe(messages => {

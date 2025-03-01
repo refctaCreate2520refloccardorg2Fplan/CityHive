@@ -1,0 +1,153 @@
+/* Chat Wrapper - To control the width and margin */
+.chat-wrapper {
+  width: 90vw; /* Take up 90% of the screen width */
+  margin: 2vw auto; /* Center the chat container */
+  /*background-color: #ececec;
+  padding: 1.5vw;
+  border-radius: 0.8vw;
+  box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);  Added default shadow
+  border: 0.1vw solid #2e2e2e;*/
+}
+
+/* Chat Container */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 70vh; /* Adjust as needed - viewport height */
+  /*width: 100%;  Occupy full width of chat-wrapper*/ /* Remove the full screen properties */
+  background-color: #f9f9f9; /* Lighter background */
+  overflow: hidden; /* Clip rounded corners */
+  box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  /*  position: fixed;   Remove the full screen properties */
+  /*top: 0;
+  left: 0;
+  margin: 0;  Remove the full screen properties */
+  border-radius: 0.8vw;
+}
+
+/* Chat Header */
+.chat-header {
+  background: linear-gradient(to right, #ca2736, #8A1015); /* Gradient header */
+  color: #ececec;
+  padding: 1.5vw 2.5vw;
+  text-align: left;
+  font-size: 1.8vw;
+  font-weight: 500; /* Slightly lighter font weight */
+}
+
+/* Chat Messages Area */
+.chat-messages {
+  flex-grow: 1;
+  padding: 2vw;
+  overflow-y: auto; /* Enable vertical scrolling */
+  display: flex;
+  flex-direction: column;
+  scroll-behavior: smooth; /* Smooth scrolling */
+}
+
+/* Individual Chat Message */
+.chat-message {
+  background-color: #fff;
+  border-radius: 0.8vw;
+  padding: 1.2vw 1.5vw;
+  margin-bottom: 1.5vw;
+  width: fit-content; /* Adjust width to content */
+  max-width: 80%; /* Prevent messages from becoming too wide */
+  align-self: flex-start; /* Align messages to the left */
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.1); /* Subtle message shadow */
+}
+
+.chat-message.own {
+  background-color: #e8f5e9; /* Lighter green for own messages */
+  align-self: flex-end; /* Align own messages to the right */
+}
+
+.message-content {
+  margin-bottom: 0.7vw;
+}
+
+.message-content strong {
+  font-weight: 600; /* Slightly bolder sender name */
+  margin-right: 0.7vw;
+  color: #333; /* Darker text color */
+}
+
+.message-content p {
+  margin: 0;
+  word-break: break-word; /* Handles long words */
+  font-size: 1.2vw; /* Slightly larger message text */
+  color: #444;
+}
+
+/* Timestamp */
+.timestamp {
+  font-size: 0.9vw;
+  color: #888;
+  align-self: flex-end; /* Align timestamp to the right of message */
+}
+
+/* Chat Input Area */
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 1.5vw;
+  background-color: #f0f0f0; /* Light gray input background */
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 1vw;
+  border: none; /* Remove input border */
+  border-radius: 0.5vw;
+  font-size: 1.1vw;
+  margin-right: 1.2vw;
+  box-shadow: 0 0.1vw 0.3vw rgba(0, 0, 0, 0.05); /* Subtle input shadow */
+}
+
+.chat-input input:focus {
+  outline: none; /* Remove focus outline */
+}
+
+.chat-input button {
+  background-color: #ca2736;
+  color: #ececec;
+  border: none;
+  padding: 1vw 1.5vw;
+  border-radius: 0.6vw;
+  cursor: pointer;
+  font-size: 1.1vw;
+  transition: background-color 0.2s ease;
+  box-shadow: 0 0.1vw 0.3vw rgba(0, 0, 0, 0.1); /* Button shadow */
+}
+
+.chat-input button:hover {
+  background-color: #8A1015;
+}
+
+/* Small screens */
+@media (max-width: 768px) {
+  .chat-header {
+    font-size: 3vw;
+    padding: 3vw 4vw;
+  }
+
+  .message-content p {
+    font-size: 2vw;
+  }
+
+  .timestamp {
+    font-size: 1.2vw;
+  }
+
+  .chat-input input {
+    font-size: 1.5vw;
+    padding: 1.5vw;
+  }
+
+  .chat-input button {
+    font-size: 1.5vw;
+    padding: 1.5vw 2vw;
+  }
+}

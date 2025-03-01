@@ -1,15 +1,20 @@
-<div class="chat-container">
-  <div class="chat-header">
-    <h3>Chat s administrátorom</h3>
-  </div>
-  <div class="chat-messages">
-    <div *ngFor="let msg of chatMessages" class="chat-message">
-      <strong>{{ msg.senderName }}:</strong> {{ msg.message }}
-      <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+<div class="chat-wrapper">
+  <div class="chat-container">
+    <div class="chat-header">
+      <h3>Konverzácia s administrátorom</h3>
     </div>
-  </div>
-  <div class="chat-input">
-    <input type="text" [(ngModel)]="newMessage" placeholder="Napíšte správu..." (keyup.enter)="sendMessage()">
-    <button (click)="sendMessage()">Odoslať</button>
+    <div class="chat-messages" #chatMessagesContainer>
+      <div *ngFor="let msg of chatMessages" class="chat-message" [class.own]="msg.isOwn">
+        <div class="message-content">
+          <strong>{{ msg.senderName }}:</strong>
+          <p>{{ msg.message }}</p>
+        </div>
+        <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" [(ngModel)]="newMessage" placeholder="Napíšte správu.." (keyup.enter)="sendMessage()">
+      <button (click)="sendMessage()">Odoslať</button>
+    </div>
   </div>
 </div>

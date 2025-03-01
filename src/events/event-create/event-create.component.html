@@ -18,14 +18,20 @@
       <input type="datetime-local" [(ngModel)]="newEvent.startDateTime" name="startDt" required>
     </div>
 
+    <div style="height: 20px; margin-bottom: 10px;margin-top: -25px; font-size:1vw; color: var(--rustyred)" class="header">
+      <p style="padding: 0.2vw; margin-top: 2.3vw; background-color: #ff00004a; border-radius: 0.3vw;" >
+        ❗V tomto čase už prebieha iná udalosť, zvážte zmenu dátumu
+      </p>
+    </div>
+
     <div class="form-group">
       <label>Koniec:</label>
       <input type="datetime-local" [(ngModel)]="newEvent.endDateTime" name="endDt" required>
     </div>
 
     <div class="form-group">
-        <label>Predpredaj lístkov:</label>
-        <input placeholder="napr. link na Ticketportal" name="prepurchase">
+      <label>Predpredaj lístkov:</label>
+      <input placeholder="napr. link na Ticketportal" name="prepurchase">
       <label>Cena:</label>
       <div class="number-with-checkbox">
         <input type="number"
