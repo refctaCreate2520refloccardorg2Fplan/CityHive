@@ -12,12 +12,6 @@
   --darkbody: #181818; // Dark body color
 }
 
-// Reset Styles
-body {
-  margin: 0;
-  padding: 0;
-}
-
 // Navbar Styling
 .navbar {
   font-family: Poppins-Regular;
@@ -86,173 +80,166 @@ body {
 
     .mesto {
       color: white;
-      background-color: var(--darkrustyred);
-.mesto:hover {
-  color: white;
-  background-color: var(--darkrustyred);
-}
+      background-color: var(--rustyred);
+    }
 
-      &:hover {
-        background-color: var(--rustyred);
-        color: white;
-      }
+    .mesto:hover {
+      color: white;
+      background-color: var(--darkrustyred);
     }
 
     .galakarta {
       color: white;
       background-color: #F5BF00;
-.galakarta {
-  color: white;
-  background-color: #F5BF00;
-}
+    }
 
-.galakarta:hover {
-    background-color: #e0ad00;
-}
+    .galakarta:hover {
+      background-color: #e0ad00;
+    }
+    // Authentication Section
+    .navbar-auth {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      cursor: pointer;
+      margin-right: 2vw;
+    }
+  }
 
-.nav-logout {
-  margin: 0 1vw 0 1vw;
-  padding: 0.5vw 0.5vw 0.3vw 0.3vw;
-  border-radius: 5vw;
-  cursor: pointer;
-  align-items: center;
-}
+  .nav-logout { /* Add styles for logout*/
+    margin-left: auto; /* Push to the right */
+    margin-right: 2vw; /* Add some spacing */
+    display: flex; /* Use flexbox for centering */
+    align-items: center; /* Vertically center content */
+    cursor: pointer;
+    padding: 0.5vw;
+    border-radius: 5vw;
 
     &:hover {
       background-color: #dadada;
     }
-  }
-  // Authentication Section
-  .navbar-auth {
-    display: flex;
-    align-items: center;
-    height: 100%;
-
-    .nav-link {
-      padding: 0 1.5vw;
-    }
-  }
-}
-
-// Dropdown Menu for Languages
-.dropdown {
-  align-items: center;
-  position: relative;
-  display: inline-block;
-
-  &:hover {
-    background-color: #dadada;
-  }
-
-  .langsvg {
-    fill: black;
-    width: 2vw;
-    height: 2vw;
-  }
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 4vw;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
 
     a {
-      color: black;
-      padding: 0.5vw 4vw 0.5vw 1vw;
-      text-decoration: none;
-      display: block;
+      display: flex; /* Ensure the SVG is also centered */
+      align-items: center;
+    }
+  }
+  // Dropdown Menu for Languages
+  .dropdown {
+    align-items: center;
+    position: relative;
+    display: inline-block;
 
-      &:hover {
-        background-color: #ddd;
+    &:hover {
+      background-color: #dadada;
+    }
+
+    .langsvg {
+      fill: black;
+      width: 2vw;
+      height: 2vw;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 4vw;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+
+      a {
+        color: black;
+        padding: 0.5vw 4vw 0.5vw 1vw;
+        text-decoration: none;
+        display: block;
+
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+    }
+
+    &:hover .dropdown-content {
+      display: block;
+    }
+  }
+  // Hamburger Menu Styles
+  .burger-menu {
+    width: 3vw;
+    height: 2vw;
+    position: relative;
+    cursor: pointer;
+    display: none; // Hidden by default
+    margin-right: 2vw;
+    z-index: 1000;
+
+    .line {
+      width: 100%;
+      height: 0.3vw;
+      background-color: var(--darknav);
+      position: absolute;
+      transition: all 0.3s ease;
+
+      &.line1 {
+        top: 0;
+      }
+
+      &.line2 {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      &.line3 {
+        bottom: 0;
+      }
+    }
+
+    &.active {
+      .line1 {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      .line2 {
+        opacity: 0;
+      }
+
+      .line3 {
+        transform: translateY(-8px) rotate(-45deg);
       }
     }
   }
-
-  &:hover .dropdown-content {
-    display: block;
-  }
-}
-
-// Hamburger Menu Styles
-.burger-menu {
-  width: 3vw;
-  height: 2vw;
-  position: relative;
-  cursor: pointer;
-  display: none; // Hidden by default
-  margin-right: 2vw;
-  z-index: 1000;
-
-  .line {
-    width: 100%;
-    height: 0.3vw;
-    background-color: var(--darknav);
-    position: absolute;
-    transition: all 0.3s ease;
-
-    &.line1 {
-      top: 0;
-    }
-
-    &.line2 {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &.line3 {
-      bottom: 0;
-    }
-  }
-
-  &.active {
-    .line1 {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .line2 {
-      opacity: 0;
-    }
-
-    .line3 {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-  }
-}
-
-// Media Query for Mobile Devices
-@media (max-width: 768px) {
-  // Hide navbar links by default
-  .navbar-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    position: absolute;
-    top: 5vw;
-    left: 0;
-    background-color: var(--snow);
-    z-index: 999;
-
-    &.active {
-      display: flex;
-    }
-  }
-
-  // Show burger menu on smaller screens
-  .burger-menu {
-    display: flex;
-    align-items: center;
-
-    .nav-link {
+  // Media Query for Mobile Devices
+  @media (max-width: 768px) {
+    // Hide navbar links by default
+    .navbar-links {
+      display: none;
+      flex-direction: column;
       width: 100%;
-      text-align: center;
-      padding: 1vw 0;
+      position: absolute;
+      top: 5vw;
+      left: 0;
+      background-color: var(--snow);
+      z-index: 999;
+
+      &.active {
+        display: flex;
+      }
+    }
+    // Show burger menu on smaller screens
+    .burger-menu {
+      display: flex;
+      align-items: center;
+
+      .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 1vw 0;
+      }
+    }
+    // Hide authentication section on mobile
+    .navbar-auth {
+      display: none;
     }
   }
-
-  // Hide authentication section on mobile
-  .navbar-auth {
-    display: none;
-  }
-}}
+}
