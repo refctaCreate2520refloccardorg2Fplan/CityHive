@@ -3,22 +3,19 @@
   src: url('../assets/Poppins-Regular.ttf');
 }
 
-// Global Variables
 * {
-  --cardinalred: #C42847; // Primary red color
-  --rustyred: #ca2736; // Secondary red color
-  --snow: #ececec; // Light background color
-  --darknav: #222222; // Dark navigation color
-  --darkbody: #181818; // Dark body color
+  --cardinalred: #C42847;
+  --rustyred: #ca2736;
+  --snow: #ececec;
+  --darknav: #222222;
+  --darkbody: #181818;
 }
 
-// Reset Styles
 body {
   margin: 0;
   padding: 0;
 }
 
-// Navbar Styling
 .navbar {
   font-family: Poppins-Regular;
   display: flex;
@@ -28,86 +25,83 @@ body {
   background-color: var(--snow);
   color: var(--rustyred);
   height: 5vw;
-  box-shadow: 0 0.08vw 0.1vw rgba(0, 0, 0, 0.25);
-  // Logo Section
-  .navbar-logo {
-    display: flex;
-    align-items: center;
-    margin-left: 2vw;
+  box-shadow: 0 0.08vw 0.1vw rgb(0, 0, 0, 0.25);
+}
 
-    svg {
-      height: 4.6vw;
-      width: auto;
-    }
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  margin-left: 2vw;
+}
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 1.5vw;
-      line-height: 1;
+.navbar-logo svg {
+  height: 4.6vw;
+  width: auto;
+}
 
-      .Galantaa {
-        color: #a8a8a8;
-        font-size: 1.5vw;
-      }
+.logo-text {
+  display: flex;
+  text-decoration: none;
+  flex-direction: column;
+  justify-content: center;
+}
 
-      .Eventss {
-        color: var(--cardinalred);
-        font-size: 2.1vw;
-      }
-    }
-  }
-  // Navigation Links
-  .navbar-links {
-    display: flex;
-    height: 100%;
-    font-size: 1.2vw;
-    align-items: center;
+.logo-text {
+  font-size: 1.5vw;
+  line-height: 1;
+}
 
-    .nav-link {
-      color: white;
-      background-color: var(--rustyred);
-      text-decoration: none;
-      padding: 0 1.5vw;
-      display: flex;
-      align-items: center;
-      height: 100%;
-      font-size: 1.2vw;
-      transition: background-color 0.2s ease, color 0.2s ease;
+.logo-text .Galantaa {
+  color: #a8a8a8;
+  font-size: 1.5vw;
+}
 
-      &:hover,
-      &:active {
-        background-color: white;
-        color: var(--rustyred);
-      }
-    }
+.logo-text .Eventss {
+  color: var(--cardinalred);
+  font-size: 2.1vw;
+}
 
-    .mesto {
-      color: white;
-      background-color: var(--darkrustyred);
+.navbar-links {
+  display: flex;
+  height: 100%;
+  font-size: 1.2vw;
+  align-items: center;
+}
+
+.nav-link {
+  color: white;
+  background-color: var(--rustyred);
+  text-decoration: none;
+  padding: 0 1.5vw;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 1.2vw;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: white;
+  color: var(--rustyred);
+}
+
+.nav-link:active {
+  background-color: white;
+  color: var(--rustyred);
+}
+
 .mesto:hover {
   color: white;
   background-color: var(--darkrustyred);
 }
 
-      &:hover {
-        background-color: var(--rustyred);
-        color: white;
-      }
-    }
-
-    .galakarta {
-      color: white;
-      background-color: #F5BF00;
 .galakarta {
   color: white;
   background-color: #F5BF00;
 }
 
 .galakarta:hover {
-    background-color: #e0ad00;
+  background-color: #e0ad00;
 }
 
 .nav-logout {
@@ -118,141 +112,148 @@ body {
   align-items: center;
 }
 
-    &:hover {
-      background-color: #dadada;
-    }
-  }
-  // Authentication Section
-  .navbar-auth {
-    display: flex;
-    align-items: center;
-    height: 100%;
-
-    .nav-link {
-      padding: 0 1.5vw;
-    }
-  }
+.nav-logout:hover {
+  background-color: #dadada;
 }
 
-// Dropdown Menu for Languages
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar-auth .nav-link {
+  padding: 0 1.5vw;
+}
+
+
+/* The container <div> - needed to position the dropdown content */
 .dropdown {
   align-items: center;
   position: relative;
   display: inline-block;
-
-  &:hover {
-    background-color: #dadada;
-  }
-
-  .langsvg {
-    fill: black;
-    width: 2vw;
-    height: 2vw;
-  }
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 4vw;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-
-    a {
-      color: black;
-      padding: 0.5vw 4vw 0.5vw 1vw;
-      text-decoration: none;
-      display: block;
-
-      &:hover {
-        background-color: #ddd;
-      }
-    }
-  }
-
-  &:hover .dropdown-content {
-    display: block;
-  }
 }
 
-// Hamburger Menu Styles
+.dropdown:hover {
+  background-color: #dadada;
+}
+
+.langsvg {
+  fill: black;
+  width: 2vw;
+  height: 2vw;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 4vw;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 0.5vw 4vw 0.5vw 1vw;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+
+
+
+/*  New Burger Menu Styles  */
 .burger-menu {
-  width: 3vw;
+  width: 3vw; /* Adjusted size for better fit */
   height: 2vw;
   position: relative;
   cursor: pointer;
-  display: none; // Hidden by default
+  display: none; /* Hidden by default, shown in media query */
   margin-right: 2vw;
-  z-index: 1000;
-
-  .line {
-    width: 100%;
-    height: 0.3vw;
-    background-color: var(--darknav);
-    position: absolute;
-    transition: all 0.3s ease;
-
-    &.line1 {
-      top: 0;
-    }
-
-    &.line2 {
-      top: 50%;
-      transform: translateY(-50%);
-    }
-
-    &.line3 {
-      bottom: 0;
-    }
-  }
-
-  &.active {
-    .line1 {
-      transform: translateY(8px) rotate(45deg);
-    }
-
-    .line2 {
-      opacity: 0;
-    }
-
-    .line3 {
-      transform: translateY(-8px) rotate(-45deg);
-    }
-  }
+  z-index: 1000; /* Ensure it's above everything */
 }
 
-// Media Query for Mobile Devices
+.line {
+  width: 100%;
+  height: 0.3vw; /* Adjusted height */
+  background-color: var(--darknav); /* Or any color you prefer */
+  position: absolute;
+  transition: all 0.3s ease; /* Important for animation */
+}
+
+.line1 {
+  top: 0;
+}
+
+.line2 {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.line3 {
+  bottom: 0;
+}
+
+/* Active State (when menu is open) */
+.burger-menu.active .line1 {
+  transform: translateY(8px) rotate(45deg); /* Adjusted translateY */
+}
+
+.burger-menu.active .line2 {
+  opacity: 0; /* Hide the middle line */
+}
+
+.burger-menu.active .line3 {
+  transform: translateY(-8px) rotate(-45deg); /* Adjusted translateY */
+}
+
+/* Media Query for Mobile Responsiveness */
 @media (max-width: 768px) {
-  // Hide navbar links by default
   .navbar-links {
     display: none;
     flex-direction: column;
     width: 100%;
     position: absolute;
-    top: 5vw;
+    top: 5vw; /* Changed to vw for consistency */
     left: 0;
     background-color: var(--snow);
-    z-index: 999;
-
-    &.active {
-      display: flex;
-    }
+    z-index: 999; /* Place it below the burger menu */
   }
 
-  // Show burger menu on smaller screens
-  .burger-menu {
+  .navbar-links.active {
     display: flex;
-    align-items: center;
-
-    .nav-link {
-      width: 100%;
-      text-align: center;
-      padding: 1vw 0;
-    }
   }
 
-  // Hide authentication section on mobile
   .navbar-auth {
     display: none;
+  }
+
+  /* Show burger menu */
+  .burger-menu {
+    display: flex;
+    align-items: center; /* Center the lines vertically */
+  }
+
+  .nav-link {
+    width: 100%; /* Expand links to full width */
+    text-align: center; /* Center text within the link */
+    padding: 1vw 0; /* Adjust padding for better spacing */
   }
 }
