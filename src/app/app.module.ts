@@ -9,9 +9,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-
 // Import Firebase environment configuration
-import { environment } from '../enviroments/enviroment';
+import { environment } from '../environment/environment';
 import { RouterModule } from '@angular/router';
 import { MainPageComponent } from '../main-page/main-page.component';
 import { MainNavComponent } from '../main-nav/main-nav.component';
