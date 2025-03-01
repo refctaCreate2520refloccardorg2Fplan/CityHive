@@ -1,6 +1,6 @@
 /* General Styles - No Change Needed - Only Added Slovak Font Name */
-body {
-  font-family: 'Poppins', sans-serif; /* Or your preferred font - Added for Slovak Text */
+* {
+  font-family: Poppins-Regular; /* Or your preferred font - Added for Slovak Text */
   color: #2e2e2e;
 }
 
@@ -47,13 +47,15 @@ td {
   padding: 0.8vw;
   text-align: left;
   font-size: 1.1vw; /* Adjust as needed */
-  /*border-radius: 0.4vw;  Removing this as it creates issues with inner borders overlapping. We want clean rounded corners for the whole table*/
+  word-break: break-word; /* Allow long words to break */
+  min-width: 8vw; /* Minimum column width to prevent collapsing */
 }
 
 th {
   background-color: #ca2736; /* Header background */
   color: #ececec;
   font-weight: bold;
+  border: none; /* Removed the border for th */
 }
 
 /* Buttons */
@@ -261,5 +263,24 @@ textarea {
 
   .day-event {
     font-size: 1.5vw;
+  }
+}
+
+/* Targeted media query to the table */
+@media (max-width: 600px) {
+  .dashboard-section:nth-child(2) table th:nth-child(3), /*DisplayName*/
+  .dashboard-section:nth-child(2) table td:nth-child(3) {
+    display: none;
+  }
+
+  .dashboard-section:nth-child(2) table th:nth-child(2), /*Email*/
+  .dashboard-section:nth-child(2) table td:nth-child(2) {
+    display: none;
+  }
+
+  th, td {
+    font-size: 1.8vw;
+    padding: 0.5vw;
+    min-width: auto;
   }
 }
