@@ -37,7 +37,9 @@ export class OrganizerCalendarComponent implements OnInit {
 
   openCreateEventDialog() {
     const dialogRef = this.dialog.open(EventCreateComponent, {
-      width: '600px'
+      width: '60vw', // Adjust width as needed for responsiveness
+      maxWidth: '600px',  // Optional:  Set a maximum width
+      panelClass: 'custom-dialog-container' // Add a custom class to the dialog panel
     });
 
     dialogRef.afterClosed().subscribe(result => {

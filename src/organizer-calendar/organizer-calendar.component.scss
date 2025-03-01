@@ -1,5 +1,5 @@
 * {
-    font-family: Poppins-Regular;
+  font-family: Poppins-Regular;
 }
 
 .events-container {
@@ -23,9 +23,8 @@
   transition: color 0.3s ease-in-out, text-decoration-color 0.3s ease-in-out;
 }
 
-
 .create-event-button {
-    margin-top: 2vw;
+  margin-top: 2vw;
   width: 30vw;
   padding: 1vw;
   background-color: var(--rustyred);
@@ -40,7 +39,6 @@
     background-color: var(--darkrustyred);
   }
 }
-
 
 .organizer-calendar-container {
   padding: 2vw;
@@ -88,8 +86,8 @@ hr.event-separator {
 }
 
 .event-item:hover {
-    transform:translateY(1.5px);
-    transition: transform 0.1s ease;
+  transform: translateY(1.5px);
+  transition: transform 0.1s ease;
 }
 
 .event-title {
@@ -122,4 +120,37 @@ hr.event-separator {
 
 .my-events button:hover {
   background-color: #8A1015;
+}
+
+/* Custom styling for the dialog panel */
+.custom-dialog-container .mat-dialog-container {
+  padding: 2vw; /* Padding inside the dialog */
+  border-radius: 0.8vw;
+  background-color: #fff; /* White background */
+  box-shadow: 0 0.2vw 0.4vw rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
+
+/* Style the backdrop */
+.cdk-overlay-dark-backdrop {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+@media (max-width: 768px) {
+  .container-name {
+    font-size: 4vw;
+  }
+
+  .create-event-button {
+    width: 80vw;
+    font-size: 2vw;
+    padding: 2vw;
+  }
+
+  h3 {
+    font-size: 3vw;
+  }
+
+  .event-status {
+    font-size: 1.5vw;
+  }
 }
