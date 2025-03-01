@@ -1,132 +1,138 @@
 <div class="admin-container">
-  <h2>Admin Dashboard (jednojazyčný)</h2>
+  <h2>Administrátorský Panel</h2>
 
   <!-- Organizer Requests -->
-  <section>
-    <h3>Organizer Requests</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>UserId</th>
-          <th>Group Name</th>
-          <th>Members</th>
-          <th>Contact</th>
-          <th>Approve</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let req of organizerRequests">
-          <td>{{ req.userId }}</td>
-          <td>{{ req.groupName }}</td>
-          <td>{{ req.members }}</td>
-          <td>{{ req.contact }}</td>
-          <td><button (click)="approveOrganizerRequest(req)">Schváliť</button></td>
-        </tr>
-      </tbody>
-    </table>
+  <section class="dashboard-section">
+    <h3>Žiadosti Organizátorov</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Používateľské ID</th>
+            <th>Názov Skupiny</th>
+            <th>Členovia</th>
+            <th>Kontakt</th>
+            <th>Schváliť</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let req of organizerRequests">
+            <td>{{ req.userId }}</td>
+            <td>{{ req.groupName }}</td>
+            <td>{{ req.members }}</td>
+            <td>{{ req.contact }}</td>
+            <td><button class="approve-button" (click)="approveOrganizerRequest(req)">Schváliť</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- Users Management -->
-  <section>
-    <h3>Users Management</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>UID</th>
-          <th>Email</th>
-          <th>DisplayName</th>
-          <th>Role</th>
-          <th colspan="3">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.uid }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.displayName }}</td>
-          <td>{{ user.role }}</td>
-          <td><button (click)="setRole(user, userRole.Admin)">Set Admin</button></td>
-          <td><button (click)="setRole(user, userRole.User)">Set User</button></td>
-          <td><button (click)="setRole(user, userRole.Organizer)">Set Organizer</button></td>
-        </tr>
-      </tbody>
-    </table>
+  <section class="dashboard-section">
+    <h3>Správa Používateľov</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>UID</th>
+            <th>Email</th>
+            <th>Zobrazované Meno</th>
+            <th>Rola</th>
+            <th colspan="3">Akcie</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.uid }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.displayName }}</td>
+            <td>{{ user.role }}</td>
+            <td><button (click)="setRole(user, userRole.Admin)">Nastaviť Admina</button></td>
+            <td><button (click)="setRole(user, userRole.User)">Nastaviť Používateľa</button></td>
+            <td><button (click)="setRole(user, userRole.Organizer)">Nastaviť Organizátora</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- Events Management -->
-  <section>
-    <h3>Events List</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Title</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Approved</th>
-          <th>Archived</th>
-          <th>Toggle Approve</th>
-          <th>Toggle Archive</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let e of events">
-          <td>{{ e.id }}</td>
-          <td>{{ e.title }}</td>
-          <td>{{ e.startDateTime }}</td>
-          <td>{{ e.endDateTime }}</td>
-          <td>{{ e.isApproved }}</td>
-          <td>{{ e.archived }}</td>
-          <td>
-            <button (click)="toggleApproval(e)">
-              {{ e.isApproved ? 'Unapprove' : 'Approve' }}
-            </button>
-          </td>
-          <td>
-            <button (click)="toggleArchive(e)">
-              {{ e.archived ? 'Unarchive' : 'Archive' }}
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <section class="dashboard-section">
+    <h3>Správa Udalostí</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Názov</th>
+            <th>Začiatok</th>
+            <th>Koniec</th>
+            <th>Schválené</th>
+            <th>Archivované</th>
+            <th>Prepnúť Schválenie</th>
+            <th>Prepnúť Archiváciu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of events">
+            <td>{{ e.id }}</td>
+            <td>{{ e.title }}</td>
+            <td>{{ e.startDateTime }}</td>
+            <td>{{ e.endDateTime }}</td>
+            <td>{{ e.isApproved }}</td>
+            <td>{{ e.archived }}</td>
+            <td>
+              <button (click)="toggleApproval(e)">
+                {{ e.isApproved ? 'Zrušiť Schválenie' : 'Schváliť' }}
+              </button>
+            </td>
+            <td>
+              <button (click)="toggleArchive(e)">
+                {{ e.archived ? 'Zrušiť Archiváciu' : 'Archivovať' }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- Create New Event -->
-  <section>
-    <h3>Create New Event</h3>
+  <section class="dashboard-section">
+    <h3>Vytvoriť Novú Udalosť</h3>
     <form (ngSubmit)="createEvent()">
-      <div>
-        <label>Title:</label>
+      <div class="form-group">
+        <label>Názov:</label>
         <input [(ngModel)]="newEvent.title" name="title">
       </div>
-      <div>
-        <label>Description:</label>
+      <div class="form-group">
+        <label>Popis:</label>
         <textarea [(ngModel)]="newEvent.description" name="desc"></textarea>
       </div>
-      <div>
-        <label>Start:</label>
+      <div class="form-group">
+        <label>Začiatok:</label>
         <input type="datetime-local" [(ngModel)]="newEvent.startDateTime" name="startDt">
       </div>
-      <div>
-        <label>End:</label>
+      <div class="form-group">
+        <label>Koniec:</label>
         <input type="datetime-local" [(ngModel)]="newEvent.endDateTime" name="endDt">
       </div>
-      <div>
-        <label>Price:</label>
+      <div class="form-group">
+        <label>Cena:</label>
         <input type="number" [(ngModel)]="newEvent.price" name="price">
       </div>
-      <button type="submit">Create</button>
+      <button type="submit">Vytvoriť</button>
     </form>
   </section>
 
   <!-- Admin Calendar -->
-  <section class="admin-calendar">
-    <h3>Admin Calendar</h3>
+  <section class="dashboard-section admin-calendar">
+    <h3>Administrátorský Kalendár</h3>
     <div class="calendar-header">
-      <button (click)="prevMonth()">&lt;</button>
+      <button (click)="prevMonth()"><</button>
       <span>{{ currentDate | date:'MMMM yyyy' }}</span>
-      <button (click)="nextMonth()">&gt;</button>
+      <button (click)="nextMonth()">></button>
     </div>
     <div class="calendar-grid">
       <div class="week-header">Po</div>
@@ -150,47 +156,51 @@
   </section>
 
   <!-- Admin Chats Section (list of chats) -->
-  <section>
-    <h3>Admin Chats</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Chat ID</th>
-          <th>Konverzačné meno</th>
-          <th>Last Message</th>
-          <th>Updated</th>
-          <th>Open Chat</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let chat of chats">
-          <td>{{ chat.id }}</td>
-          <td>{{ chat.conversationName }}</td>
-          <td>{{ chat.lastMessage }}</td>
-          <td>{{ chat.updatedAt | date:'short' }}</td>
-          <td>
-            <button (click)="openChat(chat)">Open Chat</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <section class="dashboard-section">
+    <h3>Administrátorské Chaty</h3>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID Chatu</th>
+            <th>Názov Konverzácie</th>
+            <th>Posledná Správa</th>
+            <th>Aktualizované</th>
+            <th>Otvoriť Chat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let chat of chats">
+            <td>{{ chat.id }}</td>
+            <td>{{ chat.conversationName }}</td>
+            <td>{{ chat.lastMessage }}</td>
+            <td>{{ chat.updatedAt | date:'short' }}</td>
+            <td>
+              <button (click)="openChat(chat)">Otvoriť Chat</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <!-- Chat Window: detail chatu zobrazený v admin paneli -->
-  <section *ngIf="selectedChat" class="chat-window">
-    <h3>Chat with {{ selectedChat.conversationName }}</h3>
+  <section *ngIf="selectedChat" class="dashboard-section chat-window">
+    <h3>Chat s {{ selectedChat.conversationName }}</h3>
     <div class="chat-container">
       <div class="messages">
-        <div *ngFor="let msg of chatMessages" class="message" [class.own]="msg.senderId === authService.userData?.uid">
+        <div *ngFor="let msg of chatMessages" class="message"
+             [class.own]="msg.senderId === authService.userData?.uid">
           <strong>{{ msg.senderName }}:</strong> {{ msg.message }}
           <span class="timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
         </div>
       </div>
       <div class="new-message">
-        <input type="text" [(ngModel)]="newAdminMessage" placeholder="Napíšte správu..." (keyup.enter)="sendAdminMessage()">
+        <input type="text" [(ngModel)]="newAdminMessage" placeholder="Napíšte správu..."
+               (keyup.enter)="sendAdminMessage()">
         <button (click)="sendAdminMessage()">Odoslať</button>
       </div>
     </div>
-    <button (click)="closeChat()">Close Chat</button>
+    <button (click)="closeChat()">Zavrieť Chat</button>
   </section>
 </div>
