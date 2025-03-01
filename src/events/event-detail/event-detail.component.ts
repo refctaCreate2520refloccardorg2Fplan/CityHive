@@ -36,10 +36,14 @@ export class EventDetailComponent implements OnInit {
   newCommentText = new FormControl('');
   replyText = new FormControl('');
 
-  // Authentication properties: will be updated from AuthService's auth state
+  // Authentication properties
   userId: string | null = null;
   userName: string | null = null;
   userPhotoURL: string | null = null;
+
+  // Vlastnosti pre slider a modal
+  selectedImage: string | null = null;
+  showModal: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,7 +53,7 @@ export class EventDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Subscribe to authentication state so that the latest user info is used.
+    // Aktualizácia údajov používateľa
     this.authService.afAuth.authState.subscribe(user => {
       if (user) {
         this.userId = user.uid;
@@ -181,5 +185,18 @@ export class EventDetailComponent implements OnInit {
       .collection('replies').add(newReply)
       .then(() => this.replyText.reset())
       .catch(err => console.error('Error adding reply:', err));
+  }
+
+  // Otvorenie modálneho okna pre zväčšenie obrázku
+  openModal(imageUrl: string | null): void {
+    if (imageUrl) {
+      this.selectedImage = imageUrl;
+      this.showModal = true;
+    }
+  }
+
+  closeModal(): void {
+    this.selectedImage = null;
+    this.showModal = false;
   }
 }

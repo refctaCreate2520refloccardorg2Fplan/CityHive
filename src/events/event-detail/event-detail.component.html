@@ -7,12 +7,32 @@
     <p *ngIf="!event.price || event.price === 0">Vstup zdarma</p>
   </div>
   <p class="event-description" *ngIf="event.description">{{ event.description }}</p>
+
+  <!-- Slider obrázkov -->
+  <div class="image-slider" *ngIf="event">
+    <div class="main-image">
+      <img [src]="event.photoURL || 'assets/default-event.png'"
+           alt="{{ event.title }}"
+           (click)="openModal(event.photoURL ? event.photoURL : null)" />
+    </div>
+    <div class="thumbnail-images" *ngIf="event.photos && event.photos.length">
+      <img *ngFor="let img of event.photos" [src]="img" alt="Additional image" (click)="openModal(img)" />
+    </div>
+  </div>
+</div>
+
+<!-- Modálne okno pre zväčšenie obrázku -->
+<div class="modal" *ngIf="showModal" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <span class="close-button" (click)="closeModal()">×</span>
+    <img [src]="selectedImage" alt="Enlarged image" />
+  </div>
 </div>
 
 <div class="reviews-section">
   <h2>Recenzie</h2>
 
-  <!-- Add Review Form -->
+  <!-- Formulár pre pridanie recenzie -->
   <div class="add-review" *ngIf="userId">
     <div class="user-info">
       <img [src]="userPhotoURL || 'assets/default-avatar.png'" alt="Profil" class="user-avatar">
@@ -28,7 +48,7 @@
     </button>
   </div>
 
-  <!-- Reviews List -->
+  <!-- Zoznam recenzií -->
   <div class="reviews-list">
     <div *ngIf="comments.length === 0" class="no-reviews">
       Žiadne recenzie. Buďte prvý!
@@ -44,7 +64,7 @@
       </div>
       <p class="review-text">{{ comment.text }}</p>
 
-      <!-- Reply Form -->
+      <!-- Formulár pre odpoveď -->
       <div class="reply-form" *ngIf="userId">
         <textarea [formControl]="replyText"
                   placeholder="Napíšte odpoveď..."
@@ -56,7 +76,7 @@
         </button>
       </div>
 
-      <!-- Replies List -->
+      <!-- Zoznam odpovedí -->
       <div class="replies" *ngIf="comment.replies?.length">
         <div class="reply" *ngFor="let reply of comment.replies">
           <div class="reply-header">
