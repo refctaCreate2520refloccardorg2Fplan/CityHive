@@ -32,12 +32,14 @@
     "css.gg": "^2.1.1",
     "emailjs-com": "^3.2.0",
     "firebase": "^11.3.1",
+    "firebase-tools": "^13.35.1",
     "jest-editor-support": "*",
     "rxjs": "~7.8.0",
     "sass": "^1.71.1",
     "scss": "^0.2.4",
     "tslib": "^2.3.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.14.3",
+    "sql-formatter": "^15.5.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.12",

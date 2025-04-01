@@ -1,15 +1,5 @@
 {
   "projects": {
-    "default": "hacketon-11701"
-  },
-  "targets": {
-    "hacketon-11701": {
-      "hosting": {
-        "prod": [
-          "hacketon-galanta"
-        ]
-      }
-    }
-  },
-  "etags": {}
+    "default": "cityhive-d0511"
+  }
 }
