@@ -1,20 +1,21 @@
+
 .login-container {
-  margin: 2vw auto;
-  max-width: 30vw;
-  padding: 2vw;
-  background-color: #fff;
-  border-radius: 0.5vw;
-  box-shadow: 0 0.2vw 0.5vw rgba(0, 0, 0, 0.1);
-  border: 0.1vw solid #2e2e2e;
+  margin: 4vw auto;
+  max-width: 35vw;
+  padding: 2.5vw;
+  background-color: #ffffff; 
+  border-radius: 8px;
+  box-shadow: 0 4px 10px var(--clr-jet-rgba-15);
+  border: 1px solid var(--clr-light-gray-border); 
+  color: var(--clr-jet); 
 
   h2 {
     font-size: 2vw;
-    color: var(--carbon);
+    color: var(--clr-jet);
     text-align: center;
-    margin-bottom: 1.5vw;
-    text-decoration: underline;
-    text-decoration-color: var(--rustyred);
-    text-decoration-thickness: 0.2vw;
+    margin-bottom: 2vw;
+    padding-bottom: 0.5vw;
+    border-bottom: 3px solid var(--clr-cerise);
   }
 
   form {
@@ -22,131 +23,153 @@
     flex-direction: column;
     gap: 1.5vw;
 
-    div {
+    div:not(.auth-links) {
       display: flex;
       flex-direction: column;
       gap: 0.5vw;
 
       label {
         font-size: 1vw;
-        color: var(--carbon);
+        color: var(--clr-jet);
         font-weight: bold;
       }
 
-      input {
-        padding: 0.8vw;
-        border: 0.1vw solid #2e2e2e;
-        border-radius: 0.3vw;
+      input[type="email"],
+      input[type="password"] {
+        padding: 0.8vw 1vw;
+        border: 1px solid var(--clr-dim-gray); 
+        border-radius: 4px;
         font-size: 1vw;
-        transition: border-color 0.3s ease;
+        background-color: #fff; 
+        color: var(--clr-jet);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
         &:focus {
           outline: none;
-          border-color: var(--rustyred);
+          border-color: var(--clr-cerise);
+          box-shadow: 0 0 0 3px rgba(229, 68, 109, 0.25);
         }
       }
     }
 
     button[type="submit"] {
-      background-color: var(--rustyred);
-      color: white;
-      padding: 0.8vw 1.5vw;
+      background-color: var(--clr-cerise);
+      color: #ffffff;
+      padding: 0.9vw 1.5vw;
       border: none;
-      border-radius: 0.3vw;
-      font-size: 1vw;
+      border-radius: 4px;
+      font-size: 1.1vw;
+      font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.1s ease; 
       margin-top: 1vw;
 
-      &:hover {
-        background-color: #8A1015;
+      &:hover,
+      &:focus {
+        background-color: var(--clr-cerise-dark);
+        outline: none;
+        // transform: translateY(-1px);
+        // box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      }
+
+      &:active {
+        transform: translateY(0px);
       }
     }
 
     .auth-links {
       text-align: right;
-      margin-top: 1vw;
+      margin-top: 0.5vw;
 
       .auth-link {
-        color: var(--rustyred);
+        color: var(--clr-cerise);
         font-size: 0.9vw;
         text-decoration: none;
-        transition: color 0.3s ease;
+        transition: color 0.3s ease, text-decoration 0.3s ease;
 
-        &:hover {
-          color: #8A1015;
+        &:hover,
+        &:focus {
+          color: var(--clr-cerise-dark);
           text-decoration: underline;
+          outline: none;
         }
       }
     }
   }
+  // End form
 
   .social-login {
     margin: 2vw 0;
-    border-top: 0.1vw solid #ececec;
+    border-top: 1px solid var(--clr-light-gray-border); 
     padding-top: 2vw;
+    text-align: center;
 
     .google-btn {
       width: 100%;
-      background-color: white;
-      color: var(--carbon);
-      border: 0.1vw solid #2e2e2e;
+      background-color: #fff;
+      color: var(--clr-jet);
+      border: 1px solid var(--clr-dim-gray);
       padding: 0.8vw 1.5vw;
-      border-radius: 0.3vw;
+      border-radius: 4px;
       font-size: 1vw;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.5vw;
+      gap: 0.8vw;
       transition: all 0.3s ease;
 
-      &:hover {
-        border-color: var(--rustyred);
-        color: var(--rustyred);
-
-        .google-icon {
-          background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="#4285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="#34A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="#EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/><path fill="none" d="M2 2h44v44H2z"/></svg>');
-        }
+      &:hover,
+      &:focus {
+        border-color: var(--clr-jet);
+        background-color: var(--clr-light-gray-bg);
+        color: var(--clr-jet);
+        outline: none;
       }
 
       .google-icon {
-        width: 1.2vw;
-        height: 1.2vw;
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px"><path fill="%232e2e2e" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="%232e2e2e" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="%232e2e2e" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="%232e2e2e" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/><path fill="none" d="M2 2h44v44H2z"/></svg>');
+        width: 1.4vw;
+        height: 1.4vw;
+        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><path fill="%234285F4" d="M45.12 24.5c0-1.56-.14-3.06-.4-4.5H24v8.51h11.84c-.51 2.75-2.06 5.08-4.39 6.64v5.52h7.11c4.16-3.83 6.56-9.47 6.56-16.17z"/><path fill="%2334A853" d="M24 46c5.94 0 10.92-1.97 14.56-5.33l-7.11-5.52c-1.97 1.32-4.49 2.1-7.45 2.1-5.73 0-10.58-3.87-12.31-9.07H4.34v5.7C7.96 41.07 15.4 46 24 46z"/><path fill="%23FBBC05" d="M11.69 28.18C11.25 26.86 11 25.45 11 24s.25-2.86.69-4.18v-5.7H4.34C2.85 17.09 2 20.45 2 24c0 3.55.85 6.91 2.34 9.88l7.35-5.7z"/><path fill="%23EA4335" d="M24 10.75c3.23 0 6.13 1.11 8.41 3.29l6.31-6.31C34.91 4.18 29.93 2 24 2 15.4 2 7.96 6.93 4.34 14.12l7.35 5.7C13.42 14.62 18.27 10.75 24 10.75z"/><path fill="none" d="M2 2h44v44H2z"/></svg>');
         background-size: contain;
+        background-repeat: no-repeat;
         transition: background-image 0.3s ease;
       }
     }
   }
 
+
   .register-prompt {
     text-align: center;
     font-size: 0.9vw;
-    color: var(--carbon);
-    margin-top: 1.5vw;
+    color: var(--clr-jet);
+    margin-top: 2vw;
 
     .auth-link {
-      color: var(--rustyred);
+      color: var(--clr-cerise);
       margin-left: 0.5vw;
       font-weight: bold;
-      transition: color 0.3s ease;
+      text-decoration: none;
+      transition: color 0.3s ease, text-decoration 0.3s ease;
 
-      &:hover {
-        color: #8A1015;
+      &:hover,
+      &:focus {
+        color: var(--clr-cerise-dark);
         text-decoration: underline;
+        outline: none;
       }
     }
   }
 
   .error-message {
-    color: var(--rustyred);
+    color: var(--clr-cerise-dark);
     font-size: 0.9vw;
-    margin-top: 1vw;
+    font-weight: bold;
+    margin-top: 1.5vw;
     text-align: center;
-    padding: 0.5vw;
-    border: 0.1vw solid var(--rustyred);
-    border-radius: 0.3vw;
-    background-color: #ffe6e8;
+    padding: 0.8vw;
+    border: 1px solid var(--clr-cerise);
+    border-radius: 4px;
+    background-color: var(--clr-cerise-light-bg);
   }
 }

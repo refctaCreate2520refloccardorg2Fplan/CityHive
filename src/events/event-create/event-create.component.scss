@@ -1,399 +1,130 @@
-/* General Styles */
-* {
-  font-family: Poppins-Regular;
-  box-sizing: border-box; /* Important for mobile responsiveness */
-}
-
-/* Calendar Container */
-.calendar-container {
-  width: 100%; /* Full width */
-  max-width: 600px; /* Optional: Limit maximum width on larger screens */
-  margin: 0 auto; /* Center the calendar */
-  padding: 10px; /* Add some spacing */
-}
-
-/* Calendar */
-.calendar {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Prevent content overflow */
-}
-
-.calendar .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-}
-
-.calendar .header button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.calendar .header h2 {
-  font-size: 1.2rem;
-  margin: 0;
-  text-align: center;
-}
-
-.calendar .weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  font-size: 0.8rem;
-  padding: 5px 0;
-  color: #555;
-}
-
-.calendar .days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
-  padding: 5px;
-}
-
-.calendar .day {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  text-align: center; /* Center the date within the day */
-  font-size: 0.9rem; /* Adjust font size for mobile */
-}
-
-.calendar .day:hover {
-  background-color: #f0f0f0;
-}
-
-.calendar .day.today {
-  background-color: #e0e0e0;
-}
-
-.calendar .day.selected {
-  background-color: var(--rustyred);
-  color: white;
-}
-
-.calendar .day.has-events .date::after {
-  content: '';
-  display: block;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--rustyred);
-  margin: 3px auto;
-}
-
-.calendar .day.current-month {
-  color: #333;
-}
-
-.calendar .day.weekend {
-  color: #777;
-}
-
-.calendar .date {
-  font-weight: bold;
-}
-
-.calendar .event-indicator {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--rustyred);
-  margin-top: 3px;
-}
-
-/* Day View */
-.day-view {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 10px;
-  overflow: hidden;
-}
-
-.day-view .day-view-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  background-color: #f9f9f9;
-}
-
-.day-view .day-view-header button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.day-view .day-view-header h2 {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.day-view .hour-slots {
-  padding: 10px;
-}
-
-.day-view .hour-slot {
-  display: flex;
-  border-bottom: 1px solid #eee;
-  padding: 5px 0;
-}
-
-.day-view .hour-label {
-  width: 50px;
-  font-size: 0.8rem;
-  color: #777;
-}
-
-.day-view .hour-events {
-  flex: 1;
-  padding-left: 10px;
-}
-
-.day-view .event {
-  background-color: #e9ecef;
-  padding: 5px;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  font-size: 0.75rem; /* Adjust font size for mobile */
-}
-
-/* Selected Day Events */
-.selected-day-events {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.selected-day-events h3 {
-  font-size: 1rem;
-  margin-bottom: 5px;
-}
-
-.selected-day-events ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.selected-day-events li {
-  padding: 5px 0;
-  border-bottom: 1px solid #eee;
-  font-size: 0.85rem; /* Adjust font size for mobile */
-}
-
-/* Event Create Container (Dialog) */
 .event-create-container {
-  padding: 5vw;
-  background-color: #fff;
-  border-radius: 2vw;
+  padding: 2.5rem; // Use rem for padding
+  background-color: #ffffff;
+  border-radius: 12px; // Larger, fixed radius
   position: relative;
-  max-width: 80vw; /* Adjusted max-width for better fit on mobile */
-  margin: 20px auto;
-  box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.2); /* Stronger shadow */
-}
+  max-width: 600px; // Fixed max-width
+  margin: 3rem auto; // Use rem for margins
+  box-shadow: 0 6px 15px var(--clr-jet-rgba-15);
+  border: 1px solid var(--clr-light-gray-border);
+  color: var(--clr-jet);
 
-.event-create-container .header {
-  margin-bottom: 2vw;
-}
+  .header {
+    margin-bottom: 1.5rem;
+    text-align: center; // Center heading
 
-.event-create-container .header h2 {
-  font-size: 2.5vw;
-  color: #2e2e2e;
-}
-
-.event-create-container .form-group {
-  margin-bottom: 2.5vw;
-}
-
-.event-create-container .form-group label {
-  display: block;
-  font-size: 1.5vw;
-  margin-bottom: 0.5vw;
-  color: #2e2e2e;
-}
-
-.event-create-container input,
-.event-create-container textarea,
-.event-create-container select {
-  width: 100%;
-  padding: 1.2vw;
-  box-sizing: border-box;
-  border: 0.2vw solid #ccc;
-  border-radius: 0.5vw;
-  font-size: 1.4vw;
-}
-
-.event-create-container textarea {
-  resize: vertical; /* Allow vertical resizing */
-  min-height: 10vw;
-}
-
-.event-create-container input:focus, .event-create-container textarea:focus, .event-create-container select:focus {
-  outline: none;
-  border-color: var(--rustyred);
-  transition: border-color 0.2s ease;
-}
-
-.event-create-container .number-with-checkbox {
-  display: flex;
-  align-items: center;
-  gap: 1.5vw;
-}
-
-.event-create-container .checkbox-group {
-  display: flex;
-  align-items: center;
-  font-size: 1.4vw;
-}
-
-.event-create-container .checkbox-group input[type="checkbox"] {
-  width: auto;
-  margin-right: 0.5vw;
-}
-
-.event-create-container .submit-button {
-  background-color: var(--rustyred);
-  color: #fff;
-  border: none;
-  border-radius: 0.5vw;
-  padding: 1.5vw 3vw;
-  font-size: 1.6vw;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.event-create-container .submit-button:hover {
-  background-color: var(--darkrustyred);
-}
-
-
-/* Media Queries for Smaller Screens */
-@media (max-width: 768px) {
-  .calendar-container {
-    padding: 5px; /* Reduce padding on small screens */
+    h2 {
+      font-size: 1.8rem; // Use rem
+      color: var(--clr-jet);
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--clr-cerise);
+      display: inline-block; // Keep underline contained
+    }
   }
 
-  .calendar .header h2 {
-    font-size: 1rem; /* Slightly smaller header on smaller screens */
+  .form-group {
+    margin-bottom: 1.5rem; // Use rem
   }
 
-  .calendar .weekdays {
-    font-size: 0.7rem;
+  .form-group label {
+    display: block;
+    font-size: 0.9rem; // Use rem
+    font-weight: bold;
+    margin-bottom: 0.4rem; // Use rem
+    color: var(--clr-jet);
   }
 
-  .calendar .days {
-    gap: 1px;
+  input[type="text"],
+  input[type="datetime-local"],
+  input[type="number"],
+  input[type="file"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 0.75rem 1rem; // Use rem
+    box-sizing: border-box;
+    border: 1px solid var(--clr-dim-gray);
+    border-radius: 6px; // Fixed radius
+    font-size: 1rem; // Use rem
+    background-color: #ffffff;
+    color: var(--clr-jet);
+    font-family: inherit; // Inherit from body/container
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .calendar .day {
-    padding: 6px;
-    font-size: 0.8rem;
+  textarea {
+    resize: vertical;
+    min-height: 100px; // Fixed min-height
   }
 
-  .day-view .day-view-header h2 {
-    font-size: 1rem; /* Slightly smaller header on smaller screens */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: var(--clr-cerise);
+    box-shadow: 0 0 0 3px rgba(229, 68, 109, 0.25);
   }
 
-  .day-view .hour-label {
-    width: 40px;
-    font-size: 0.7rem;
+  .number-with-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 1rem; // Use rem
   }
 
-  .day-view .event {
-    font-size: 0.7rem;
+  .checkbox-group {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem; // Use rem
+    color: var(--clr-jet);
+    white-space: nowrap; // Prevent wrap
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 0.5rem; // Use rem
+      accent-color: var(--clr-cerise); // Style checkbox color
+    }
   }
 
-  .selected-day-events h3 {
-    font-size: 0.9rem;
+  .inline-warning { // New class for the warning div
+    height: auto; // Remove fixed height
+    font-size: 0.9rem; // Use rem
+    color: var(--clr-cerise-dark);
+    margin-bottom: 1rem;
+    margin-top: -0.5rem; // Adjust spacing relative to datetime input
+    padding: 0.5rem 0.8rem;
+    background-color: var(--clr-cerise-light-bg);
+    border-radius: 4px;
+    border: 1px solid var(--clr-cerise);
+
+    p {
+      padding: 0;
+      margin: 0;
+      background-color: transparent; // Override inline style
+      border-radius: 0; // Override inline style
+    }
   }
 
-  .selected-day-events li {
-    font-size: 0.8rem;
-  }
+  .submit-button {
+    width: 100%;
+    background-color: var(--clr-cerise);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.9rem 1.5rem; // Use rem
+    font-size: 1.1rem; // Use rem
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 1rem; // Add margin above button
 
-  .event-create-container {
-    padding: 8vw; /* More padding for easier touch */
-    border-radius: 4vw; /* Increased border radius */
-    max-width: 95vw; /* Take up more of the screen */
-  }
+    &:hover,
+    &:focus {
+      background-color: var(--clr-cerise-dark);
+      outline: none;
+    }
 
-  .event-create-container .header h2 {
-    font-size: 4vw; /* Larger font size for headers */
+    &:active {
+      transform: translateY(0px);
+    }
   }
-
-  .event-create-container .form-group label {
-    font-size: 2.8vw; /* Larger font size for labels */
-  }
-
-  .event-create-container input,
-  .event-create-container textarea,
-  .event-create-container select {
-    padding: 2.5vw; /* More padding inside inputs */
-    font-size: 3vw; /* Larger font size for inputs */
-    border-radius: 1vw; /* Larger border radius */
-  }
-
-  .event-create-container textarea {
-    min-height: 18vw; /* Increase textarea height */
-  }
-
-  .event-create-container .checkbox-group {
-    font-size: 2.5vw; /* Larger font size for checkbox labels */
-  }
-
-  .event-create-container .submit-button {
-    font-size: 3.5vw; /* Larger font size for the submit button */
-    padding: 3vw 6vw; /* More padding for the submit button */
-    border-radius: 1vw; /* Larger border radius */
-  }
-}
-
-/* Media Queries for even Smaller Screens (Phones) */
-@media (max-width: 480px) {
-  .calendar .weekdays {
-    font-size: 0.6rem;
-  }
-
-  .calendar .day {
-    padding: 4px;
-    font-size: 0.7rem;
-  }
-
-  .day-view .hour-label {
-    width: 35px;
-    font-size: 0.65rem;
-  }
-
-  .day-view .event {
-    font-size: 0.65rem;
-  }
-
-  .selected-day-events h3 {
-    font-size: 0.8rem;
-  }
-
-  .selected-day-events li {
-    font-size: 0.75rem;
-  }
-}
-
-/* Common Variables (if using CSS variables) */
-:root {
-  --rustyred: #b7410e; /* Example value */
-  --darkrustyred: #94340a; /* Example value */
 }

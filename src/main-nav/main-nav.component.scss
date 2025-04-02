@@ -1,245 +1,173 @@
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('../assets/Poppins-Regular.ttf');
-}
-
-// Global Variables
-* {
-  --cardinalred: #C42847; // Primary red color
-  --rustyred: #ca2736; // Secondary red color
-  --snow: #ececec; // Light background color
-  --darknav: #222222; // Dark navigation color
-  --darkbody: #181818; // Dark body color
-}
-
-// Navbar Styling
 .navbar {
-  font-family: Poppins-Regular;
+  font-family: var(--font-primary);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1vw 0 2vw;
-  background-color: var(--snow);
-  color: var(--rustyred);
+  background-color: var(--clr-jet);
+  color: var(--clr-cosmic-latte);
   height: 5vw;
-  box-shadow: 0 0.08vw 0.1vw rgba(0, 0, 0, 0.25);
-  // Logo Section
-  .navbar-logo {
-    display: flex;
-    align-items: center;
-    margin-left: 2vw;
+  position: relative;
+  z-index: 100;
+}
 
-    svg {
-      height: 4.6vw;
-      width: auto;
-    }
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  margin-left: 2vw;
+  gap: 0.8vw;
+}
 
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 1.5vw;
-      line-height: 1;
+.navbar-logo svg {
+  height: 3.5vw;
+  width: auto;
+  fill: var(--clr-cosmic-latte);
+}
 
-      .Galantaa {
-        color: #a8a8a8;
-        font-size: 1.5vw;
-      }
+.navbar-logo .logo-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 1.5vw;
+  line-height: 1.1;
+  color: var(--clr-cosmic-latte);
+}
 
-      .Eventss {
-        color: var(--cardinalred);
-        font-size: 2.1vw;
-      }
-    }
-  }
-  // Navigation Links
-  .navbar-links {
-    display: flex;
-    height: 100%;
-    font-size: 1.2vw;
-    align-items: center;
+.navbar-logo .logo-text .Galantaa {
+  color: var(--clr-dim-gray);
+  font-size: 1.3vw;
+}
 
-    .nav-link {
-      color: white;
-      background-color: var(--rustyred);
-      text-decoration: none;
-      padding: 0 1.5vw;
-      display: flex;
-      align-items: center;
-      height: 100%;
-      font-size: 1.2vw;
-      transition: background-color 0.2s ease, color 0.2s ease;
+.navbar-logo .logo-text .Eventss {
+  color: var(--clr-coral);
+  font-size: 1.8vw;
+  font-weight: bold;
+}
 
-      &:hover,
-      &:active {
-        background-color: white;
-        color: var(--rustyred);
-      }
-    }
+.navbar-links {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin-left: auto;
+}
 
-    .mesto {
-      color: white;
-      background-color: var(--rustyred);
-    }
+.navbar-links .nav-link {
+  font-family: var(--font-primary);
+  color: var(--clr-cosmic-latte);
+  background-color: transparent;
+  text-decoration: none;
+  padding: 0 1.5vw;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-size: 1.1vw;
+  border: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
+  position: relative;
+}
 
-    .mesto:hover {
-      color: white;
-      background-color: var(--darkrustyred);
-    }
+.navbar-links .nav-link:hover,
+.navbar-links .nav-link:focus,
+.navbar-links .nav-link.active {
+  color: var(--clr-cerise);
+  background-color: transparent;
+}
 
-    .galakarta {
-      color: white;
-      background-color: #F5BF00;
-    }
+.navbar-links .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 1vw;
+  left: 1.5vw;
+  right: 1.5vw;
+  height: 2px;
+  background-color: var(--clr-cerise);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: center;
+}
 
-    .galakarta:hover {
-      background-color: #e0ad00;
-    }
-    // Authentication Section
-    .navbar-auth {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      cursor: pointer;
-      margin-right: 2vw;
-    }
-  }
+.navbar-links .nav-link:hover::after,
+.navbar-links .nav-link:focus::after,
+.navbar-links .nav-link.active::after {
+  transform: scaleX(1);
+}
 
-  .nav-logout { /* Add styles for logout*/
-    margin-left: auto; /* Push to the right */
-    margin-right: 2vw; /* Add some spacing */
-    display: flex; /* Use flexbox for centering */
-    align-items: center; /* Vertically center content */
-    cursor: pointer;
-    padding: 0.5vw;
-    border-radius: 5vw;
+.navbar-links .mesto,
+.navbar-links .galakarta {
+}
 
-    &:hover {
-      background-color: #dadada;
-    }
+.navbar-links .galakarta {
+  background-color: var(--clr-coral);
+  color: var(--clr-jet);
+  padding: 0.8vw 1.5vw;
+  border-radius: 5px;
+  height: auto;
+  margin: auto 1vw;
+  font-weight: bold;
+}
 
-    a {
-      display: flex; /* Ensure the SVG is also centered */
-      align-items: center;
-    }
-  }
-  // Dropdown Menu for Languages
-  .dropdown {
-    align-items: center;
-    position: relative;
-    display: inline-block;
+.navbar-links .galakarta:hover,
+.navbar-links .galakarta:focus {
+  background-color: var(--clr-cerise);
+  color: var(--clr-cosmic-latte);
+}
 
-    &:hover {
-      background-color: #dadada;
-    }
+.navbar-links .galakarta::after {
+  display: none;
+}
 
-    .langsvg {
-      fill: black;
-      width: 2vw;
-      height: 2vw;
-    }
+.dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 1vw;
+  cursor: pointer;
+}
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f1f1f1;
-      min-width: 4vw;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-      z-index: 1;
+.dropdown .langsvg {
+  fill: var(--clr-cosmic-latte);
+  width: 1.8vw;
+  height: 1.8vw;
+  padding: 0;
+  transition: fill 0.2s ease;
+}
 
-      a {
-        color: black;
-        padding: 0.5vw 4vw 0.5vw 1vw;
-        text-decoration: none;
-        display: block;
+.dropdown:hover .langsvg {
+  fill: var(--clr-cerise);
+}
 
-        &:hover {
-          background-color: #ddd;
-        }
-      }
-    }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--clr-jet);
+  min-width: 8vw;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.4);
+  z-index: 101;
+  border-top: 2px solid var(--clr-dim-gray);
+  padding: 0.5vw 0;
+}
 
-    &:hover .dropdown-content {
-      display: block;
-    }
-  }
-  // Hamburger Menu Styles
-  .burger-menu {
-    width: 3vw;
-    height: 2vw;
-    position: relative;
-    cursor: pointer;
-    display: none; // Hidden by default
-    margin-right: 2vw;
-    z-index: 1000;
+.dropdown-content a {
+  font-family: var(--font-primary);
+  color: var(--clr-cosmic-latte);
+  padding: 0.6vw 1.2vw;
+  text-decoration: none;
+  display: block;
+  font-size: 1vw;
+  background-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
 
-    .line {
-      width: 100%;
-      height: 0.3vw;
-      background-color: var(--darknav);
-      position: absolute;
-      transition: all 0.3s ease;
+.dropdown-content a:hover,
+.dropdown-content a:focus {
+  background-color: var(--clr-dim-gray);
+  color: var(--clr-cosmic-latte);
+}
 
-      &.line1 {
-        top: 0;
-      }
-
-      &.line2 {
-        top: 50%;
-        transform: translateY(-50%);
-      }
-
-      &.line3 {
-        bottom: 0;
-      }
-    }
-
-    &.active {
-      .line1 {
-        transform: translateY(8px) rotate(45deg);
-      }
-
-      .line2 {
-        opacity: 0;
-      }
-
-      .line3 {
-        transform: translateY(-8px) rotate(-45deg);
-      }
-    }
-  }
-  // Media Query for Mobile Devices
-  @media (max-width: 768px) {
-    // Hide navbar links by default
-    .navbar-links {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      position: absolute;
-      top: 5vw;
-      left: 0;
-      background-color: var(--snow);
-      z-index: 999;
-
-      &.active {
-        display: flex;
-      }
-    }
-    // Show burger menu on smaller screens
-    .burger-menu {
-      display: flex;
-      align-items: center;
-
-      .nav-link {
-        width: 100%;
-        text-align: center;
-        padding: 1vw 0;
-      }
-    }
-    // Hide authentication section on mobile
-    .navbar-auth {
-      display: none;
-    }
-  }
+.dropdown:hover .dropdown-content {
+  display: block;
 }

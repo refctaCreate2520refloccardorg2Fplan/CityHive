@@ -1,87 +1,67 @@
 <nav class="navbar">
-  <!-- Logo a názov -->
+
   <div class="navbar-logo">
-    <svg version="1.0" xmlns="http://www.w3.org/2000/svg">
-      ...
-    </svg>
+
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 100 100"
+     width="50" height="50"
+     style="stroke: white; fill: none; stroke-width: 3;" >
+  <defs>
+    <polygon id="hexagon" points="95,50 72.5,89 27.5,89 5,50 27.5,11 72.5,11" />
+  </defs>
+  <use href="#hexagon" />
+
+  <use href="#hexagon" transform="rotate(15 50 50)" />
+
+</svg>
+
 
     <a href="#" class="logo-text">
-      <span class="Galantaa">Town Name</span>
-      <span class="Eventss">Events</span>
+
+      <span class="Galantaa">City</span>
+      <span class="Eventss">Hive</span>
     </a>
   </div>
 
-  <!-- Navigačné linky -->
+
   <div class="navbar-links">
-    <a href="#" class="nav-link">Home</a>
+    <a href="#" class="nav-link active">Home</a> 
     <a href="/events" class="nav-link">Events</a>
     <a href="/Stan-Sa-Organizatorom" class="nav-link">For Organisers</a>
-    <a href="" class="nav-link mesto">--</a>
-    <a href="" class="nav-link galakarta">--</a>
-  </div>
+    <a href="#" class="nav-link mesto">Town</a>
 
-  <!-- Rozbaľovacie menu pre zmenu jazyka -->
-  <div class="dropdown">
-    <svg class="langsvg" version="1.1" style="padding:1.2vw" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-         viewBox="0 0 24 24" xml:space="preserve">
-    <g>
-    <g>
-    <path d="M12,24C5.4,24,0,18.6,0,12S5.4,0,12,0s12,5.4,12,12S18.6,24,12,24z M9.5,17c0.6,3.1,1.7,5,2.5,5
-                   s1.9-1.9,2.5-5H9.5z M16.6,17c-0.3,1.7-0.8,3.3-1.4,4.5c2.3-0.8,4.3-2.4,5.5-4.5H16.6z M3.3,17c1.2,2.1,3.2,3.7,5.5,4.5
-                   c-0.6-1.2-1.1-2.8-1.4-4.5H3.3z M16.9,15h4.7c0.2-0.9,0.4-2,0.4-3s-0.2-2.1-0.5-3h-4.7
-                   c0.2,1,0.2,2,0.2,3S17,14,16.9,15z M9.2,15h5.7c0.1-0.9,0.2-1.9,0.2-3
-                   S15,9.9,14.9,9H9.2C9.1,9.9,9,10.9,9,12C9,13.1,9.1,14.1,9.2,15z M2.5,15h4.7
-                   c-0.1-1-0.1-2-0.1-3s0-2,0.1-3H2.5C2.2,9.9,2,11,2,12S2.2,14.1,2.5,15z M16.6,7h4.1
-                   c-1.2-2.1-3.2-3.7-5.5-4.5C15.8,3.7,16.3,5.3,16.6,7z M9.5,7h5.1c-0.6-3.1-1.7-5-2.5-5
-                   C11.3,2,10.1,3.9,9.5,7z M3.3,7h4.1c0.3-1.7,0.8-3.3,1.4-4.5C6.5,3.3,4.6,4.9,3.3,7z" />
-        </g>
-      </g>
-    </svg>
-    <div class="dropdown-content">
-      <a href="#">🇸🇰 SK</a>
-      <a href="#">🇭🇺 HU</a>
-      <a href="#">🇬🇧 UK</a>
-    </div>
-  </div>
+    <a href="#" class="nav-link galakarta">--</a>
 
-  <!-- Autentifikácia a prípadné zobrazenie logout tlačidla -->
-  <!-- Navbar Links (Initially Hidden on Mobile) -->
-  <div class="navbar-links">
     <a class="nav-link" routerLink="/login" *ngIf="!isLoggedIn">Log in</a>
     <a class="nav-link" routerLink="/dashboard" *ngIf="isLoggedIn">Dashboard</a>
+  </div>
+
+  <div class="navbar-right-items">
     <div class="dropdown">
+      <svg class="langsvg" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L8 12v1c0 1.1.9 2 2 2v2.93zm7.9-2.57c-.41.91-1.01 1.71-1.77 2.35L15 17v-1c0-1.1-.9-2-2-2v-2c0-.94-.64-1.73-1.5-1.95L8.05 8.21C8.5 6.99 9.62 6 11 6v1c0 1.1.9 2 2 2h2c.45 0 .85-.15 1.18-.4l2.4 2.4c.07.7.12 1.41.12 2.13 0 1.87-.59 3.58-1.6 4.97z" />
+      </svg>
       <div class="dropdown-content">
         <a href="#">🇸🇰 SK</a>
-        <a href="#">🇭🇺 HU</a>
         <a href="#">🇬🇧 UK</a>
       </div>
     </div>
-  </div>
 
-  <div class="navbar-auth">
-    <!-- Táto časť sa zobrazí iba ak je splnená podmienka (napr. pre Dashboard komponent) -->
-    <div class="nav-logout" *ngIf="showLogout">
-      <a (click)="signout()">
-        <svg width="2vw" height="2vw" viewBox="0 0 24 24" fill="none"
-             xmlns="http://www.w3.org/2000/svg">
-          <g>
-            <path d="M12 15L15 12M15 12L12 9M15 12H4M9 7.24859V7.2002C9 6.08009 9 5.51962 9.21799 5.0918C9.40973 4.71547 9.71547 4.40973 10.0918 4.21799C10.5196 4 11.0801 4 12.2002 4H16.8002C17.9203 4 18.4796 4 18.9074 4.21799C19.2837 4.40973 19.5905 4.71547 19.7822 5.0918C20 5.5192 20 6.07899 20 7.19691V16.8036C20 17.9215 20 18.4805 19.7822 18.9079C19.5905 19.2842 19.2837 19.5905 18.9074 19.7822C18.48 20 17.921 20 16.8031 20H12.1969C11.079 20 10.5192 20 10.0918 19.7822C9.71547 19.5905 9.40973 19.2839 9.21799 18.9076C9 18.4798 9 17.9201 9 16.8V16.75" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </g>
+    <div class="nav-logout" *ngIf="isLoggedIn && showLogout">
+      <a (click)="signout()" title="Log out">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4 M10 17l5-5-5-5 M15 12H3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </a>
     </div>
-  </div>
 
-  <!-- Hamburger menu (pre mobilné zobrazenie) -->
+  </div>
   <div class="burger-menu navbar-toggle" aria-label="Toggle navigation">
     <div class="line line1"></div>
     <div class="line line2"></div>
     <div class="line line3"></div>
   </div>
 
-
-
-  <!-- Jednoduchý skript pre animáciu hamburger menu -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const burgerMenu = document.querySelector('.burger-menu');
@@ -92,5 +72,5 @@
       });
     });
   </script>
-</nav>
 
+</nav>

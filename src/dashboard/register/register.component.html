@@ -1,9 +1,11 @@
-<h2>Register</h2>
-<form (ngSubmit)="onRegister()">
-  <input [(ngModel)]="name" name="name" placeholder="Name" required />
-  <input [(ngModel)]="email" name="email" placeholder="Email" required />
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
-  <input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" required />
-  <button type="submit">Register</button>
-</form>
-<p>Already have an account? <a routerLink="/login">Login here</a>.</p>
+<div class="register-container">
+  <h2>Register</h2>
+  <form (ngSubmit)="onRegister()">
+    <input [(ngModel)]="name" name="name" placeholder="Name" required type="text" />
+    <input [(ngModel)]="email" name="email" placeholder="Email" required type="email" />
+    <input [(ngModel)]="password" name="password" type="password" placeholder="Password" required />
+    <input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" required />
+    <button type="submit">Register</button>
+  </form>
+  <p class="login-prompt">Already have an account? <a routerLink="/login">Login here</a>.</p>
+</div>

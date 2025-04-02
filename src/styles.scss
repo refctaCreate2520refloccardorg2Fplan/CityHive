@@ -1,19 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('/assets/Poppins-Regular.ttf');
+/* Define the new color palette */
+:root {
+  --clr-jet: #2A2B2A; /* Dark Background */
+  --clr-dim-gray: #706C61; /* Mid-tone Neutral / Hover */
+  --clr-cosmic-latte: #F8F4E3; /* Light Text / Icons */
+  --clr-cerise: #E5446D; /* Accent 1 (e.g., Hover/Active) */
+  --clr-cerise-dark: #bb3557;
+  --clr-coral: #FF8966; /* Accent 2 (e.g., Logo Highlight) */
+  --clr-light-gray-border: #e0e0e0; // Lighter gray for borders on white
+  --clr-light-gray-bg: #f8f8f8; // Very light gray for subtle backgrounds/hovers
+  /* Font (keeping yours) */
+  --font-primary: 'Poppins-Regular', sans-serif; /* Added sans-serif fallback */
 }
-body {
+
+/* Global settings using the font */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box; /* Good practice */
 }
-* {
-  --galayellow: #F5BF00;
-  --darkrustyred: #8A1015;
-  --cardinalred: #C42847;
-  --rustyred: #ca2736;
-  --snow: #ececec;
-  --darknav: #222222;
-  --darkbody: #181818;
-  --carbon: #2e2e2e;
+
+body { /* Apply font globally if needed */
+  font-family: var(--font-primary);
+}
+
+/* Import the font */
+@font-face {
+  font-family: 'Poppins-Regular';
+  src: url('assets/Poppins-Regular.ttf') format('truetype'); // Correct path relative to src
 }
