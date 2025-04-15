@@ -4,13 +4,16 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
+    "site": "cityhive",
+    "public": "/dist/hackaton/",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   },
+  
   "storage": {
     "rules": "storage.rules"
   }
