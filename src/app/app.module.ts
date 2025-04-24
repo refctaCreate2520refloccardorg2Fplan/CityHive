@@ -10,7 +10,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 // Import Firebase environment configuration
-import { environment } from '../environment/environment';
+import { enviroment } from '../enviroment/enviroment';
 import { RouterModule } from '@angular/router';
 import { MainPageComponent } from '../main-page/main-page.component';
 import { MainNavComponent } from '../main-nav/main-nav.component';
@@ -74,7 +74,7 @@ import { AdminOrganizerChatComponent } from '../admin-organizer-chat/admin-organ
     DatePipe,
     GoogleMapsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(enviroment),
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
